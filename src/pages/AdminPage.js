@@ -23,16 +23,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import { Link as NavLink } from "react-router-dom";
-import { Routes, Route, Outlet } from "react-router-dom";
-
-//NAVLINKS
-import Dashboard from "../pages/NavLinks/Dashboard";
-import Accounts from "../pages/NavLinks/Accounts";
-import Employees from "../pages/NavLinks/Employees";
-import MyEvents from "../pages/NavLinks/MyEvents";
-import Appointment from "../pages/NavLinks/Appointment";
-import Orders from "../pages/NavLinks/Orders";
-import Feedbacks from "../pages/NavLinks/Feedbacks";
+import { Outlet } from "react-router-dom";
 
 //NAV LINK NAMES
 const linkName = [
@@ -228,7 +219,7 @@ export default function AdminPage() {
             maxWidth="full"
             sx={{ mt: 4, mb: 4, border: "2px solid red" }}
           >
-            <Routes>
+            {/* <Routes>
               <Route index element={<Dashboard />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="accounts" element={<Accounts />} />
@@ -237,8 +228,8 @@ export default function AdminPage() {
               <Route path="appointment" element={<Appointment />} />
               <Route path="orders" element={<Orders />} />
               <Route path="feedbacks" element={<Feedbacks />} />
-            </Routes>
-            {/* <Copyright sx={{ pt: 4 }} /> */}
+            </Routes> */}
+            <Outlet />
           </Container>
         </Box>
       </Box>
