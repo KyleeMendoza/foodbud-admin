@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import Cookies from "js-cookie";
 // import axios from "axios";
 import { useNavigate } from "react-router";
+import "../css/LoginPage.css";
 
 const LoginPage = () => {
   const [identifier, setIdentifier] = useState("");
@@ -10,7 +11,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    //comment
     // e.preventDefault();
     // const baseUrl = process.env.REACT_APP_BACKEND_URL;
 
@@ -43,32 +43,32 @@ const LoginPage = () => {
     }
   };
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-200">
-      <div className="lg:w-1/5 md:w-1/4 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+    <div class="father">
+      <div class="left">
+        <div class="logo">
+          <img src={require("../img/admin/H-FoodbudLogo.png")} />
+        </div>
+        <div class="text">
+          <p class="text1">Admin Log In</p>
+          <p class="text2">Welcome back, please login to your account</p>
+        </div>
         <form>
-          <div className="mb-4">
-            <label
-              className="block text-gray-600 text-sm font-medium mb-2"
-              htmlFor="email"
-            >
-              Email or Username
+          <div className="mb-4" class="email">
+            <label class="" htmlFor="email">
+              Email
             </label>
             <input
               type="text"
               id="email"
               className="w-full border rounded-lg p-2"
-              placeholder="Enter Email or Username"
+              placeholder="Enter Email"
               onChange={(e) => {
                 setIdentifier(e.target.value);
               }}
             />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-gray-600 text-sm font-medium mb-2"
-              htmlFor="password"
-            >
+          <div className="mb-4" class="password">
+            <label class="" htmlFor="password">
               Password
             </label>
             <input
@@ -81,15 +81,22 @@ const LoginPage = () => {
               }}
             />
           </div>
+          <div class="forgot">
+            <p>Forgot your password?</p>
+          </div>
           <button
-            className="w-full bg-blue-500 text-white font-semibold p-2 rounded-lg hover:bg-blue-600"
+            className=" bg-blue-500 text-white font-semibold  rounded-lg hover:bg-blue-600"
             type="submit"
             onClick={handleLogin}
           >
-            Log In
+            Login
           </button>
         </form>
+        <div class="user">
+          <p class="login">Not an Admin? <span><a href="">Back to User Login</a></span></p>
+        </div>
       </div>
+      <div class="right"></div>
     </div>
   );
 };
