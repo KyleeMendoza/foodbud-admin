@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const baseUrl = "http://localhost:9001/api/user/login";
+    const baseUrl = "http://3.27.163.46:9001/api/user/login";
 
     try {
       const response = await axios.post(baseUrl, {
