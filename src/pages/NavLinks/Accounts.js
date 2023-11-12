@@ -45,12 +45,35 @@ function Accounts() {
     fetchData();
   }, []);
 
-  const columns = VISIBLE_FIELDS.map((field) => ({
-    field,
-    headerName: COLUMN_LABELS[field],
-    flex: 1,
-  }));
-  console.log(columns);
+  const columns = [
+    ...VISIBLE_FIELDS.map((field) => ({
+      field,
+      headerName: COLUMN_LABELS[field],
+      flex: 1,
+    })),
+    {
+      field: 'actions',
+      headerName: 'Actions',
+      sortable: false,
+      width: 300,
+      renderCell: (params) => (
+        <div className="">
+          <button
+            className="hover:underline mr-2 text-base bg-red-400 rounded-md mr-2 w-24 text-white"
+            // onClick={() => handleEdit(params.row.id)}
+          >
+            Edit
+          </button>
+          <button
+            className="hover:underline mr-2 text-base w-32 bg-blue-500 rounded-md text-white"
+            // onClick={() => handleEdit(params.row.id)}
+          >
+            Add Package
+          </button>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div style={{ height: 800, width: "100%" }} className="bg-white shadow-md">
@@ -64,12 +87,14 @@ function Accounts() {
    
       </div>
       <DataGrid
+      className="text-lg"
         slots={{
           toolbar: GridToolbar,
         }}
         rows={data} // Pass the API data as rows
         columns={columns}
         component={{ Toolbar: GridToolbar }}
+        
       />
       <UserRegistrationModal isOpen={isModalOpen} onClose={closeModal} />
       

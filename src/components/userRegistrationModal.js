@@ -13,7 +13,7 @@ const UserRegistrationModal = ({ isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9001/api/user/register",
+        "http://3.27.163.46:9001/api/user/register",
         {
           client_name: username,
           client_address: address,
@@ -104,7 +104,7 @@ const UserRegistrationModal = ({ isOpen, onClose }) => {
         </button>
         <button
           type="button"
-          className="btn btn-secondary bg-gray-400 hover:bg-gray-600 text-white font-semibold py-2 px-4 rounded border border-gray-500 mx-2"
+          className="btn btn-secondary bg-gray-500 hover:bg-gray-600 text-black font-semibold py-2 px-4 rounded border border-gray-500 mx-2"
           onClick={onClose}
         >
           Cancel
