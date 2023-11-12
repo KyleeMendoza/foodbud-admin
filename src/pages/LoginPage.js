@@ -1,47 +1,40 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
-// import Cookies from "js-cookie";
-// import axios from "axios";
-import { useNavigate } from "react-router";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import "../css/LoginPage.css";
 
 const LoginPage = () => {
-  const [identifier, setIdentifier] = useState("");
+  const [username, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    // e.preventDefault();
-    // const baseUrl = process.env.REACT_APP_BACKEND_URL;
+    e.preventDefault();
+    const baseUrl = "http://localhost:9001/api/user/login";
 
-    // try {
-    //   const login = await axios.post(`${baseUrl}/user/authentication/login`, {
-    //     identifier: identifier,
-    //     password: password,
-    //   });
-    //   // console.log(login.data.userDetails);
-    //   if (login.data.userDetails.user_id === "admin") {
-    //     alert("User Login Successfully");
-    //     const userToken = login.data.token; //GET THE TOKEN FROM BACKEND
-    //     Cookies.set("userToken", userToken);
-    //     navigate("/live");
-    //   } else {
-    //     alert("Login failed. Please check your credentials.");
-    //   }
-    // } catch (error) {
-    //   console.error("Error during login:", error);
-    //   alert("Please check your credentials or verify your account");
-    // }
+    try {
+      const response = await axios.post(baseUrl, {
+        username,
+        password
+      });
 
-    //FOR THE MEAN TIME TO
-    if (identifier === "admin" && password === "password123") {
-      console.log("username: ", identifier);
-      console.log("password: ", password);
-      navigate("/admin");
-    } else {
+      console.log(response.data.loginUser.client_name)
+      if (response.data.loginUser.client_name === "admin") {
+        alert("User Login Successfully");
+
+        Cookies.set("admin", username)
+        navigate("/admin");
+      } else {
+        alert("Login failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
       alert("Please check your credentials or verify your account");
     }
   };
+
   return (
     <div class="father">
       <div class="left">
