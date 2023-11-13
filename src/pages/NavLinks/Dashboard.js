@@ -183,7 +183,7 @@ function Dashboard() {
 
             <div className="flex flex-row items-center justify-center border-2 p-8 rounded-md mb-4 bg-blue-500 bg-opacity-10 shadow-md">
               <div className="mr-4">
-                <img src={calendar} alt="#" className="w-20"></img>
+                <img src={wallet} alt="#" className="w-20"></img>
               </div>
               <div>
                 <h1 className="text-green-600 text-2xl font-bold mb-2">₱100,000</h1>
