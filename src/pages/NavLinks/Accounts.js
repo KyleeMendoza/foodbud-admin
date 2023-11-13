@@ -57,9 +57,9 @@ function Accounts() {
       sortable: false,
       width: 300,
       renderCell: (params) => (
-        <div className="">
+        <div className="font-tbc">
           <button
-            className="hover:underline mr-2 text-base bg-red-400 rounded-md mr-2 w-24 text-white"
+            className="hover:underline text-base bg-red-400 rounded-md mr-2 w-24 text-white"
             // onClick={() => handleEdit(params.row.id)}
           >
             Edit

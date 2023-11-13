@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import axios from "axios";
 import calendar from "../../img/admin/calendar.png";
-import user from "../../img/admin/user.png";
+import user from "../../img/admin/user.png"; 
 import wallet from "../../img/admin/wallet.png";
 
 function Dashboard() {
@@ -164,7 +164,7 @@ function Dashboard() {
           <div className="flex flex-row space-x-12 justify-center items-center  w-full p-4">
             <div className="flex flex-row items-center justify-center border-2 p-8 rounded-md mb-4 bg-blue-500 bg-opacity-10 shadow-md">
               <div className="mr-4">
-                <img src={calendar} alt="#" className="w-20"></img>
+                <img src={calendar} alt="Calendar" className="w-20"></img>
               </div>
               <div>
                 <h1 className="text-green-600 text-2xl font-bold mb-2">{NumberofEvent}</h1>
@@ -191,7 +191,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="my-4 p-4 border-2 w-full shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
+          <div className="my-4 p-4 w-full shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
             <h2 className="font-bold">Daily Event Creation Report</h2>
             <Chart
               options={chartData.options}
