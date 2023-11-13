@@ -94,7 +94,7 @@ function MyEvents() {
     },
   ];
   return (
-    <div>
+    <div className="h-[80vh]">
       <DataGrid
         className="text-lg bg-white shadow-md"
         slots={{
@@ -102,6 +102,7 @@ function MyEvents() {
         }}
         pageSize={10}
         rows={data}
+        height={500}
         columns={columns}
         rowsPerPageOptions={[5, 10, 15]} // Set the available options
         slotProps={{ toolbar: { showQuickFilter: true } }}

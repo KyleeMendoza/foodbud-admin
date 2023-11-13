@@ -77,7 +77,7 @@ function Accounts() {
   ];
 
   return (
-    <div style={{ height: 800, width: "100%" }} className="bg-white shadow-md">
+    <div className="bg-white shadow-md h-[80vh] w-[100vw]">
       <div className="flex p-2">
         <p
           className="w-full cursor-pointer hover:opacity-75 mx-8 font-bold text-2xl text-red-400"
