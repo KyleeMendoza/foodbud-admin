@@ -48,6 +48,7 @@ function Accounts() {
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
       field,
+      cellClassName: 'text-lg',
       headerName: COLUMN_LABELS[field],
       flex: 1,
     })),
