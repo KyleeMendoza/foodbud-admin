@@ -81,7 +81,7 @@ function MyEvents() {
     {
       field: "actions",
       headerName: "Actions",
-      headerClassName: "text-xl bg-red-300", // Apply your custom header class here
+      headerClassName: "text-xl bg-red-300", 
       sortable: false,
       renderCell: (params) => (
         <IconButton
@@ -101,18 +101,17 @@ function MyEvents() {
           toolbar: GridToolbar,
         }}
         pageSize={10}
-        rows={data} // Pass the API data as rows
+        rows={data} 
         columns={columns}
         slotProps={{ toolbar: { showQuickFilter: true } }}
         component={{ Toolbar: GridToolbar }}
       />
-      {/* Modal */}
+      {/* Modal, YOU CAN EXPERIMENT HERE THE CHANGES FOR DESIGN*/}
       <Dialog open={modal} onClose={handleCloseModal} className="w-full">
         <DialogTitle className=" w-[35rem] bg-red-300 overflow-hidden text-center rounded-md">
           <h1 className="font-bold text-3xl">Event Details</h1>
         </DialogTitle>
         <DialogContent className=" w-[35rem]">
-          {/* Render your event details here using rowData */}
           <div className={classNamedefault}>
             <strong>Event ID:</strong>{" "}
             <p className="ml-2 text-lg">{rowData.event_id}</p>
