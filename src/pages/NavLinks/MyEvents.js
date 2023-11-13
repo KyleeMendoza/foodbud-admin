@@ -81,7 +81,7 @@ function MyEvents() {
     {
       field: "actions",
       headerName: "Actions",
-      headerClassName: "text-xl bg-red-300", 
+      headerClassName: "text-xl bg-red-300",
       sortable: false,
       renderCell: (params) => (
         <IconButton
@@ -101,8 +101,9 @@ function MyEvents() {
           toolbar: GridToolbar,
         }}
         pageSize={10}
-        rows={data} 
+        rows={data}
         columns={columns}
+        rowsPerPageOptions={[5, 10, 15]} // Set the available options
         slotProps={{ toolbar: { showQuickFilter: true } }}
         component={{ Toolbar: GridToolbar }}
       />
