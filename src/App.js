@@ -16,7 +16,7 @@ import Accounts from "./pages/NavLinks/Accounts";
 import Employees from "./pages/NavLinks/Employees";
 import MyEvents from "./pages/NavLinks/MyEvents";
 import Appointment from "./pages/NavLinks/Appointment";
-import Orders from "./pages/NavLinks/Orders";
+import Transaction from "./pages/NavLinks/Transaction";
 import Feedbacks from "./pages/NavLinks/Feedbacks";
 
 function App() {
@@ -31,7 +31,7 @@ function App() {
           <Route path="employees" element={<Employees />} />
           <Route path="myevents" element={<MyEvents />} />
           <Route path="appointment" element={<Appointment />} />
-          <Route path="orders" element={<Orders />} />
+          <Route path="transaction" element={<Transaction />} />
           <Route path="feedbacks" element={<Feedbacks />} />
         </Route>
       </Routes>
