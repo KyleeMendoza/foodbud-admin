@@ -12,12 +12,13 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 //NAVLINKS
 import Dashboard from "./pages/NavLinks/Dashboard";
-import Accounts from "./pages/NavLinks/Accounts";
+import Accounts from "./pages/NavLinks/Client";
 import Employees from "./pages/NavLinks/Employees";
 import MyEvents from "./pages/NavLinks/MyEvents";
 import Appointment from "./pages/NavLinks/Appointment";
 import Transaction from "./pages/NavLinks/Transaction";
-import Feedbacks from "./pages/NavLinks/Feedbacks";
+import Package from "./pages/NavLinks/Package";
+import Dish from "./pages/NavLinks/Dish";
 
 function App() {
   return (
@@ -31,8 +32,9 @@ function App() {
           <Route path="employees" element={<Employees />} />
           <Route path="myevents" element={<MyEvents />} />
           <Route path="appointment" element={<Appointment />} />
+          <Route path="dish" element={<Dish />} />
+          <Route path="package" element={<Package />} />
           <Route path="transaction" element={<Transaction />} />
-          <Route path="feedbacks" element={<Feedbacks />} />
         </Route>
       </Routes>
     </BrowserRouter>

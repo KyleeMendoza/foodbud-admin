@@ -17,7 +17,7 @@ const COLUMN_LABELS = {
   client_address: "ADDRESS",
 };
 
-function Accounts() {
+function Client() {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -121,4 +121,4 @@ function Accounts() {
   );
 }
 
-export default Accounts;
+export default Client;

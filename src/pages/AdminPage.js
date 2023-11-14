@@ -27,37 +27,41 @@ import { Routes, Route, Outlet } from "react-router-dom";
 
 //NAVLINKS
 import Dashboard from "../pages/NavLinks/Dashboard";
-import Accounts from "../pages/NavLinks/Accounts";
+import Accounts from "../pages/NavLinks/Client";
 import Employees from "../pages/NavLinks/Employees";
 import MyEvents from "../pages/NavLinks/MyEvents";
 import Appointment from "../pages/NavLinks/Appointment";
 import Transaction from "../pages/NavLinks/Transaction";
-import Feedbacks from "../pages/NavLinks/Feedbacks";
+import Package from "../pages/NavLinks/Package";
+import Dish from "../pages/NavLinks/Dish";
 
 //NAV LINK NAMES
 const linkName = [
   "Dashboard",
-  "Accounts",
-  "Employees",
-  "MyEvents",
+  "Client",
+  "Employee",
+  "MyEvent",
   "Appointment",
+  "Dish",
+  "Package",
   "Transaction",
-  "Feedbacks",
 ];
 
 //NAV LINKS
 const links = [
   "/admin/dashboard",
-  "/admin/accounts",
+  "/admin/client",
   "/admin/employees",
   "/admin/myevents",
   "/admin/appointment",
+  "/admin/dish",
+  "/admin/package",
   "/admin/transaction",
-  "/admin/feedbacks",
 ];
 
 //NAV ICONS
 const linkIcons = [
+  DashboardIcon,
   DashboardIcon,
   DashboardIcon,
   DashboardIcon,
@@ -235,8 +239,9 @@ export default function AdminPage() {
               <Route path="employees" element={<Employees />} />
               <Route path="myevents" element={<MyEvents />} />
               <Route path="appointment" element={<Appointment />} />
+              <Route path="dish" element={<Dish />} />
+              <Route path="package" element={<Package />} />
               <Route path="transaction" element={<Transaction />} />
-              <Route path="feedbacks" element={<Feedbacks />} />
             </Routes>
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
