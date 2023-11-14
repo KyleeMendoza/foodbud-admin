@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../css/Transaction.css";
+import "../../css/switchtabs.css";
 
 function Transaction() {
   const [toggle, setToggle] = useState(1)
