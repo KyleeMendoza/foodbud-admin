@@ -20,7 +20,7 @@ const LoginPage = () => {
         password
       });
 
-      console.log(response.data.loginUser.client_name)
+      console.log(response.data)
       if (response.data.loginUser.client_name === "admin") {
         alert("User Login Successfully");
 

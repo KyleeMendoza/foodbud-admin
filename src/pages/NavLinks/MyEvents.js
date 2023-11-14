@@ -1,5 +1,6 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { format, compareAsc } from 'date-fns';
 import { useState, useEffect } from "react";
 import {
   IconButton,
@@ -34,7 +35,24 @@ function MyEvents() {
   const [modal, setModal] = useState(false);
   const [rowData, setRowData] = useState([]);
   const [rowData2, setRowData2] = useState([]);
-  const API_ENDPOINT = "http://3.27.163.46:9001/api/get/event/all";
+  const API_ENDPOINT = "http://localhost:9001/api/get/event/all";
+  const today = new Date();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT);
+        console.log("response:", response)
+        const result = await response.json();
+        // console.log(result)
+        setData(result.events);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSeeMoreClick = async (event_id) => {
     try {
@@ -56,28 +74,20 @@ function MyEvents() {
   const classNamedefault =
     "flex font-sans font-semibold text-xl text-gray-800 mb-1";
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(API_ENDPOINT);
-        const result = await response.json();
-        setData(result.events);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
+ 
 
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
       field,
       headerClassName: "text-xl bg-red-300 text-center",
-      cellClassName: "my-cell text-lg",
+      cellClassName: field === "event_date" ? (params) => {
+        const eventDate = new Date(params.row[field]);
+        return eventDate < today ? "text-red-500 text-lg" : "text-lg";
+      } : "my-cell text-lg",
       headerName: COLUMN_LABELS[field],
       flex: 1,
     })),
+    
     {
       field: "actions",
       headerName: "Actions",
@@ -92,7 +102,9 @@ function MyEvents() {
         </IconButton>
       ),
     },
+ 
   ];
+  
   return (
     <div className="h-[80vh]">
       <DataGrid
