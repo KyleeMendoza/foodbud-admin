@@ -155,7 +155,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col gap-8 p-8">
       <div className="w-full border-2 p-4 rounded-md mb-4">
         <h2 className="text-slate-400">Hi, Welcome!</h2>
       </div>

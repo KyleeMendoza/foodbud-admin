@@ -62,18 +62,18 @@ function Accounts() {
       width: 300,
       renderCell: (params) => (
         <div className="flex gap-14 font-tbc">
-          <button
-            className="hover:underline w-fit px-5 py-2 bg-secondary200 rounded-lg"
+          <p
+            className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24"
             // onClick={() => handleEdit(params.row.id)}
           >
             Edit
-          </button>
-          <button
-            className="hover:underline w-fit px-5 py-2 bg-secondary200 rounded-lg"
+          </p>
+          <p
+            className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24"
             // onClick={() => handleEdit(params.row.id)}
           >
             Add Package
-          </button>
+          </p>
         </div>
       ),
     },
