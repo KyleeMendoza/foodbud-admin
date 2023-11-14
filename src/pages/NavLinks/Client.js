@@ -17,7 +17,7 @@ const COLUMN_LABELS = {
   client_address: "ADDRESS",
 };
 
-function Accounts() {
+function Client() {
   const [data, setData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,43 +48,61 @@ function Accounts() {
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
       field,
-      cellClassName: 'text-lg',
+      headerClassName: 'bg-secondary200 font-heading border font-semibold text-title13',
+      cellClassName: 'text-title24 font-tbc border',
       headerName: COLUMN_LABELS[field],
       flex: 1,
     })),
     {
       field: 'actions',
       headerName: 'Actions',
+      headerClassName: 'bg-secondary200 font-heading border font-semibold text-title13',
+      cellClassName: 'text-title24 font-tbc border',
       sortable: false,
       width: 300,
       renderCell: (params) => (
-        <div className="font-tbc">
-          <button
-            className="hover:underline text-base bg-red-400 rounded-md mr-2 w-24 text-white"
+        <div className="flex gap-14 font-tbc">
+          <p
+            className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24"
             // onClick={() => handleEdit(params.row.id)}
           >
             Edit
-          </button>
-          <button
-            className="hover:underline mr-2 text-base w-32 bg-blue-500 rounded-md text-white"
+          </p>
+          <p
+            className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24"
             // onClick={() => handleEdit(params.row.id)}
           >
             Add Package
-          </button>
+          </p>
         </div>
       ),
     },
   ];
 
   return (
-    <div className="bg-white shadow-md h-[80vh] w-[85vw]">
+    <div className="flex flex-col gap-8 p-8 shadow-md">
       <div className="flex p-2">
-        <p
-          className="w-full cursor-pointer hover:opacity-75 mx-8 font-bold text-2xl text-red-400"
-          onClick={openModal}
-        >
-          +     Add client information
-        </p>
+        {/** Header of the Event Navigation */}
+        <div className="flex justify-between items-center gap-5 w-full h-fit">
+          <div className="flex w-full gap-10 p-0.5 rounded-lg border border-gray border-opacity-30 font-tbc text-title24">
+            <input className="w-full px-5 py-3 rounded-lg" type="search" placeholder="Name Search"/>
+          </div>
+
+          {/*Filter Icon*/} 
+          <div className="flex rounded-lg p-3 items-center bg-secondary100">
+            <h1 className="font-bold">Filter</h1>
+          </div>
+
+          {/*Export*/} 
+          <div className="flex justify-between items-center w-1/4 h-full">
+            <button
+              className="font-heading font-semibold text-white text-title13 rounded-lg px-5 py-3 bg-secondary500 w-fit h-full cursor-pointer hover:opacity-75 "
+              onClick={openModal}>
+                Add Client +
+            </button>
+            <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+          </div>
+        </div>
    
       </div>
       <DataGrid
@@ -103,4 +121,4 @@ function Accounts() {
   );
 }
 
-export default Accounts;
+export default Client;
