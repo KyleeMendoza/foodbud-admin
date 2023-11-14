@@ -29,7 +29,7 @@ function Appointment() {
   const [modal, setModal] = useState(false);
   const [rowData, setRowData] = useState([]);
   const [rowData2, setRowData2] = useState([]);
-  const API_ENDPOINT = "http://localhost:9001/api/foodtasting/data";
+  const API_ENDPOINT = "http://3.27.163.46:9001/api/foodtasting/data";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,7 +50,7 @@ function Appointment() {
   const handleSeeMoreClick = async (event_id) => {
     try {
       const response = await axios.get(
-        `http://localhost:9001/api/foodtasting/data-get?eventId=${event_id}`
+        `http://3.27.163.46:9001/api/foodtasting/data-get?eventId=${event_id}`
       );
       console.log(response.data[0])
       setRowData(response.data[0]);

@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import "../css/LoginPage.css";
 
 const LoginPage = () => {
-  const [username, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setIdentifier] = useState("matt");
+  const [password, setPassword] = useState("password");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -20,7 +20,7 @@ const LoginPage = () => {
         password
       });
 
-      console.log(response.data)
+      console.log(response.data.loginUser.client_name)
       if (response.data.loginUser.client_name === "admin") {
         alert("User Login Successfully");
 
