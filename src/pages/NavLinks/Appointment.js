@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "../../css/pop.css"
 
 //hello world!
 function Appointment() {
@@ -9,7 +10,61 @@ function Appointment() {
     setToggle(id)
   }
 
+  const [popup, setPop] = useState(false)
+
+  const togglePop = () => {
+    setPop(!popup)
+  }
+
+  if(popup){
+    document.body.classList.add('active-pop')
+  } else {
+    document.body.classList.remove('active-pop')
+  }
+
   return <div className="flex flex-col gap-8 p-8">
+
+      {/** Pop-up */}
+      {popup && (
+        <div className="pop-screen">
+          <div onClick={togglePop} className="overlay"></div>
+          <div className="w-fit h-fit font-heading bg-white rounded-2xl pop-content">
+            <div className="flex justify-between items-center px-10 py-5 font-bold text-heading36 bg-primary200 rounded-t-2xl">
+              <h1 className="w-fit h-fit ">Online Meeting Details</h1>
+              <button className="w-fit h-fit" onClick={togglePop}>X</button>
+            </div>
+            <div className="flex flex-col gap-2 px-10 py-5 font-semibold">
+              <div className="flex justify-between items-center gap-5 w-full h-fit">
+                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">Client Name:</h1>
+                <h1 className="font-tbc text-title24 text-black w-2/3">Juan Dela Cruz</h1>
+              </div>
+
+              <div className="flex justify-between items-center gap-5 w-full h-fit">
+                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">Date:</h1>
+                <h1 className="font-tbc text-title24 text-black w-2/3">November 16, 2023</h1>
+              </div>
+
+              <div className="flex justify-between items-center gap-5 w-full h-fit">
+                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">Time:</h1>
+                <h1 className="font-tbc text-title24 text-black w-2/3">4:00 PM</h1>
+              </div>
+
+              <div className="flex justify-between items-center gap-5 w-full h-fit">
+                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">Platform:</h1>
+                <h1 className="font-tbc text-title24 text-black w-2/3">Google Meet</h1>
+              </div>
+
+              <div className="flex justify-between items-center gap-5 w-full h-fit">
+                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">Meeting Link:</h1>
+                <h1 className="font-tbc text-title24 text-black w-2/3">https://meet.google.com/dtf-eknt-gby</h1>
+              </div>
+            </div>
+            <div className="w-full h-fit flex justify-end  items-center p-5">
+              <button className="w-fit h-fit bg-secondary500 px-5 py-3 rounded-lg font-heading font-medium text-white">Edit Appointment</button>
+            </div>
+          </div>
+        </div>
+      )}
       
       {/** Calendar - Toggle 1 */}
       <div className={toggle === 1 ? "show-content" : "content"}>
@@ -281,7 +336,7 @@ function Appointment() {
               <td className="w-full p-3 text-black ">4:00 PM</td>
               <td className="  w-full p-3 text-black ">Google Meet</td>
               <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>View</button>
+                <button className="w-fit h-fit" onClick={togglePop}>View</button>
                 <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
               </td>
             </tr>
@@ -294,7 +349,7 @@ function Appointment() {
               <td className="w-full p-3 text-black ">5:00 PM</td>
               <td className="  w-full p-3 text-black ">Zoom Meeting</td>
               <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>View</button>
+                <button className="w-fit h-fit" onClick={togglePop}>View</button>
                 <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
               </td>
             </tr>
@@ -307,14 +362,13 @@ function Appointment() {
               <td className="w-full p-3 text-black ">1:00 PM</td>
               <td className="  w-full p-3 text-black ">Google Meet</td>
               <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>View</button>
+                <button className="w-fit h-fit" onClick={togglePop}>View</button>
                 <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
               </td>
             </tr>
           </table>
         </div>
       </div>
-
   </div>
   {/** End of Main Readable Div */}
 }
