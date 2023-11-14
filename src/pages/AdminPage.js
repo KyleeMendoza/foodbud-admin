@@ -27,7 +27,7 @@ import { Routes, Route, Outlet } from "react-router-dom";
 
 //NAVLINKS
 import Dashboard from "../pages/NavLinks/Dashboard";
-import Accounts from "../pages/NavLinks/Client";
+import Client from "../pages/NavLinks/Client";
 import Employees from "../pages/NavLinks/Employees";
 import MyEvents from "../pages/NavLinks/MyEvents";
 import Appointment from "../pages/NavLinks/Appointment";
@@ -235,7 +235,7 @@ export default function AdminPage() {
             <Routes>
               <Route index element={<Dashboard />} />
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="accounts" element={<Accounts />} />
+              <Route path="client" element={<Client />} />
               <Route path="employees" element={<Employees />} />
               <Route path="myevents" element={<MyEvents />} />
               <Route path="appointment" element={<Appointment />} />

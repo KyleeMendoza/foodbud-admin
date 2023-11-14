@@ -12,7 +12,7 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 //NAVLINKS
 import Dashboard from "./pages/NavLinks/Dashboard";
-import Accounts from "./pages/NavLinks/Client";
+import Client from "./pages/NavLinks/Client";
 import Employees from "./pages/NavLinks/Employees";
 import MyEvents from "./pages/NavLinks/MyEvents";
 import Appointment from "./pages/NavLinks/Appointment";
@@ -28,7 +28,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />}>
           <Route index element={<Dashboard />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="accounts" element={<Accounts />} />
+          <Route path="client" element={<Client />} />
           <Route path="employees" element={<Employees />} />
           <Route path="myevents" element={<MyEvents />} />
           <Route path="appointment" element={<Appointment />} />
