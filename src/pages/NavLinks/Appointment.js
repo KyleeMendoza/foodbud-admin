@@ -132,24 +132,19 @@ function Appointment() {
                 Online Meetting
               </p>
             </div>
-            <div className={toggle === 4 ? "toggleon" : "toggleoff"}>
-              <p className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                Event Day
-              </p>
-            </div>
           </div>
 
           {/*Filter Icon*/}
-          <div className="flex rounded-lg p-3 items-center bg-secondary100">
+          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
             <h1 className="font-bold">Filter</h1>
-          </div>
+            </div>
 
           {/*Set Availibility Date*/}
-          <div className="flex justify-end items-center gap-5 w-fith-full">
+          {/*<div className="flex justify-end items-center gap-5 w-fith-full">
             <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">
               Export
             </button>
-          </div>
+          </div>*/}
         </div>
 
         {/** Secondary Header of appointment Tab */}
@@ -368,7 +363,7 @@ function Appointment() {
           </div>  */}
         </div>
 
-        <div className="flex flex-col bg-green">
+        <div className="flex flex-col">
           <DataGrid
             className="text-lg"
             slots={{
@@ -381,44 +376,41 @@ function Appointment() {
         </div>
 
         <Dialog open={modal} onClose={handleCloseModal} className="w-full">
-          <div className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5 w-fit">
             <DialogTitle className="w-full overflow-hidden bg-primary200">
               <h1 className="font-heading font-bold text-heading14">Food Tasting Details</h1>
             </DialogTitle>
-            <DialogContent className="flex flex-col gap-3 w-full">
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Event ID:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.event_Id}</p>
-              </div>
+            <DialogContent className="flex flex-col gap-3 w-fit ">
+              <div className=" flex flex-col gap-3 w-fit">
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Event ID:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.event_Id}</p>
+                </div>
 
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Client Name:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.name}</p>
-              </div>
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Client Name:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.name}</p>
+                </div>
 
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Address:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.address}</p>
-              </div>
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Address:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.address}</p>
+                </div>
 
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Contact Number:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.contact}</p>
-              </div>
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Contact:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.contact}</p>
+                </div>
 
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Food Tasting Date:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.date}</p>
-              </div>
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">FT Date:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.date}</p>
+                </div>
 
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Address Google Pin:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.google_pin}</p>
-              </div>
-
-              <div className="flex gap-5 font-tbc text-title13">
-                <strong className="w-full border">Status:</strong>{" "}
-                <p className="w-full font-medium border">{rowData.status}</p>
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Status:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.status}</p>
+                </div>
               </div>
             </DialogContent>
             <DialogActions className="">
