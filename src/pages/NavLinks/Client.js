@@ -84,9 +84,9 @@ function Client() {
       <div className="flex p-2">
         {/** Header of the Event Navigation */}
         <div className="flex justify-between items-center gap-5 w-full h-fit">
-          <div className="flex w-full gap-10 p-0.5 rounded-lg border border-gray border-opacity-30 font-tbc text-title24">
+          {/*<div className="flex w-full gap-10 p-0.5 rounded-lg border border-gray border-opacity-30 font-tbc text-title24">
             <input className="w-full px-5 py-3 rounded-lg" type="search" placeholder="Name Search"/>
-          </div>
+          </div>*/}
 
           {/*Filter Icon*/} 
           {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
@@ -96,7 +96,7 @@ function Client() {
           {/*Export*/} 
           <div className="flex justify-end items-center w-1/6 h-fit">
             <button
-              className="font-heading font-semibold text-white text-title13 rounded-lg px-10 border border-black py-3 bg-secondary500 w-full h-fit cursor-pointer hover:opacity-75 "
+              className="font-heading font-semibold text-white text-title13 rounded-lg px-10  py-3 bg-secondary500 w-full h-fit cursor-pointer hover:opacity-75 "
               onClick={openModal}>
                 Add Client+
             </button>
