@@ -360,72 +360,104 @@ function Appointment() {
             <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
           </div>  */}
         </div>
-          
+
         <div className="flex flex-col">
-          <table className="w-full h-fit rounded font-tbc text-black">
-            {/** Table Header */}
-            <tr className="flex justify-between w-full rounded-t  bg-secondary200">
-              <th className="  w-full p-3 rounded-tl-xl">Meeting ID</th>
-              <th className="  w-full p-3">Client Name</th>
-              <th className="  w-full p-3">Date</th>
-              <th className="  w-full p-3">Time</th>
-              <th className="  w-full p-3">Platform</th>
-              <th className="  w-full p-3">Action</th>
-            </tr>
+            <table className="w-full h-fit rounded font-tbc text-black">
+              {/** Table Header */}
+              <tr className="flex justify-between w-full rounded-t  bg-secondary200">
+                <th className="  w-full p-3 rounded-tl-xl">Client Name</th>
+                <th className="  w-full p-3">Description</th>
+                <th className="  w-full p-3">Food Tasting Date</th>
+                <th className="  w-full p-3">Status</th>
+                <th className="  w-full p-3">Action</th>
+              </tr>
 
-            {/** Table Row */}
-            <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">OM001</td>
-              <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
-              <td className="w-full p-3 text-black ">November 16, 2023</td>
-              <td className="w-full p-3 text-black ">4:00 PM</td>
-              <td className="  w-full p-3 text-black ">Google Meet</td>
-              <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit">
-                  View
-                </button>
-                <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                  Edit
-                </button>
-              </td>
-            </tr>
+              {/** Table Row */}
+              <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
+                <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
+                <td className="  w-full p-3 text-black ">Carbonara, Chicken Parmessan, Beef Stroganoff</td>
+                <td className="  w-full p-3 text-black ">November 14, 2023</td>
+                <td className="  w-full p-3 text-black ">Ongoing</td>
+                <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
+                  <button className="w-fit h-fit" onClick={handleSeeMoreClick}>View</button>
+                  <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
+                </td>
+              </tr>
 
-            {/** Table Row */}
-            <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">OM002</td>
-              <td className="w-full p-3 text-black ">Gabby Garcia</td>
-              <td className="w-full p-3 text-black ">November 16, 2023</td>
-              <td className="w-full p-3 text-black ">5:00 PM</td>
-              <td className="  w-full p-3 text-black ">Zoom Meeting</td>
-              <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit">
-                  View
-                </button>
-                <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                  Edit
-                </button>
-              </td>
-            </tr>
+              {/** Table Row */}
+              <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
+                <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
+                <td className="  w-full p-3 text-black ">Carbonara, Chicken Parmessan, Beef Stroganoff</td>
+                <td className="  w-full p-3 text-black ">November 15, 2023</td>
+                <td className="  w-full p-3 text-black ">Ongoing</td>
+                <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
+                  <button className="w-fit h-fit" onClick={handleSeeMoreClick}>View</button>
+                  <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
+                </td>
+              </tr>
 
-            {/** Table Row */}
-            <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">OM003</td>
-              <td className="w-full p-3 text-black ">Manny Pacquiao</td>
-              <td className="w-full p-3 text-black ">November 16, 2023</td>
-              <td className="w-full p-3 text-black ">1:00 PM</td>
-              <td className="  w-full p-3 text-black ">Google Meet</td>
-              <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit">
-                  View
-                </button>
-                <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                  Edit
-                </button>
-              </td>
-            </tr>
-          </table>
-        </div>
-       
+              {/** Table Row */}
+              <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
+                <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
+                <td className="  w-full p-3 text-black ">Carbonara, Chicken Parmessan, Beef Stroganoff</td>
+                <td className="  w-full p-3 text-black ">November 15, 2023</td>
+                <td className="  w-full p-3 text-black ">Ongoing</td>
+                <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
+                  <button className="w-fit h-fit" onClick={handleSeeMoreClick}>View</button>
+                  <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+        <Dialog open={modal} onClose={handleCloseModal} className="w-full">
+          <div className="flex flex-col gap-5 w-fit">
+            <DialogTitle className="w-full overflow-hidden bg-primary200">
+              <h1 className="font-heading font-bold text-heading14">Food Tasting Details</h1>
+            </DialogTitle>
+            <DialogContent className="flex flex-col gap-3 w-fit ">
+              <div className=" flex flex-col gap-3 w-fit">
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Event ID:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.event_Id}</p>
+                </div>
+
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Client Name:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.name}</p>
+                </div>
+
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Address:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.address}</p>
+                </div>
+
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Contact:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.contact}</p>
+                </div>
+
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">FT Date:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.date}</p>
+                </div>
+
+                <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[200px]">Status:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.status}</p>
+                </div>
+              </div>
+            </DialogContent>
+            <DialogActions className="">
+              <button 
+                onClick={handleCloseModal}
+                className="bg-primary500 rounded-xl font-tbc font-bold text-white"
+              >
+                Close
+              </button>
+            </DialogActions>
+          </div>
+        </Dialog>
       </div>
 
       {/** Online Meeting - Toggle 3 */}
