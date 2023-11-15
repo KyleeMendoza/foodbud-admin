@@ -14,6 +14,7 @@ module.exports = {
         green: "#05E200",
         gray: "#303030",
         darkgray: "#ECECEC",
+        red: "#FF1919",
         
       //Primary Color - Pink
         primary50: "#fde9ef",
