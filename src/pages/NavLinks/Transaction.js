@@ -30,7 +30,7 @@ function Transaction() {
 
         {/*Set Availibility Date*/} 
         <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
+          <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
           {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
         </div>
       </div>
@@ -97,7 +97,7 @@ function Transaction() {
 
             {/*Set Availibility Date*/} 
             <div className="flex justify-end items-center w-1/6 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
+              <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
              {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
             </div>
           </div>
@@ -159,7 +159,7 @@ function Transaction() {
 
             {/*Set Availibility Date*/} 
             <div className="flex justify-end items-center gap-5 w-1/5 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(1)}>Cancel Transaction +</button>
+              <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(1)}>Cancel Transaction +</button>
             </div>
           </div>
 
@@ -261,7 +261,7 @@ function Transaction() {
 
             {/*Set Availibility Date*/} 
             <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
+              <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
             </div>
           </div>
 
@@ -364,7 +364,7 @@ function Transaction() {
 
             {/*Set Availibility Date*/} 
             <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
+              <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
             </div>
           </div>
 
@@ -488,7 +488,7 @@ function Transaction() {
 
             {/*Set Availibility Date*/} 
             <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
+              <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
             </div>
           </div>
         
@@ -558,7 +558,7 @@ function Transaction() {
 
             {/*Set Availibility Date*/} 
             <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
+              <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
             </div>
           </div>
 

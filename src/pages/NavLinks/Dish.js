@@ -25,7 +25,7 @@ function Dish() {
     setdishIsModalOpen(false);
   };
 
-  const [toggle, setToggle] = useState(2);
+  const [toggle, setToggle] = useState(1);
 
   function updateToggle(id) {
     setToggle(id);
@@ -55,7 +55,7 @@ function Dish() {
 
         {/** Add Dish Set*/}
         <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-        <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={opensetDishModal}>
+        <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={opensetDishModal}>
             Add Dish Set +
           </button>
         </div>
@@ -154,7 +154,7 @@ function Dish() {
 
           {/** Add Dish */}
           <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={openModal}>
+          <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={openModal}>
               Add Dish +
             </button>
           </div>
