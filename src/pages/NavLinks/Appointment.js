@@ -22,6 +22,16 @@ const COLUMN_LABELS = {
   status: "STATUS",
 };
 
+const VISIBLE_FIELDS2 = ["id", "email", "date", "time", "meeting_link"];
+
+const COLUMN_LABELS2 = {
+  id: "MEETING ID",
+  email: "EMAIL",
+  date: "DATE",
+  time: "TIME",
+  meeting_link: "LINK",
+};
+
 //hello world!
 function Appointment() {
   const [data, setData] = useState([]);
@@ -29,7 +39,63 @@ function Appointment() {
   const [modal, setModal] = useState(false);
   const [rowData, setRowData] = useState([]);
   const [rowData2, setRowData2] = useState([]);
+  const [meetingData, setMeetingData] = useState([]);
+  const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
+  const [meeting_link, setMeeting_Link] = useState("");
+  const [ids, setId] = useState(0);
+  const [note, setNote] = useState("");
   const API_ENDPOINT = "http://3.27.163.46:9001/api/foodtasting/data";
+  const API_ENDPOINT2 = "http://3.27.163.46:9001/api/meeting/events";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT2);
+        // console.log("response:", response);
+        const meeting = await response.json();
+        //console.log(meeting);
+        setMeetingData(meeting);
+        // setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handleNoteClick = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://3.27.163.46:9001/api/meeting/specific?id=${id}`
+      );
+      // console.log(response.data.fetchMeetings.notes)
+      setNote(response.data.fetchMeetings.notes);
+      setModal2(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleUploadLink = async () => {
+    try {
+      const response = await axios.post(
+        `http://3.27.163.46:9001/api/meeting/update?id=${ids}`,
+        {
+          meeting_link: meeting_link,
+        }
+      );
+      if(response.status === 200){
+        alert("Meeting Link Inserted!")
+        setModal3(false)
+      }else{
+        alert("Failed to Insert Link !")
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,10 +125,69 @@ function Appointment() {
       console.error("Error fetching data:", error);
     }
   };
+
   const handleCloseModal = () => {
     setModal(false);
+      setModal2(false);
   };
 
+  const handleOpenModal = (id) => {
+    setModal3(true);
+    setId(id);
+  };
+
+  // FOR MEETING FETCH DATA
+  const columns2 = [
+    ...VISIBLE_FIELDS2.map((field) => ({
+      field,
+      headerClassName:
+        "bg-secondary200 font-heading font-semibold text-title13",
+      cellClassName: "text-title24",
+      headerName: COLUMN_LABELS2[field],
+      flex: 1,
+
+      renderCell: (params) => {
+        if (field === "date") {
+          if (params.value == null) {
+            return null;
+          }
+
+          // Format the date
+          const formattedDate = new Date(params.value).toLocaleDateString();
+
+          return formattedDate;
+        }
+      },
+    })),
+
+    {
+      field: "actions",
+      headerName: "Actions",
+      headerClassName:
+        "bg-secondary200 font-heading border font-semibold text-title13",
+      cellClassName: "text-title24 font-tbc border",
+      sortable: false,
+      width: 250,
+      renderCell: (params) => (
+        <div className="flex gap-4 font-tbc">
+          <p
+            className="hover:text-secondary500 w-fit px-5 border-2 py-2 font-bold underline text-secondary300 rounded-lg text-title24 cursor-pointer"
+            onClick={() => handleNoteClick(params.row.id)}
+          >
+            View
+          </p>
+          <p
+            className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24 border-2 cursor-pointer"
+            onClick={() => handleOpenModal(params.row.id)}
+          >
+            Insert Link
+          </p>
+        </div>
+      ),
+    },
+  ];
+
+  // FOR FOOD TASTING FETCH DATA
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
       field,
@@ -75,17 +200,33 @@ function Appointment() {
         if (field === "dishes") {
           const dishes = params.row[field];
           return (
-            <div style={{ whiteSpace: 'pre-line' }}>
-            {Object.keys(dishes).map((dishKey, index) => (
-              dishKey !== "event_id" && dishes[dishKey] && (
-                <React.Fragment key={index}>
-                  {dishes[dishKey]}
-                  {index < Object.keys(dishes).length - 1 && ' '}
-                </React.Fragment>
-              )
-            ))}
-          </div>
+            <div style={{ whiteSpace: "pre-line" }}>
+              {Object.keys(dishes).map(
+                (dishKey, index) =>
+                  dishKey !== "event_id" &&
+                  dishes[dishKey] && (
+                    <React.Fragment key={index}>
+                      {dishes[dishKey]}
+                      {index < Object.keys(dishes).length - 1 && " "}
+                    </React.Fragment>
+                  )
+              )}
+            </div>
           );
+        } 
+        
+        else if (field === "date") {
+          // Check if the date is null or undefined
+          if (params.value == null) {
+            return null;
+          }
+
+          // Format the date
+          const formattedDate = new Date(params.value).toLocaleDateString();
+
+          return formattedDate;
+        } else {
+          return params.value;
         }
         return params.value;
       },
@@ -268,7 +409,7 @@ function Appointment() {
                 5
               </td>
               <td className="border-x border-gray w-full p-3 text-primary300 ">
-                6{" "}
+                6
               </td>
               <td className="border-x border-r-2 border-gray w-full p-3 text-primary300 ">
                 7
@@ -433,13 +574,22 @@ function Appointment() {
                 </div>
 
                 <div className="flex gap-5 font-tbc text-title13 border-b">
+                  <strong className="w-[250px]">Address:</strong>{" "}
+                  <p className="w-fit font-medium ">{rowData.google_pin}</p>
+                </div>
+
+                <div className="flex gap-5 font-tbc text-title13 border-b">
                   <strong className="w-[200px]">Contact:</strong>{" "}
                   <p className="w-fit font-medium ">{rowData.contact}</p>
                 </div>
 
                 <div className="flex gap-5 font-tbc text-title13 border-b">
                   <strong className="w-[200px]">FT Date:</strong>{" "}
-                  <p className="w-fit font-medium ">{rowData.date}</p>
+                  <p className="w-fit font-medium ">
+                    {rowData.date != null
+                      ? new Date(rowData.date).toLocaleDateString()
+                      : "N/A"}
+                  </p>
                 </div>
 
                 <div className="flex gap-5 font-tbc text-title13 border-b">
@@ -496,69 +646,49 @@ function Appointment() {
         </div>
 
         <div className="flex flex-col">
-          <table className="w-full h-fit rounded font-tbc text-black">
-            {/** Table Header */}
-            <tr className="flex justify-between w-full rounded-t  bg-secondary200">
-              <th className="  w-full p-3 rounded-tl-xl">Meeting ID</th>
-              <th className="  w-full p-3">Client Name</th>
-              <th className="  w-full p-3">Date</th>
-              <th className="  w-full p-3">Time</th>
-              <th className="  w-full p-3">Platform</th>
-              <th className="  w-full p-3">Action</th>
-            </tr>
-
-            {/** Table Row */}
-            <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">OM001</td>
-              <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
-              <td className="w-full p-3 text-black ">November 16, 2023</td>
-              <td className="w-full p-3 text-black ">4:00 PM</td>
-              <td className="  w-full p-3 text-black ">Google Meet</td>
-              <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit">
-                  View
-                </button>
-                <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                  Edit
-                </button>
-              </td>
-            </tr>
-
-            {/** Table Row */}
-            <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">OM002</td>
-              <td className="w-full p-3 text-black ">Gabby Garcia</td>
-              <td className="w-full p-3 text-black ">November 16, 2023</td>
-              <td className="w-full p-3 text-black ">5:00 PM</td>
-              <td className="  w-full p-3 text-black ">Zoom Meeting</td>
-              <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit">
-                  View
-                </button>
-                <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                  Edit
-                </button>
-              </td>
-            </tr>
-
-            {/** Table Row */}
-            <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">OM003</td>
-              <td className="w-full p-3 text-black ">Manny Pacquiao</td>
-              <td className="w-full p-3 text-black ">November 16, 2023</td>
-              <td className="w-full p-3 text-black ">1:00 PM</td>
-              <td className="  w-full p-3 text-black ">Google Meet</td>
-              <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit">
-                  View
-                </button>
-                <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                  Edit
-                </button>
-              </td>
-            </tr>
-          </table>
+          <DataGrid
+              className="text-lg"
+              slots={{
+                toolbar: GridToolbar,
+              }}
+              rows={meetingData}
+              columns={columns2}
+              component={{ Toolbar: GridToolbar }}
+            />
         </div>
+
+        <Dialog open={modal2} onClose={handleCloseModal} className="w-full">
+            <div className="flex flex-col gap-5 w-fit">
+              <DialogTitle className="w-full overflow-hidden bg-primary200">
+                <h1 className="font-heading font-bold text-heading14">
+                  Client Note !!
+                </h1>
+              </DialogTitle>
+              <DialogContent className="flex flex-col gap-3 w-fit ">
+                <div className=" flex flex-col gap-3 w-fit">
+                  <div className="flex gap-5 font-tbc text-title13 border-b">
+                    <p className="w-fit font-medium ">{note}</p>
+                  </div>
+                </div>
+              </DialogContent>
+            </div>
+          </Dialog>
+
+          {/* MODAL FOR UPLOADING LINK, PADESIGN NALANG PO */}
+
+          <Dialog open={modal3} onClose={handleCloseModal} className="w-full">
+            <div className="flex flex-col gap-5 w-fit">
+              <DialogContent className="flex flex-col gap-3 w-fit ">
+                <input
+                  type="text"
+                  placeholder="Meeting Link here"
+                  required
+                  onChange={(e) => setMeeting_Link(e.target.value)}
+                />
+                <button onClick={handleUploadLink}>Upload Link</button>
+              </DialogContent>
+            </div>
+          </Dialog>
       </div>
     </div>
   );
