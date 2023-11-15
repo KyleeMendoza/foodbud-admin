@@ -89,18 +89,18 @@ function Client() {
           </div>
 
           {/*Filter Icon*/} 
-          <div className="flex rounded-lg p-3 items-center bg-secondary100">
+          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
             <h1 className="font-bold">Filter</h1>
-          </div>
+          </div>*/}
 
           {/*Export*/} 
-          <div className="flex justify-between items-center w-1/4 h-full">
+          <div className="flex justify-end items-center w-1/6 h-fit">
             <button
-              className="font-heading font-semibold text-white text-title13 rounded-lg px-5 py-3 bg-secondary500 w-fit h-full cursor-pointer hover:opacity-75 "
+              className="font-heading font-semibold text-white text-title13 rounded-lg px-10 border border-black py-3 bg-secondary500 w-full h-fit cursor-pointer hover:opacity-75 "
               onClick={openModal}>
-                Add Client +
+                Add Client+
             </button>
-            <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
           </div>
         </div>
    

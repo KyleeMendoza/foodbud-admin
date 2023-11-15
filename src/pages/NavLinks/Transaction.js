@@ -24,14 +24,14 @@ function Transaction() {
         </div>
 
         {/*Filter Icon*/} 
-        <div className=" bg-zinc-400">
+        {/*<div className=" bg-zinc-400">
           <h1 className="p-2">Filter</h1>
-        </div>
+        </div>*/}
 
         {/*Set Availibility Date*/} 
-        <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
-          <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+        <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
+          {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
         </div>
       </div>
 
@@ -91,14 +91,14 @@ function Transaction() {
             </div>
 
             {/*Filter Icon*/} 
-            <div className=" bg-zinc-400">
+            {/*<div className=" bg-zinc-400">
               <h1 className="p-2">Filter</h1>
-            </div>
+            </div>*/}
 
             {/*Set Availibility Date*/} 
-            <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
-              <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <div className="flex justify-end items-center w-1/6 h-full">
+              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
+             {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
             </div>
           </div>
         
@@ -157,15 +157,9 @@ function Transaction() {
               </div>
             </div>
 
-            {/*Filter Icon*/} 
-            <div className=" bg-zinc-400">
-              <h1 className="p-2">Filter</h1>
-            </div>
-
             {/*Set Availibility Date*/} 
-            <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
-              <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <div className="flex justify-end items-center gap-5 w-1/5 h-full">
+              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(1)}>Cancel Transaction +</button>
             </div>
           </div>
 
@@ -244,7 +238,7 @@ function Transaction() {
 
                 {/** Button Save */}
                 <div className="flex justify-end">
-                  <button type="submit" className=" border-2 rounded-lg text-secondary500">Save</button>
+                  <button type="submit" className=" border-2 rounded-lg text-secondary500 hover:bg-secondary500 hover:text-white">Save</button>
                 </div>
               </form>
             </div>
@@ -265,26 +259,20 @@ function Transaction() {
               </div>
             </div>
 
-            {/*Filter Icon*/} 
-            <div className=" bg-zinc-400">
-              <h1 className="p-2">Filter</h1>
-            </div>
-
             {/*Set Availibility Date*/} 
-            <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
-              <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Transaction +</button>
             </div>
           </div>
 
           <div className="flex flex-col gap-10">
-          <div className="flex items-center w-full h-fit">
-            <h1 className=" font-heading font-bold text-heading14 text-secondary500">View Transaction:</h1>
-            <h2>Filled na sana ung data kapag viniew ung isang row from transaction</h2>
-          </div>
+            <div className="flex items-center w-full h-fit">
+              <h1 className=" font-heading font-bold text-heading14 text-secondary500">View Transaction:</h1>
+              <h2>Filled na sana ung data kapag viniew ung isang row from transaction</h2>
+            </div>
 
-          {/** Main Body */}
-          <div className="flex flex-col gap-5w-full h-fit">
+              {/** Main Body */}
+              <div className="flex flex-col gap-10 w-full h-fit">
 
               {/** Form*/}
               <form className="flex flex-col gap-10 w-fit h-fit">
@@ -350,17 +338,17 @@ function Transaction() {
                     <input type="file" className="w-[350px] bg-white border border-gray border-opacity-30 rounded px-5 py-3 font-tbc font-bold text-title13 text-black"/>
                   </div>
                 </div>
-
-                {/** Edit Save */}
-                <div className="flex justify-end">
-                  <button onClick={()=>updateToggle(3)} className=" border-2 rounded-lg text-primary500">Edit</button>
-                </div>
               </form>
+
+              {/** Edit Save */}
+              <div className="flex justify-start">
+                <button onClick={()=>updateToggle(3)} className=" border-2 rounded-xl text-primary500 hover:bg-primary500 hover:text-white">Edit</button>
+              </div>
             </div>
           </div>
         </div>
 
-        {/** Add Transaction Toggle 5 */}
+        {/** Add Invoice Toggle 5 */}
         <div className={toggle === 5 ? "show-content" : "content"}>
           {/** Header of the appointment tab */}
           <div className="flex justify-between items-center gap-5 w-full h-fit">
@@ -374,15 +362,9 @@ function Transaction() {
               </div>
             </div>
 
-            {/*Filter Icon*/} 
-            <div className=" bg-zinc-400">
-              <h1 className="p-2">Filter</h1>
-            </div>
-
             {/*Set Availibility Date*/} 
-            <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
-              <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
             </div>
           </div>
 
@@ -436,7 +418,7 @@ function Transaction() {
 
                 <div className="flex w-full h-full justify-between items-center">
                   <h1 className=" font-heading font-bold text-heading25">Transaction Breakdown</h1>
-                  <button className="w-fit px-5 rounded-lg text-white bg-primary500 font-tbc">Add Transaction Row +</button>
+                  <button className="w-fit font-semibold px-5 rounded-lg text-white bg-primary500 font-tbc hover:text-primary500 hover:bg-gray hover:bg-opacity-10">Add Transaction Row +</button>
                 </div>
 
                 <div>
@@ -483,8 +465,7 @@ function Transaction() {
 
                 {/** Edit Save */}
                 <div className="flex justify-end gap-10 font-tbc font-medium text-title13 ">
-                  <button type="submit" className="w-fit px-5 border-2 rounded-lg text-secondary500">Save Invoice</button>
-                  <button className="w-fit px-5 rounded-lg text-white bg-primary500">Cancel Invoice Form</button>
+                  <button type="submit" className="w-fit px-5 border-2 rounded-lg text-secondary500 hover:bg-secondary500 hover:text-white">Save Invoice</button>
                 </div>
               </form>
             </div>
@@ -505,15 +486,9 @@ function Transaction() {
               </div>
             </div>
 
-            {/*Filter Icon*/} 
-            <div className=" bg-zinc-400">
-              <h1 className="p-2">Filter</h1>
-            </div>
-
             {/*Set Availibility Date*/} 
-            <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
-              <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
             </div>
           </div>
         
@@ -561,8 +536,7 @@ function Transaction() {
           </div>
 
           <div className="flex justify-end items-center gap-10 font-tbc font-medium">
-            <button onClick={()=>updateToggle(7)} className=" text-secondary500 border-2 rounded-xl">Edit Invoice</button>
-            <button onClick={()=>updateToggle(2)}  className=" bg-primary500 text-white rounded-xl w-fit px-5">Back</button>
+            <button onClick={()=>updateToggle(7)} className=" text-secondary500 border-2 rounded-xl hover:bg-secondary500 hover:text-white">Edit Invoice</button>
           </div>
 
         </div>
@@ -582,15 +556,9 @@ function Transaction() {
               </div>
             </div>
 
-            {/*Filter Icon*/} 
-            <div className=" bg-zinc-400">
-              <h1 className="p-2">Filter</h1>
-            </div>
-
             {/*Set Availibility Date*/} 
-            <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(5)}>Add Invoice +</button>
-              <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+              <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(2)}>Cancel Invoice +</button>
             </div>
           </div>
 
@@ -644,7 +612,7 @@ function Transaction() {
 
                 <div className="flex w-full h-full justify-between items-center">
                   <h1 className=" font-heading font-bold text-heading25">Transaction Breakdown</h1>
-                  <button className="w-fit px-5 rounded-lg text-white bg-primary500 font-tbc">Add Transaction Row +</button>
+                  <button className="w-fit px-5 rounded-xl text-white bg-primary500 font-tbc hover:bg-gray hover:bg-opacity-10 hover:text-primary500">Add Transaction Row +</button>
                 </div>
 
                 <div>
@@ -691,8 +659,7 @@ function Transaction() {
 
                 {/** Edit Save */}
                 <div className="flex justify-end gap-10 font-tbc font-medium text-title13 ">
-                  <button className="w-fit px-5 border-2 rounded-lg text-secondary500">Save Changes</button>
-                  <button onClick={()=>updateToggle(2)} className="w-fit px-5 rounded-lg text-white bg-primary500">Cancel Edit</button>
+                  <button className="w-fit px-5 border-2 rounded-xl text-secondary500 hover:bg-secondary500 hover:text-white">Save Changes</button>
                 </div>
               </form>
             </div>
