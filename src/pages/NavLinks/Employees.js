@@ -25,15 +25,9 @@ function Employees() {
           </div>
         </div>
 
-        {/*Filter Icon*/} 
-        <div className="flex rounded-lg p-3 items-center bg-secondary100">
-          <h1 className="p-2">Filter</h1>
-        </div>
-
-        {/*Set Availibility Date*/} 
-        <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(5)}>Add Employee+</button>
-          <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+        {/* Add Employee */} 
+        <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(3)}>Add Employee +</button>
         </div>
       </div>
         
@@ -88,15 +82,9 @@ function Employees() {
           </div>
         </div>
 
-        {/*Filter Icon*/} 
-        <div className="flex rounded-lg p-3 items-center bg-secondary100">
-          <h1 className="p-2">Filter</h1>
-        </div>
-
-        {/*Set Availibility Date*/} 
-        <div className="flex justify-end items-center gap-5 w-1/3 h-full">
-          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300" onClick={()=>updateToggle(5)}>Add Employee+</button>
-          <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+        {/*Add Access*/} 
+        <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+          <button className="flex justify-center items-center w-fit h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={()=>updateToggle(4)}>Add Access +</button>
         </div>
       </div>
         

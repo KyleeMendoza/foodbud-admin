@@ -101,23 +101,14 @@ function MyEvents() {
     },
  
   ];
+  
   return (<div className="p-8">
       {/** Header of the Event Navigation */}
       <div className="flex flex-col w-full h-fit gap-10">
         {/** Header of the Event Navigation */}
         <div className="flex justify-betweenitems-center gap-5 w-full h-fit">
           <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
-            <p className="w-fit font-heading text-white text-title24 rounded-xl bg-primary200 px-5 py-3">Events</p>
-          </div>
-
-          {/*Filter Icon*/} 
-          <div className="flex rounded-lg p-3 items-center bg-secondary100">
-            <h1 className="font-bold">Filter</h1>
-          </div>
-
-          {/*Export*/} 
-          <div className="flex justify-end items-center gap-5 w-fit h-full">
-            <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
+            <p className="w-fit font-heading text-white text-title24 rounded-xl bg-primary200 px-5 py-3 cursor-pointer">Events</p>
           </div>
         </div>
 
