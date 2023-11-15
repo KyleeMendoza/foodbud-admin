@@ -110,86 +110,8 @@ function Appointment() {
     setToggle(id);
   }
 
-  const [popup, setPop] = useState(false);
-
-  const togglePop = () => {
-    setPop(!popup);
-  };
-
-  if (popup) {
-    document.body.classList.add("active-pop");
-  } else {
-    document.body.classList.remove("active-pop");
-  }
-
   return (
     <div className="flex flex-col gap-8 p-8">
-      {/** Pop-up */}
-      {popup && (
-        <div className="pop-screen">
-          <div onClick={togglePop} className="overlay"></div>
-          <div className="w-fit h-fit font-heading bg-white rounded-2xl pop-content">
-            <div className="flex justify-between items-center px-10 py-5 font-bold text-heading36 bg-primary200 rounded-t-2xl">
-              <h1 className="w-fit h-fit ">Online Meeting Details</h1>
-              <button className="w-fit h-fit" onClick={togglePop}>
-                X
-              </button>
-            </div>
-            <div className="flex flex-col gap-2 px-10 py-5 font-semibold">
-              <div className="flex justify-between items-center gap-5 w-full h-fit">
-                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">
-                  Client Name:
-                </h1>
-                <h1 className="font-tbc text-title24 text-black w-2/3">
-                  Juan Dela Cruz
-                </h1>
-              </div>
-
-              <div className="flex justify-between items-center gap-5 w-full h-fit">
-                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">
-                  Date:
-                </h1>
-                <h1 className="font-tbc text-title24 text-black w-2/3">
-                  November 16, 2023
-                </h1>
-              </div>
-
-              <div className="flex justify-between items-center gap-5 w-full h-fit">
-                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">
-                  Time:
-                </h1>
-                <h1 className="font-tbc text-title24 text-black w-2/3">
-                  4:00 PM
-                </h1>
-              </div>
-
-              <div className="flex justify-between items-center gap-5 w-full h-fit">
-                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">
-                  Platform:
-                </h1>
-                <h1 className="font-tbc text-title24 text-black w-2/3">
-                  Google Meet
-                </h1>
-              </div>
-
-              <div className="flex justify-between items-center gap-5 w-full h-fit">
-                <h1 className="w-1/3 font-tbc font-bold text-title24 text-black">
-                  Meeting Link:
-                </h1>
-                <h1 className="font-tbc text-title24 text-black w-2/3">
-                  https://meet.google.com/dtf-eknt-gby
-                </h1>
-              </div>
-            </div>
-            <div className="w-full h-fit flex justify-end  items-center p-5">
-              <button className="w-fit h-fit bg-secondary500 px-5 py-3 rounded-lg font-heading font-medium text-white">
-                Edit Appointment
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/** Calendar - Toggle 1 */}
       <div className={toggle === 1 ? "show-content" : "content"}>
         {/** Header of the appointment tab */}
@@ -433,11 +355,6 @@ function Appointment() {
                 Online Meetting
               </p>
             </div>
-            <div className={toggle === 4 ? "toggleon" : "toggleoff"}>
-              <p className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                Event Day
-              </p>
-            </div>
           </div>
 
           {/*Filter Icon*/}
@@ -451,7 +368,7 @@ function Appointment() {
           </div>  */}
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex flex-col bg-green">
           <DataGrid
             className="text-lg"
             slots={{
@@ -464,23 +381,55 @@ function Appointment() {
         </div>
 
         <Dialog open={modal} onClose={handleCloseModal} className="w-full">
-          <DialogTitle className="w-full overflow-hidden text-secondary300">
-            <h1 className="font-heading font-bold text-heading14">Food Tasting Details:</h1>
-          </DialogTitle>
-          <DialogContent className="flex flex-col gap-3 w-full">
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Event ID:</strong>{" "}
-              <p className="ml-2 text-lg">{rowData.event_Id}</p>
-            </div>
-          </DialogContent>
-          <DialogActions className="">
-            <button 
-              onClick={handleCloseModal}
-              className="bg-primary500 rounded-xl font-tbc font-bold text-white"
-            >
-              Close
-            </button>
-          </DialogActions>
+          <div className="flex flex-col gap-5">
+            <DialogTitle className="w-full overflow-hidden bg-primary200">
+              <h1 className="font-heading font-bold text-heading14">Food Tasting Details</h1>
+            </DialogTitle>
+            <DialogContent className="flex flex-col gap-3 w-full">
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Event ID:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.event_Id}</p>
+              </div>
+
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Client Name:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.name}</p>
+              </div>
+
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Address:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.address}</p>
+              </div>
+
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Contact Number:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.contact}</p>
+              </div>
+
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Food Tasting Date:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.date}</p>
+              </div>
+
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Address Google Pin:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.google_pin}</p>
+              </div>
+
+              <div className="flex gap-5 font-tbc text-title13">
+                <strong className="w-full border">Status:</strong>{" "}
+                <p className="w-full font-medium border">{rowData.status}</p>
+              </div>
+            </DialogContent>
+            <DialogActions className="">
+              <button 
+                onClick={handleCloseModal}
+                className="bg-primary500 rounded-xl font-tbc font-bold text-white"
+              >
+                Close
+              </button>
+            </DialogActions>
+          </div>
         </Dialog>
       </div>
 
@@ -504,24 +453,19 @@ function Appointment() {
                 Online Meetting
               </p>
             </div>
-            <div className={toggle === 4 ? "toggleon" : "toggleoff"}>
-              <p className="w-fit h-fit" onClick={() => updateToggle(4)}>
-                Event Day
-              </p>
-            </div>
           </div>
 
           {/*Filter Icon*/}
-          <div className="flex rounded-lg p-3 items-center bg-secondary100">
+          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
             <h1 className="font-bold">Filter</h1>
           </div>
 
           {/*Set Availibility Date*/}
-          <div className="flex justify-end items-center gap-5 w-fith-full">
+          {/*<div className="flex justify-end items-center gap-5 w-fith-full">
             <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">
               Export
             </button>
-          </div>
+          </div>*/}
         </div>
 
         <div className="flex flex-col">
@@ -544,7 +488,7 @@ function Appointment() {
               <td className="w-full p-3 text-black ">4:00 PM</td>
               <td className="  w-full p-3 text-black ">Google Meet</td>
               <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit" onClick={togglePop}>
+                <button className="w-fit h-fit">
                   View
                 </button>
                 <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
@@ -561,7 +505,7 @@ function Appointment() {
               <td className="w-full p-3 text-black ">5:00 PM</td>
               <td className="  w-full p-3 text-black ">Zoom Meeting</td>
               <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit" onClick={togglePop}>
+                <button className="w-fit h-fit">
                   View
                 </button>
                 <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
@@ -578,7 +522,7 @@ function Appointment() {
               <td className="w-full p-3 text-black ">1:00 PM</td>
               <td className="  w-full p-3 text-black ">Google Meet</td>
               <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                <button className="w-fit h-fit" onClick={togglePop}>
+                <button className="w-fit h-fit">
                   View
                 </button>
                 <button className="w-fit h-fit" onClick={() => updateToggle(4)}>
