@@ -219,17 +219,48 @@ function Appointment() {
           if (params.value == null) {
             return null;
           }
-
+  
+          // Convert input date to a JavaScript Date object
+          const inputDate = new Date(params.value);
+  
           // Format the date
-          const formattedDate = new Date(params.value).toLocaleDateString();
-
-          return formattedDate;
+          const formattedDate = inputDate.toLocaleDateString();
+  
+          // Check if the date is less than the current date
+          const isPastDate = inputDate < new Date();
+  
+          return (
+            <span style={{ color: isPastDate ? "red" : "inherit" }}>
+              {formattedDate}
+            </span>
+          );
+        } else if (field === "status") {
+          // Check if the date is null or undefined
+          if (params.row.date == null) {
+            return "Up Coming";
+          }
+  
+          // Convert input date to a JavaScript Date object
+          const inputDate = new Date(params.row.date);
+  
+          // Check if the date is less than the current date
+          const isPastDate = inputDate < new Date();
+  
+          // Set the status based on the date
+          const status =
+            isPastDate
+              ? "DONE"
+              : inputDate.toDateString() === new Date().toDateString()
+              ? "TODAY"
+              : "Up Coming";
+  
+          return status;
         } else {
           return params.value;
         }
-        return params.value;
       },
     })),
+  
     {
       field: "actions",
       headerName: "Actions",
