@@ -129,130 +129,133 @@ function MyEvents() {
         {/* Modal, YOU CAN EXPERIMENT HERE THE CHANGES FOR DESIGN*/}
         {/** Pop up when click yung eye button */}
         <Dialog open={modal} onClose={handleCloseModal} className="w-full">
-        <div className="flex flex-col gap-5 p-5 rounded-xl">
-          <DialogTitle className="w-full overflow-hidden text-secondary300">
-            <h1 className="font-heading font-bold text-heading14">Event Details</h1>
-          </DialogTitle>
-          <DialogContent className="flex flex-col gap-3 w-full">
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Event ID:</strong>{" "}
-              <p className="ml-2 text-lg">{rowData.event_id}</p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Celebrant Name:</strong>{" "}
-              <p className="ml-2 text-lg">{rowData.celebrant_name}</p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Celebrant Age:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${
-                  rowData.celebrant_age ? "" : "text-red-500"
-                }`}
-              >
-                {rowData.celebrant_age || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Event Date:</strong>{" "}
-              <p className="ml-2 text-lg">{rowData.event_date}</p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Event Type:</strong>{" "}
-              <p className="ml-2 text-lg">{rowData.event_type}</p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Color Theme:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${
-                  rowData.color_theme ? "" : "text-red-500"
-                }`}
-              >
-                {rowData.color_theme || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Venue Type:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${
-                  rowData.venue_type ? "" : "text-red-500"
-                }`}
-              >
-                {rowData.venue_type || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Venue Floor:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${
-                  rowData.venue_floor ? "" : "text-red-500"
-                }`}
-              >
-                {rowData.venue_floor || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Venue Address:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${
-                  rowData.venue_address ? "" : "text-red-500"
-                }`}
-              >
-                {rowData.venue_address || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">First Dish:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${rowData.dish_1 ? "" : "text-red-500"}`}
-              >
-                {rowData.dish_1 || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Second Dish:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${rowData.dish_2 ? "" : "text-red-500"}`}
-              >
-                {rowData.dish_2 || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Pasta:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${rowData.pasta ? "" : "text-red-500"}`}
-              >
-                {rowData.pasta || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              <strong className="w-[200px]">Dessert:</strong>{" "}
-              <p
-                className={`ml-2 text-lg ${
-                  rowData.dessert ? "" : "text-red-500"
-                }`}
-              >
-                {rowData.dessert || "Not specified"}
-              </p>
-            </div>
-            <div className="flex font-tbc text-title13">
-              {rowData2 && (
-                <div>
-                  <strong className="w-[200px]">Additionals:</strong>{" "}
-                  <p className="ml-16 text-lg">
-                    {Array.isArray(rowData2)
-                      ? rowData2.map((additional, index) => (
-                          <div key={index}>{additional}</div>
-                        ))
-                      : "Not specified"}
+          <div className="flex flex-col gap-5 rounded-xl ">
+            <DialogTitle className="flex justify-center w-full overflow-hidden text-white bg-primary200">
+              <h1 className="font-heading font-bold text-heading14">Event Details</h1>
+            </DialogTitle>
+
+            <div className="flex flex-col p-5">
+              <DialogContent className="flex flex-col gap-3 w-full ">
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Event ID:</strong>{" "}
+                  <p className="font-medium">{rowData.event_id}</p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Celebrant Name:</strong>{" "}
+                  <p className="font-medium">{rowData.celebrant_name}</p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Celebrant Age:</strong>{" "}
+                  <p
+                    className={`font-medium ${
+                      rowData.celebrant_age ? "" : "text-red-500"
+                    }`}
+                  >
+                    {rowData.celebrant_age || "Not specified"}
                   </p>
                 </div>
-              )}
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Event Date:</strong>{" "}
+                  <p className="font-medium">{rowData.event_date}</p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Event Type:</strong>{" "}
+                  <p className="font-medium">{rowData.event_type}</p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Color Theme:</strong>{" "}
+                  <p
+                    className={`font-medium ${
+                      rowData.color_theme ? "" : "text-red-500"
+                    }`}
+                  >
+                    {rowData.color_theme || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Venue Type:</strong>{" "}
+                  <p
+                    className={`font-medium ${
+                      rowData.venue_type ? "" : "text-red-500"
+                    }`}
+                  >
+                    {rowData.venue_type || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Venue Floor:</strong>{" "}
+                  <p
+                    className={`font-medium ${
+                      rowData.venue_floor ? "" : "text-red-500"
+                    }`}
+                  >
+                    {rowData.venue_floor || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Venue Address:</strong>{" "}
+                  <p
+                    className={`font-medium ${
+                      rowData.venue_address ? "" : "text-red-500"
+                    }`}
+                  >
+                    {rowData.venue_address || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">First Dish:</strong>{" "}
+                  <p
+                    className={`font-medium ${rowData.dish_1 ? "" : "text-red-500"}`}
+                  >
+                    {rowData.dish_1 || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Second Dish:</strong>{" "}
+                  <p
+                    className={`font-medium ${rowData.dish_2 ? "" : "text-red-500"}`}
+                  >
+                    {rowData.dish_2 || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Pasta:</strong>{" "}
+                  <p
+                    className={`font-medium ${rowData.pasta ? "" : "text-red-500"}`}
+                  >
+                    {rowData.pasta || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  <strong className="w-[200px]">Dessert:</strong>{" "}
+                  <p
+                    className={`font-medium ${
+                      rowData.dessert ? "" : "text-red-500"
+                    }`}
+                  >
+                    {rowData.dessert || "Not specified"}
+                  </p>
+                </div>
+                <div className="flex font-tbc text-title13 ">
+                  {rowData2 && (
+                    <div>
+                      <strong className="w-[200px]">Additionals:</strong>{" "}
+                      <p className="ml-16 text-lg">
+                        {Array.isArray(rowData2)
+                          ? rowData2.map((additional, index) => (
+                              <div key={index}>{additional}</div>
+                            ))
+                          : "Not specified"}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </DialogContent>
+              <DialogActions className="font-tbc">
+                <button className="border rounded-xl font-semibold text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
+              </DialogActions>
             </div>
-          </DialogContent>
-            <DialogActions className="">
-              <button className="border rounded-xl font-semibold text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
-            </DialogActions>
-          </div>
+        </div>
         </Dialog>
       </div>
     </div>
