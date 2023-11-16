@@ -86,11 +86,11 @@ function Appointment() {
           meeting_link: meeting_link,
         }
       );
-      if(response.status === 200){
-        alert("Meeting Link Inserted!")
-        setModal3(false)
-      }else{
-        alert("Failed to Insert Link !")
+      if (response.status === 200) {
+        alert("Meeting Link Inserted!");
+        setModal3(false);
+      } else {
+        alert("Failed to Insert Link !");
       }
     } catch (error) {
       console.error(error);
@@ -118,7 +118,7 @@ function Appointment() {
       const response = await axios.get(
         `http://3.27.163.46:9001/api/foodtasting/data-get?eventId=${event_id}`
       );
-      console.log(response.data[0])
+      console.log(response.data[0]);
       setRowData(response.data[0]);
       setModal(true);
     } catch (error) {
@@ -127,9 +127,9 @@ function Appointment() {
   };
 
   const handleCloseModal = () => {
-      setModal(false);
-      setModal2(false);
-      setModal3(false);
+    setModal(false);
+    setModal2(false);
+    setModal3(false);
   };
 
   const handleOpenModal = (id) => {
@@ -175,7 +175,7 @@ function Appointment() {
             className="hover:text-secondary500 w-fit px-5 border-2 py-2 font-bold underline text-secondary300 rounded-lg text-title24 cursor-pointer"
             onClick={() => handleNoteClick(params.row.id)}
           >
-            View
+            Note
           </p>
           <p
             className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24 border-2 cursor-pointer"
@@ -214,24 +214,53 @@ function Appointment() {
               )}
             </div>
           );
-        } 
-        
-        else if (field === "date") {
+        } else if (field === "date") {
           // Check if the date is null or undefined
           if (params.value == null) {
             return null;
           }
-
+  
+          // Convert input date to a JavaScript Date object
+          const inputDate = new Date(params.value);
+  
           // Format the date
-          const formattedDate = new Date(params.value).toLocaleDateString();
-
-          return formattedDate;
+          const formattedDate = inputDate.toLocaleDateString();
+  
+          // Check if the date is less than the current date
+          const isPastDate = inputDate < new Date();
+  
+          return (
+            <span style={{ color: isPastDate ? "red" : "inherit" }}>
+              {formattedDate}
+            </span>
+          );
+        } else if (field === "status") {
+          // Check if the date is null or undefined
+          if (params.row.date == null) {
+            return "Up Coming";
+          }
+  
+          // Convert input date to a JavaScript Date object
+          const inputDate = new Date(params.row.date);
+  
+          // Check if the date is less than the current date
+          const isPastDate = inputDate < new Date();
+  
+          // Set the status based on the date
+          const status =
+            isPastDate
+              ? "DONE"
+              : inputDate.toDateString() === new Date().toDateString()
+              ? "TODAY"
+              : "Up Coming";
+  
+          return status;
         } else {
           return params.value;
         }
-        return params.value;
       },
     })),
+  
     {
       field: "actions",
       headerName: "Actions",
@@ -283,7 +312,9 @@ function Appointment() {
 
           {/*Set Availibility Date*/}
           <div className="flex justify-end items-center gap-5 w-1/5 h-full">
-            <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300">Set Available Date +</button>
+            <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300">
+              Set Available Date +
+            </button>
           </div>
         </div>
 
@@ -504,58 +535,30 @@ function Appointment() {
         </div>
 
         <div className="flex flex-col">
-            <table className="w-full h-fit rounded font-tbc text-black">
-              {/** Table Header */}
-              <tr className="flex justify-between w-full rounded-t  bg-secondary200">
-                <th className="  w-full p-3 rounded-tl-xl">Client Name</th>
-                <th className="  w-full p-3">Description</th>
-                <th className="  w-full p-3">Food Tasting Date</th>
-                <th className="  w-full p-3">Status</th>
-                <th className="  w-full p-3">Action</th>
-              </tr>
 
-              {/** Table Row */}
-              <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-                <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
-                <td className="  w-full p-3 text-black ">Carbonara, Chicken Parmessan, Beef Stroganoff</td>
-                <td className="  w-full p-3 text-black ">November 14, 2023</td>
-                <td className="  w-full p-3 text-black ">Ongoing</td>
-                <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                  <button className="w-fit h-fit" onClick={handleSeeMoreClick}>View</button>
-                  <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
-                </td>
-              </tr>
+        <DataGrid
+          className="text-lg bg-white shadow-md"
+          slots={{
+            toolbar: GridToolbar,
+          }}
+          pageSize={10}
+          rows={data}
+          height={500}
+          columns={columns}
+          rowsPerPageOptions={[5, 10, 15]} // Set the available options
+          slotProps={{ toolbar: { showQuickFilter: true } }}
+          component={{ Toolbar: GridToolbar }}
+        />
+          
+        </div>
 
-              {/** Table Row */}
-              <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-                <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
-                <td className="  w-full p-3 text-black ">Carbonara, Chicken Parmessan, Beef Stroganoff</td>
-                <td className="  w-full p-3 text-black ">November 15, 2023</td>
-                <td className="  w-full p-3 text-black ">Ongoing</td>
-                <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                  <button className="w-fit h-fit" onClick={handleSeeMoreClick}>View</button>
-                  <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
-                </td>
-              </tr>
-
-              {/** Table Row */}
-              <tr className="flex justify-between items-center w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-                <td className="w-full p-3 text-black ">Juan Dela Cruz</td>
-                <td className="  w-full p-3 text-black ">Carbonara, Chicken Parmessan, Beef Stroganoff</td>
-                <td className="  w-full p-3 text-black ">November 15, 2023</td>
-                <td className="  w-full p-3 text-black ">Ongoing</td>
-                <td className="flex justify-evenly items-center w-full p-3 text-secondary300 underline font-bold cursor-pointer">
-                  <button className="w-fit h-fit" onClick={handleSeeMoreClick}>View</button>
-                  <button className="w-fit h-fit" onClick={()=>updateToggle(4)}>Edit</button>
-                </td>
-              </tr>
-            </table>
-          </div>
-
+       
         <Dialog open={modal} onClose={handleCloseModal} className="w-full">
           <div className="flex flex-col gap-5 w-fit">
             <DialogTitle className="w-full overflow-hidden bg-primary200">
-              <h1 className="font-heading font-bold text-heading14">Food Tasting Details</h1>
+              <h1 className="font-heading font-bold text-heading14">
+                Food Tasting Details
+              </h1>
             </DialogTitle>
             <DialogContent className="flex flex-col gap-3 w-fit ">
               <div className=" flex flex-col gap-3 w-fit">
@@ -600,7 +603,7 @@ function Appointment() {
               </div>
             </DialogContent>
             <DialogActions className="">
-              <button 
+              <button
                 onClick={handleCloseModal}
                 className="bg-primary500 rounded-xl font-tbc font-bold text-white"
               >
@@ -648,90 +651,92 @@ function Appointment() {
 
         <div className="flex flex-col">
           <DataGrid
-              className="text-lg"
-              slots={{
-                toolbar: GridToolbar,
-              }}
-              rows={meetingData}
-              columns={columns2}
-              component={{ Toolbar: GridToolbar }}
-            />
+            className="text-lg"
+            slots={{
+              toolbar: GridToolbar,
+            }}
+            rows={meetingData}
+            columns={columns2}
+            component={{ Toolbar: GridToolbar }}
+          />
         </div>
 
         <Dialog open={modal2} onClose={handleCloseModal} className="w-full">
-            <div className="flex flex-col gap-5 w-fit">
-              <DialogTitle className="flex justify-between gap-10 w-full overflow-hidden bg-primary200">
-                <h1 className="font-heading font-bold text-heading14 text-white">
-                  Online Meeting Details
-                </h1>
-              </DialogTitle>
-              <DialogContent className="flex flex-col gap-5 w-full">
-                <div className=" flex flex-col gap-3 w-full">
-                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
-                    <strong className="w-1/3">Client Name:</strong>{" "}
-                    <p className="font-medium">{rowData.event_id}</p>
-                  </div>
-
-                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
-                    <strong className="w-1/3">Date:</strong>{" "}
-                    <p className="font-medium">{rowData.date}</p>
-                  </div>
-
-                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
-                    <strong className="w-1/3">Time:</strong>{" "}
-                    <p className="font-medium">{rowData.time}</p>
-                  </div>
-
-                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
-                    <strong className="w-1/3">Meeting Link:</strong>{" "}
-                    <p className="font-medium">{rowData.meeting_link}</p>
-                  </div>
-
-                  <div className="flex justify-center gap-5 font-tbc text-title13 border-b">
-                    <p className="w-full font-bold ">{note}</p>
-                  </div>
+          <div className="flex flex-col gap-5 w-fit">
+            <DialogTitle className="flex justify-between gap-10 w-full overflow-hidden bg-primary200">
+              <h1 className="font-heading font-bold text-heading14 text-white">
+                Client Note
+              </h1>
+            </DialogTitle>
+            <DialogContent className="flex flex-col gap-5 w-full">
+              <div className=" flex flex-col gap-3 w-full">
+                <div className="flex justify-center gap-5 font-tbc text-title13 border-b">
+                  <p className="w-full font-bold ">{note}</p>
                 </div>
+              </div>
 
-                <div className="flex justify-between gap-5 font-tbc font-semibold">
-                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit" >Edit Button</button>
-                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
-                </div>
-              </DialogContent>
+              <div className="flex justify-between gap-5 font-tbc font-semibold">
+                <button
+                  className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500"
+                  onClick={handleCloseModal}
+                >
+                  Close
+                </button>
+              </div>
+            </DialogContent>
+          </div>
+        </Dialog>
+
+        {/* MODAL FOR UPLOADING LINK, PADESIGN NALANG PO */}
+
+        <Dialog open={modal3} onClose={handleCloseModal} className="w-full">
+          <div className="flex flex-col w-full">
+            <div className="flex justify-center p-5 w-full bg-primary200">
+              <h1 className="font-heading font-bold text-heading14 text-white">
+                Meeting Link
+              </h1>
             </div>
-          </Dialog>
+          </div>
 
-          {/* MODAL FOR UPLOADING LINK, PADESIGN NALANG PO */}
+          <DialogContent className="flex flex-col gap-5 w-full">
+            <input
+              className="border w-full p-5 font-tbc font-medium text-title1 rounded-lg"
+              type="text"
+              placeholder="Meeting Link here"
+              required
+              onChange={(e) => setMeeting_Link(e.target.value)}
+            />
 
-          <Dialog open={modal3} onClose={handleCloseModal} className="w-full">
-            <div className="flex flex-col w-full">
-                <div className="flex justify-center p-5 w-full bg-primary200">
-                  <h1 className="font-heading font-bold text-heading14 text-white">Meeting Link</h1>
-                </div>
+            <Dialog open={modal3} onClose={handleCloseModal} className="w-full">
+              <div className="flex flex-col w-full">
+                  <div className="flex justify-center p-5 w-full bg-primary200">
+                    <h1 className="font-heading font-bold text-heading14 text-white">Meeting Link</h1>
+                  </div>
 
-              <DialogContent className="flex flex-col gap-5 w-full">
-                
-                <input
-                  className="border w-full p-5 font-tbc font-medium text-title1 rounded-lg"
-                  type="text"
-                  placeholder="Meeting Link here"
-                  required
-                  onChange={(e) => setMeeting_Link(e.target.value)}
-                />
+                <DialogContent className="flex flex-col gap-5 w-full">
+                  
+                  <input
+                    className="border w-full p-5 font-tbc font-medium text-title1 rounded-lg"
+                    type="text"
+                    placeholder="Meeting Link here"
+                    required
+                    onChange={(e) => setMeeting_Link(e.target.value)}
+                  />
 
-                <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
-                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit" onClick={handleUploadLink}>Upload Link</button>
-                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
-                </div>
-                
-              </DialogContent>
-            </div>
-          </Dialog>
+                  <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
+                    <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit" onClick={handleUploadLink}>Upload Link</button>
+                    <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
+                  </div>
+                  
+                </DialogContent>
+              </div>
+            </Dialog>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
-  {
-    /** End of Main Readable Div */
-  }
+{/** End of Main Readable Div */}
 }
 
 export default Appointment;
