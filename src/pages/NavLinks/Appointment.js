@@ -693,8 +693,8 @@ function Appointment() {
                 </div>
 
                 <div className="flex justify-between gap-5 font-tbc font-semibold">
-                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500" >Edit Button</button>
-                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500" onClick={handleCloseModal}>Close</button>
+                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit" >Edit Button</button>
+                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
                 </div>
               </DialogContent>
             </div>
@@ -718,9 +718,9 @@ function Appointment() {
                   onChange={(e) => setMeeting_Link(e.target.value)}
                 />
 
-                <div className="flex justify-center gap-5 font-tbc font-semibold">
-                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500" onClick={handleUploadLink}>Upload Link</button>
-                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500" onClick={handleCloseModal}>Close</button>
+                <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
+                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit" onClick={handleUploadLink}>Upload Link</button>
+                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
                 </div>
                 
               </DialogContent>

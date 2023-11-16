@@ -61,8 +61,6 @@ function Dish() {
         </div>
       </div>
 
-      <h1>Hello, Admin! Dish Set ito.</h1>
-
       <div className="flex flex-col">
           <table className="w-full h-fit rounded font-tbc text-black">
             {/** Table Header */}

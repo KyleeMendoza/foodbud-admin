@@ -47,14 +47,14 @@ const AddEmployee = ({ isOpen, onClose }) => {
     >
       {/* <div className="fixed inset-0 bg-black opacity-50"></div> */}
       <div
-        className="modal-container relative border border-gray-300 rounded-lg bg-white w-fit"
+        className="modal-container relative rounded-lg bg-white w-fit"
         data-te-modal-body-ref
       >
         <div className="w-full h-fit p-5 bg-primary200 rounded-t-lg">
             <h1 className="font-heading font-semibold text-heading25 text-white text-center">New Employee</h1>
         </div>
 
-        <div className="flex flex-col w-fit border gap-5 p-5">
+        <div className="flex flex-col w-fit gap-5 p-5">
             <div className="flex gap-10 w-fit">
                 <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
                     <label for="dish">Employee Name:</label>
@@ -107,7 +107,7 @@ const AddEmployee = ({ isOpen, onClose }) => {
 
           <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
             <label for="dish">Select Role:</label>
-            <select name="cars" 
+            <select name="employee" 
                     id="classic"
                     className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
                     required>
@@ -134,20 +134,20 @@ const AddEmployee = ({ isOpen, onClose }) => {
         </div>
 
         {/** Register and Cancel Button */}
-        <div className="flex justify-between p-5 w-full h-fit font-tbc">
+        <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
           <button
             type="submit"
-            className="btn btn-primary bg-secondary500 hover:bg-secondary700 text-white font-semibold py-2 px-4 rounded-lg"
+            className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit"
             /*onClick={handleSubmit}*/
           >
-            Register
+            Register Employee
           </button>
           <button
             type="button"
-            className="btn btn-secondary bg-white hover:bg-slate-200 text-black font-semibold py-2 px-4 rounded border border-gray-500"
+            className="border rounded-xl font-semibold text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" 
             onClick={onClose}
           >
-            Cancel
+            Cancel Registration
           </button>
         </div>
       </div>

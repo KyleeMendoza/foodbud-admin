@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../css/modal.css";
 
-const AddDishModal = ({ isOpen, onClose }) => {
+const AddPackageModal = ({ isOpen, onClose }) => {
   const [dishtype, setDishtype] = useState("");
   const [dishname, setDishname] = useState("");
   const [dishprice, setPrice] = useState("");
@@ -50,12 +50,12 @@ const AddDishModal = ({ isOpen, onClose }) => {
         data-te-modal-body-ref
       >
         <div className="w-full h-fit p-5 bg-primary200 rounded-t-lg">
-            <h1 className="font-heading font-semibold text-heading25 text-white text-center">New Dish</h1>
+            <h1 className="font-heading font-semibold text-heading25 text-white text-center">Create Package</h1>
         </div>
 
         <div className="flex flex-col gap-5 p-5">
           <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-            <label for="dish">Dish Type:</label>
+            <label for="dish">Package Name:</label>
             <input
               type="text"
               /*onChange={(e) => {
@@ -66,7 +66,7 @@ const AddDishModal = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-            <label for="dish">Dish Name:</label>
+            <label for="dish">Number of Pax:</label>
             <textarea
               /*onChange={(e) => {
                 setAdress(e.target.value);
@@ -76,7 +76,7 @@ const AddDishModal = ({ isOpen, onClose }) => {
             />
           </div>
           <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-            <label for="dish">Price:</label>
+            <label for="dish">Package Rate:</label>
             <input
               type="text"
               /*onChange={(e) => {
@@ -110,4 +110,4 @@ const AddDishModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddDishModal;
+export default AddPackageModal;

@@ -129,6 +129,7 @@ function MyEvents() {
         {/* Modal, YOU CAN EXPERIMENT HERE THE CHANGES FOR DESIGN*/}
         {/** Pop up when click yung eye button */}
         <Dialog open={modal} onClose={handleCloseModal} className="w-full">
+        <div className="flex flex-col gap-5 p-5 rounded-xl">
           <DialogTitle className="w-full overflow-hidden text-secondary300">
             <h1 className="font-heading font-bold text-heading14">Event Details</h1>
           </DialogTitle>
@@ -248,14 +249,10 @@ function MyEvents() {
               )}
             </div>
           </DialogContent>
-          <DialogActions className="">
-            <button 
-              onClick={handleCloseModal}
-              className="bg-primary500 rounded-xl font-tbc font-bold text-white"
-            >
-              Close
-            </button>
-          </DialogActions>
+            <DialogActions className="">
+              <button className="border rounded-xl font-semibold text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
+            </DialogActions>
+          </div>
         </Dialog>
       </div>
     </div>
