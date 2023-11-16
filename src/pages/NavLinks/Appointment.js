@@ -127,8 +127,9 @@ function Appointment() {
   };
 
   const handleCloseModal = () => {
-    setModal(false);
+      setModal(false);
       setModal2(false);
+      setModal3(false);
   };
 
   const handleOpenModal = (id) => {
@@ -627,7 +628,7 @@ function Appointment() {
             </div>
             <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
               <p className="w-fit h-fit" onClick={() => updateToggle(3)}>
-                Online Meetting
+                Online Meeting
               </p>
             </div>
           </div>
@@ -659,16 +660,41 @@ function Appointment() {
 
         <Dialog open={modal2} onClose={handleCloseModal} className="w-full">
             <div className="flex flex-col gap-5 w-fit">
-              <DialogTitle className="w-full overflow-hidden bg-primary200">
-                <h1 className="font-heading font-bold text-heading14">
-                  Client Note !!
+              <DialogTitle className="flex justify-between gap-10 w-full overflow-hidden bg-primary200">
+                <h1 className="font-heading font-bold text-heading14 text-white">
+                  Online Meeting Details
                 </h1>
               </DialogTitle>
-              <DialogContent className="flex flex-col gap-3 w-fit ">
-                <div className=" flex flex-col gap-3 w-fit">
-                  <div className="flex gap-5 font-tbc text-title13 border-b">
-                    <p className="w-fit font-medium ">{note}</p>
+              <DialogContent className="flex flex-col gap-5 w-full">
+                <div className=" flex flex-col gap-3 w-full">
+                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
+                    <strong className="w-1/3">Client Name:</strong>{" "}
+                    <p className="font-medium">{rowData.event_id}</p>
                   </div>
+
+                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
+                    <strong className="w-1/3">Date:</strong>{" "}
+                    <p className="font-medium">{rowData.date}</p>
+                  </div>
+
+                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
+                    <strong className="w-1/3">Time:</strong>{" "}
+                    <p className="font-medium">{rowData.time}</p>
+                  </div>
+
+                  <div className="flex gap-5 font-tbc text-title13 w-full border-b">
+                    <strong className="w-1/3">Meeting Link:</strong>{" "}
+                    <p className="font-medium">{rowData.meeting_link}</p>
+                  </div>
+
+                  <div className="flex justify-center gap-5 font-tbc text-title13 border-b">
+                    <p className="w-full font-bold ">{note}</p>
+                  </div>
+                </div>
+
+                <div className="flex justify-between gap-5 font-tbc font-semibold">
+                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500" >Edit Button</button>
+                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500" onClick={handleCloseModal}>Close</button>
                 </div>
               </DialogContent>
             </div>
@@ -677,15 +703,26 @@ function Appointment() {
           {/* MODAL FOR UPLOADING LINK, PADESIGN NALANG PO */}
 
           <Dialog open={modal3} onClose={handleCloseModal} className="w-full">
-            <div className="flex flex-col gap-5 w-fit">
-              <DialogContent className="flex flex-col gap-3 w-fit ">
+            <div className="flex flex-col w-full">
+                <div className="flex justify-center p-5 w-full bg-primary200">
+                  <h1 className="font-heading font-bold text-heading14 text-white">Meeting Link</h1>
+                </div>
+
+              <DialogContent className="flex flex-col gap-5 w-full">
+                
                 <input
+                  className="border w-full p-5 font-tbc font-medium text-title1 rounded-lg"
                   type="text"
                   placeholder="Meeting Link here"
                   required
                   onChange={(e) => setMeeting_Link(e.target.value)}
                 />
-                <button onClick={handleUploadLink}>Upload Link</button>
+
+                <div className="flex justify-center gap-5 font-tbc font-semibold">
+                  <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500" onClick={handleUploadLink}>Upload Link</button>
+                  <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500" onClick={handleCloseModal}>Close</button>
+                </div>
+                
               </DialogContent>
             </div>
           </Dialog>
