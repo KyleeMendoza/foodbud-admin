@@ -20,7 +20,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
+
+//NAV ICONS
+import DashboardIcon from "@mui/icons-material/Dashboard"; //dashboard
+import PersonIcon from '@mui/icons-material/Person'; //client employee
+import EventIcon from '@mui/icons-material/Event'; //event
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; //appot
+import CakeIcon from '@mui/icons-material/Cake'; //dish
+import Inventory2Icon from '@mui/icons-material/Inventory2'; // package
+import ReceiptIcon from '@mui/icons-material/Receipt'; //trans
 
 import { Link as NavLink } from "react-router-dom";
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -62,13 +70,13 @@ const links = [
 //NAV ICONS
 const linkIcons = [
   DashboardIcon,
-  DashboardIcon,
-  DashboardIcon,
-  DashboardIcon,
-  DashboardIcon,
-  DashboardIcon,
-  DashboardIcon,
-  DashboardIcon,
+  PersonIcon,
+  PersonIcon,
+  EventIcon,
+  CalendarMonthIcon,
+  CakeIcon,
+  Inventory2Icon,
+  ReceiptIcon,
 ];
 
 function Copyright(props) {
@@ -202,9 +210,9 @@ export default function AdminPage() {
           <Divider />
           {/* ROUTES GOING TO EACH NAVS */}
           {linkName.map((link, key) => (
-            <NavLink to={links[key]} key={key}>
+            <NavLink to={links[key]} key={key}> 
               <ListItemButton>
-                <ListItemIcon>
+                <ListItemIcon style={{color: "black", fontSize: "2rem"}}>
                   {React.createElement(linkIcons[key])}
                 </ListItemIcon>
                 <ListItemText primary={link} />
