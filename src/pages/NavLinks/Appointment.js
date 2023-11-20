@@ -200,6 +200,11 @@ function Appointment() {
       renderCell: (params) => {
         if (field === "dishes") {
           const dishes = params.row[field];
+
+          // Add null check to ensure dishes is not null or undefined
+          // if(!dishes) {
+            // return null}
+
           return (
             <div style={{ whiteSpace: "pre-line" }}>
               {Object.keys(dishes).map(

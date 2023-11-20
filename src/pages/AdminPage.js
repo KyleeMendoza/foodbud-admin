@@ -231,14 +231,13 @@ export default function AdminPage() {
             flexGrow: 1,
             height: "100vh",
             overflow: "auto",
-            border: "2px solid green",
           }}
         >
           <Toolbar />
           {/* CONTAINER FOR EACH NAV */}
           <Container
             maxWidth="full"
-            sx={{ mt: 4, mb: 4, border: "2px solid red" }}
+            sx={{ mt: 4, mb: 4, }}
           >
             <Routes>
               <Route index element={<Dashboard />} />
