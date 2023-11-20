@@ -156,41 +156,56 @@ function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8 p-8">
-      <div className="w-full border-2 p-4 rounded-md mb-4">
-        <h2 className="text-slate-400">Hi, Welcome!</h2>
+
+      {/* Admin Dashboard Header */}
+      <div className="w-full p-5 rounded-xl font-heading font-semibold bg-primary200">
+        <h2 className="text-heading25 text-white">Welcome Admin! Here's your Dashboard</h2>
       </div>
-      <div className="flex">
-        <div className="w-[50%] ">
-          <div className="flex flex-row space-x-12 justify-center items-center  w-full p-4">
-            <div className="flex flex-row items-center justify-center border-2 p-8 rounded-md mb-4 bg-blue-500 bg-opacity-10 shadow-md">
-              <div className="mr-4">
+
+      {/* Main Body */}
+      <div className="flex gap-10">
+
+        {/* Left part of the Dashboard */}
+        <div className="w-1/2">
+
+          {/* Boxes Statistics */}
+          <div className="flex justify-between items-center border w-full p-4">
+            
+            {/* Event Stats */}
+            <div className="flex flex-row items-center justify-center gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
+              <div className="">
                 <img src={calendar} alt="Calendar" className="w-20"></img>
               </div>
-              <div>
-                <h1 className="text-green-600 text-2xl font-bold mb-2">{NumberofEvent}</h1>
-                <p className="text-justify text-xl font-bold">Events</p>
-              </div>
-            </div>
-            <div className="flex flex-row items-center justify-center border-2 p-8 rounded-md mb-4 bg-blue-500 bg-opacity-10 shadow-md">
-              <div className="mr-4">
-                <img src={user} alt="#" className="w-20"></img>
-              </div>
-              <div>
-                <h1 className="text-green-600 text-2xl font-bold mb-2">{numberOfClients}</h1>
-                <p className="text-justify text-xl font-bold">Clients</p>
+              <div className="text-white font-tbc font-bold w-full">
+                <h1 className="text-heading36">{NumberofEvent}</h1>
+                <p className="font-semibold">Events</p>
               </div>
             </div>
 
-            <div className="flex flex-row items-center justify-center border-2 p-8 rounded-md mb-4 bg-blue-500 bg-opacity-10 shadow-md">
-              <div className="mr-4">
+              {/* Client Stats */}
+            <div className="flex flex-row items-center justify-center gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
+              <div className="">
+                <img src={user} alt="#" className="w-20"></img>
+              </div>
+              <div className="text-white font-tbc font-bold w-full">
+                <h1 className="text-heading36">{numberOfClients}</h1>
+                <p className="font-semibold">Clients</p>
+              </div>
+            </div>
+
+              {/* Net Sales Stats */}
+            <div className="flex flex-row items-center justify-center gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
+              <div className="">
                 <img src={wallet} alt="#" className="w-20"></img>
               </div>
-              <div>
-                <h1 className="text-green-600 text-2xl font-bold mb-2">₱100,000</h1>
-                <p className="text-justify text-xl font-bold">Net Sales</p>
+              <div className="text-white font-tbc font-bold w-full">
+                <h1 className="text-heading36">₱100,000</h1>
+                <p className="font-semibold">Net Sales</p>
               </div>
             </div>
           </div>
+
+
           <div className="my-4 p-4 w-full shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
             <h2 className="font-bold">Daily Event Creation Report</h2>
             <Chart
@@ -201,9 +216,11 @@ function Dashboard() {
             />
           </div>
         </div>
-        <div className="w-[50%] ml-[5%]">
-          <div className="border-2 border-blue-400 w-[90%] mb-4 rounded-md">
-            <h1 className="font-bold p-4 text-xl bg-blue-500 bg-opacity-10">Top Packages Avail by Users</h1>
+
+        {/* Right Side of the Dashboard */}
+        <div className="w-1/2 flex justify-end">
+          <div className="border-2 border-secondary400 w-[90%] mb-4 rounded-md">
+            <h1 className="font-bold p-4 text-title24 border bg-blue-500 bg-opacity-10">Top Packages Avail by Users</h1>
             <Chart options={options} series={series} type="bar" height={600} className="bg-blue-500 bg-opacity-10"/>
           </div>
   
