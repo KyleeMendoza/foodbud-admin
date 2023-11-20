@@ -27,7 +27,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:9001/api/net/sales');
+        const response = await fetch('http://3.27.163.46:9001/api/net/sales');
         const data = await response.json();
         console.log(data.net)
         setNetSales(data.net)

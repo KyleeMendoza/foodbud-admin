@@ -12,7 +12,7 @@ const CalendarComponent = ({ onDataClick }) => {
     const formattedDate = moment(date).format('YYYY-MM-DD');    
 
     try {
-        const response = await axios.post("http://localhost:9001/api/occupied/date", {
+        const response = await axios.post("http://3.27.163.46:9001/api/occupied/date", {
           date: formattedDate,
         });
   
