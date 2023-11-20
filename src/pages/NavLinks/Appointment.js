@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import CalendarComponent from "../../components/calendar";
 import axios from "axios";
 import {
   IconButton,
@@ -39,6 +40,7 @@ function Appointment() {
   const [modal, setModal] = useState(false);
   const [rowData, setRowData] = useState([]);
   const [rowData2, setRowData2] = useState([]);
+  const [occupied, setOccupied] = useState([]);
   const [meetingData, setMeetingData] = useState([]);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
@@ -203,7 +205,7 @@ function Appointment() {
 
           // Add null check to ensure dishes is not null or undefined
           // if(!dishes) {
-            // return null}
+          // return null}
 
           return (
             <div style={{ whiteSpace: "pre-line" }}>
@@ -224,16 +226,16 @@ function Appointment() {
           if (params.value == null) {
             return null;
           }
-  
+
           // Convert input date to a JavaScript Date object
           const inputDate = new Date(params.value);
-  
+
           // Format the date
           const formattedDate = inputDate.toLocaleDateString();
-  
+
           // Check if the date is less than the current date
           const isPastDate = inputDate < new Date();
-  
+
           return (
             <span style={{ color: isPastDate ? "red" : "inherit" }}>
               {formattedDate}
@@ -244,28 +246,27 @@ function Appointment() {
           if (params.row.date == null) {
             return "Up Coming";
           }
-  
+
           // Convert input date to a JavaScript Date object
           const inputDate = new Date(params.row.date);
-  
+
           // Check if the date is less than the current date
           const isPastDate = inputDate < new Date();
-  
+
           // Set the status based on the date
-          const status =
-            isPastDate
-              ? "DONE"
-              : inputDate.toDateString() === new Date().toDateString()
-              ? "TODAY"
-              : "Up Coming";
-  
+          const status = isPastDate
+            ? "DONE"
+            : inputDate.toDateString() === new Date().toDateString()
+            ? "TODAY"
+            : "Up Coming";
+
           return status;
         } else {
           return params.value;
         }
       },
     })),
-  
+
     {
       field: "actions",
       headerName: "Actions",
@@ -285,6 +286,23 @@ function Appointment() {
   function updateToggle(id) {
     setToggle(id);
   }
+
+  const handleDataClick = (data) => {
+    setOccupied(data);
+  };
+
+  const getItemColorClass = (type) => {
+    switch (type) {
+      case "Event Day":
+        return "text-green text-xl";
+      case "Food Tasting":
+        return "text-secondary300 text-xl";
+      case "Online Meeting":
+        return "text-primary200 text-xl";
+      default:
+        return "text-black text-xl"; // You can set a default color or adjust as needed
+    }
+  };
 
   return (
     <div className="flex flex-col gap-8 p-8">
@@ -322,188 +340,35 @@ function Appointment() {
             </button>
           </div>
         </div>
-
+        {/* EDIT FROM THIS!! */}
         {/** Secondary Header of appointment Tab */}
-        <div className="flex justify-end items-center gap-5 w-full ">
-          <div className="flex p-3 gap-5 font-tbc text-caption border border-opacity-30 rounded-lg">
-            <h1 className="text-gray">Unavailable</h1>
-            <h1 className=" text-green">Event Day</h1>
-            <h1 className=" text-secondary300">Food Tasting</h1>
-            <h1 className=" text-primary200">Online Meeting</h1>
+        <div className="flex">
+          <div className="flex flex-col items-center gap-5 w-full w-[40%]">
+            <div className="flex p-3 gap-5 font-tbc text-caption border border-opacity-30 rounded-lg">
+              <h1 className="text-gray text-lg">Unavailable</h1>
+              <h1 className="text-green text-lg">Event Day</h1>
+              <h1 className="text-secondary300 text-lg">Food Tasting</h1>
+              <h1 className="text-primary200 text-lg">Online Meeting</h1>
+            </div>
+            {/** Calendar of Appointment Tab */}
+            <div className="flex items-center justify-center">
+              <CalendarComponent onDataClick={handleDataClick} />
+            </div>
           </div>
-
-          <div className="flex gap-5 text-white font-tbc font-semibold text-title24">
-            <form className="flex w-fit bg-primary200 p-2 rounded">
-              <select className="bg-primary200 px-5" id="Month" name="Month">
-                <option value="January">Jan</option>
-                <option value="February">Feb</option>
-                <option value="March">Mar</option>
-                <option value="April">Apr</option>
-                <option value="May">May</option>
-                <option value="June">Jun</option>
-                <option value="July">Jul</option>
-                <option value="August">Aug</option>
-                <option value="September">Sep</option>
-                <option value="October">Oct</option>
-                <option value="November">Nov</option>
-                <option value="December">Dec</option>
-              </select>
-            </form>
-
-            <form className="flex w-fit bg-primary200 p-2 rounded">
-              <select className=" bg-primary200 px-5" id="Year" name="Year">
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-              </select>
-            </form>
+          <div className="border-2 w-[60%] h-[40rem]">
+            <h2>APPOINTMENTS TODO! </h2>
+            <ul>
+              {occupied.map((item, index) => (
+                <li key={index} className={getItemColorClass(item.type)}>
+                  {item.type}
+                  <br />
+                  Occupied Time: {item.time}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-
-        {/** Calendar of Appointment Tab */}
-        <div className="flex w-full h-full">
-          <table className="w-full h-full font-tbc">
-            {/** Days of the Week */}
-            <tr className="flex justify-between w-full rounded-t-xl border border-gray bg-secondary200">
-              <th className="border-x border-gray w-full p-3 rounded-tl-xl">
-                Sunday
-              </th>
-              <th className="border-x border-gray w-full p-3">Monday</th>
-              <th className="border-x border-gray w-full p-3">Tuesday</th>
-              <th className="border-x border-gray w-full p-3">Wednesday</th>
-              <th className="border-x border-gray w-full p-3">Thursday</th>
-              <th className="border-x border-gray w-full p-3">Friday</th>
-              <th className="border-x border-gray w-full p-3 rounded-tr-xl">
-                Saturday
-              </th>
-            </tr>
-
-            {/** 1st Week */}
-            <tr className=" flex justify-between w-full h-[90px] border-y border-gray text-right">
-              <td className="border-x border-l-2 border-gray w-full p-3 text-primary300 ">
-                1
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                2
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                3
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                4
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                5
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                6{" "}
-              </td>
-              <td className="border-x border-r-2 border-gray w-full p-3 text-primary300 ">
-                7
-              </td>
-            </tr>
-
-            {/** 2nd Week */}
-            <tr className=" flex justify-between w-full h-[90px] border-y border-gray text-right">
-              <td className="border-x border-l-2 border-gray w-full p-3 text-primary300 ">
-                1
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                2
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                3
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                4
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                5
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                6{" "}
-              </td>
-              <td className="border-x border-r-2 border-gray w-full p-3 text-primary300 ">
-                7
-              </td>
-            </tr>
-
-            {/** 3rd Week */}
-            <tr className=" flex justify-between w-full h-[90px] border-y border-gray text-right">
-              <td className="border-x border-l-2 border-gray w-full p-3 text-primary300 ">
-                1
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                2
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                3
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                4
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                5
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                6
-              </td>
-              <td className="border-x border-r-2 border-gray w-full p-3 text-primary300 ">
-                7
-              </td>
-            </tr>
-
-            {/** 4th Week */}
-            <tr className=" flex justify-between w-full h-[90px] border-y border-gray text-right">
-              <td className="border-x border-l-2 border-gray w-full p-3 text-primary300 ">
-                1
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                2
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                3
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                4
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                5
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                6{" "}
-              </td>
-              <td className="border-x border-r-2 border-gray w-full p-3 text-primary300 ">
-                7
-              </td>
-            </tr>
-
-            {/** 5th Week */}
-            <tr className=" flex justify-between w-full h-[90px] border-y border-gray text-right">
-              <td className="border-x border-l-2 border-gray w-full p-3 text-primary300 ">
-                1
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                2
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                3
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                4
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                5
-              </td>
-              <td className="border-x border-gray w-full p-3 text-primary300 ">
-                6{" "}
-              </td>
-              <td className="border-x border-r-2 border-gray w-full p-3 text-primary300 ">
-                7
-              </td>
-            </tr>
-          </table>
-        </div>
+        {/* UP TO THIS!! */}
       </div>
 
       {/** Food Tasting - Toggle 2 */}
@@ -527,37 +392,24 @@ function Appointment() {
               </p>
             </div>
           </div>
-
-          {/*Filter Icon*/}
-          {/* <div className="flex rounded-lg p-3 items-center bg-secondary100">
-            <h1 className="font-bold">Filter</h1>
-          </div>
-
-          {/*Set Availibility Date*/}
-          {/* <div className="flex justify-end items-center gap-5 w-fith-full">
-            <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>
-          </div>  */}
         </div>
 
         <div className="flex flex-col">
-
-        <DataGrid
-          className="text-lg bg-white shadow-md"
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          pageSize={10}
-          rows={data}
-          height={500}
-          columns={columns}
-          rowsPerPageOptions={[5, 10, 15]} // Set the available options
-          slotProps={{ toolbar: { showQuickFilter: true } }}
-          component={{ Toolbar: GridToolbar }}
-        />
-          
+          <DataGrid
+            className="text-lg bg-white shadow-md"
+            slots={{
+              toolbar: GridToolbar,
+            }}
+            pageSize={10}
+            rows={data}
+            height={500}
+            columns={columns}
+            rowsPerPageOptions={[5, 10, 15]} // Set the available options
+            slotProps={{ toolbar: { showQuickFilter: true } }}
+            component={{ Toolbar: GridToolbar }}
+          />
         </div>
 
-       
         <Dialog open={modal} onClose={handleCloseModal} className="w-full">
           <div className="flex flex-col gap-5 w-fit">
             <DialogTitle className="w-full overflow-hidden bg-primary200">
@@ -640,18 +492,6 @@ function Appointment() {
               </p>
             </div>
           </div>
-
-          {/*Filter Icon*/}
-          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
-            <h1 className="font-bold">Filter</h1>
-          </div>
-
-          {/*Set Availibility Date*/}
-          {/*<div className="flex justify-end items-center gap-5 w-fith-full">
-            <button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">
-              Export
-            </button>
-          </div>*/}
         </div>
 
         <div className="flex flex-col">
@@ -714,12 +554,13 @@ function Appointment() {
 
             <Dialog open={modal3} onClose={handleCloseModal} className="w-full">
               <div className="flex flex-col w-full">
-                  <div className="flex justify-center p-5 w-full bg-primary200">
-                    <h1 className="font-heading font-bold text-heading14 text-white">Meeting Link</h1>
-                  </div>
+                <div className="flex justify-center p-5 w-full bg-primary200">
+                  <h1 className="font-heading font-bold text-heading14 text-white">
+                    Meeting Link
+                  </h1>
+                </div>
 
                 <DialogContent className="flex flex-col gap-5 w-full">
-                  
                   <input
                     className="border w-full p-5 font-tbc font-medium text-title1 rounded-lg"
                     type="text"
@@ -729,10 +570,19 @@ function Appointment() {
                   />
 
                   <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
-                    <button className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit" onClick={handleUploadLink}>Upload Link</button>
-                    <button className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit" onClick={handleCloseModal}>Close</button>
+                    <button
+                      className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit"
+                      onClick={handleUploadLink}
+                    >
+                      Upload Link
+                    </button>
+                    <button
+                      className="border rounded-xl text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit"
+                      onClick={handleCloseModal}
+                    >
+                      Close
+                    </button>
                   </div>
-                  
                 </DialogContent>
               </div>
             </Dialog>
@@ -741,7 +591,9 @@ function Appointment() {
       </div>
     </div>
   );
-{/** End of Main Readable Div */}
+  {
+    /** End of Main Readable Div */
+  }
 }
 
 export default Appointment;

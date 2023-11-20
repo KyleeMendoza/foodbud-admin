@@ -22,6 +22,22 @@ function Dashboard() {
   const [dataPackage, setDataPackage] = useState([]);
   const [NumberofEvent, setNumberofEvent] = useState(0);
   const [numberOfClients, setNumberOfClients] =useState(0);
+  const [netSales, setNetSales] = useState(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:9001/api/net/sales');
+        const data = await response.json();
+        console.log(data.net)
+        setNetSales(data.net)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -154,6 +170,13 @@ function Dashboard() {
     fetchClient();
   }, []);
 
+  const formattedNetSales = netSales.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
     <div className="flex flex-col gap-8 p-8">
 
@@ -176,7 +199,7 @@ function Dashboard() {
               <div className="">
                 <img src={calendar} alt="Calendar" className="w-20"></img>
               </div>
-              <div className="text-white font-tbc font-bold w-full">
+              <div className="text-black font-tbc font-bold w-full">
                 <h1 className="text-heading36">{NumberofEvent}</h1>
                 <p className="font-semibold">Events</p>
               </div>
@@ -187,7 +210,7 @@ function Dashboard() {
               <div className="">
                 <img src={user} alt="#" className="w-20"></img>
               </div>
-              <div className="text-white font-tbc font-bold w-full">
+              <div className="text-black font-tbc font-bold w-full">
                 <h1 className="text-heading36">{numberOfClients}</h1>
                 <p className="font-semibold">Clients</p>
               </div>
@@ -198,8 +221,8 @@ function Dashboard() {
               <div className="">
                 <img src={wallet} alt="#" className="w-20"></img>
               </div>
-              <div className="text-white font-tbc font-bold w-full">
-                <h1 className="text-heading36">₱100,000</h1>
+              <div className="text-black font-tbc font-bold w-full">
+                <h1 className="text-heading36">{formattedNetSales}</h1>
                 <p className="font-semibold">Net Sales</p>
               </div>
             </div>
@@ -211,7 +234,7 @@ function Dashboard() {
             <Chart
               options={chartData.options}
               series={chartData.series}
-              type="line"
+              type="area"
               height={400}
             />
           </div>
@@ -220,7 +243,7 @@ function Dashboard() {
         {/* Right Side of the Dashboard */}
         <div className="w-1/2 flex justify-end">
           <div className="border-2 border-secondary400 w-[90%] mb-4 rounded-md">
-            <h1 className="font-bold p-4 text-title24 border bg-blue-500 bg-opacity-10">Top Packages Avail by Users</h1>
+            <h1 className="font-bold p-4 text-title24 bg-blue-500 bg-opacity-10">Top Packages Avail by Users</h1>
             <Chart options={options} series={series} type="bar" height={600} className="bg-blue-500 bg-opacity-10"/>
           </div>
   
