@@ -47,8 +47,8 @@ function Appointment() {
   const [meeting_link, setMeeting_Link] = useState("");
   const [ids, setId] = useState(0);
   const [note, setNote] = useState("");
-  const API_ENDPOINT = "http://3.27.163.46:9001/api/foodtasting/data";
-  const API_ENDPOINT2 = "http://3.27.163.46:9001/api/meeting/events";
+  const API_ENDPOINT = "https://3.27.163.46/api/foodtasting/data";
+  const API_ENDPOINT2 = "https://3.27.163.46/api/meeting/events";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +70,7 @@ function Appointment() {
   const handleNoteClick = async (id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/meeting/specific?id=${id}`
+        `https://3.27.163.46/api/meeting/specific?id=${id}`
       );
       // console.log(response.data.fetchMeetings.notes)
       setNote(response.data.fetchMeetings.notes);
@@ -83,7 +83,7 @@ function Appointment() {
   const handleUploadLink = async () => {
     try {
       const response = await axios.post(
-        `http://3.27.163.46:9001/api/meeting/update?id=${ids}`,
+        `https://3.27.163.46/api/meeting/update?id=${ids}`,
         {
           meeting_link: meeting_link,
         }
@@ -118,7 +118,7 @@ function Appointment() {
   const handleSeeMoreClick = async (event_id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/foodtasting/data-get?eventId=${event_id}`
+        `https://3.27.163.46/api/foodtasting/data-get?eventId=${event_id}`
       );
       console.log(response.data[0]);
       setRowData(response.data[0]);
@@ -294,13 +294,13 @@ function Appointment() {
   const getItemColorClass = (type) => {
     switch (type) {
       case "Event Day":
-        return "text-green text-xl";
+        return "text-green text-title13 border";
       case "Food Tasting":
-        return "text-secondary300 text-xl";
+        return "text-secondary300 text-title13 border";
       case "Online Meeting":
-        return "text-primary200 text-xl";
+        return "text-primary200 text-title13 border";
       default:
-        return "text-black text-xl"; // You can set a default color or adjust as needed
+        return "text-black text-title13 border"; // You can set a default color or adjust as needed
     }
   };
 
@@ -323,15 +323,10 @@ function Appointment() {
             </div>
             <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
               <p className="w-fit h-fit" onClick={() => updateToggle(3)}>
-                Online Meetting
+                Online Meeting
               </p>
             </div>
           </div>
-
-          {/*Filter Icon*/}
-          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
-            <h1 className="font-bold">Filter</h1>
-            </div>
 
           {/*Set Availibility Date*/}
           <div className="flex justify-end items-center gap-5 w-1/5 h-full">
@@ -343,29 +338,37 @@ function Appointment() {
         {/* EDIT FROM THIS!! */}
         {/** Secondary Header of appointment Tab */}
         <div className="flex">
-          <div className="flex flex-col items-center gap-5 w-full w-[40%]">
-            <div className="flex p-3 gap-5 font-tbc text-caption border border-opacity-30 rounded-lg">
-              <h1 className="text-gray text-lg">Unavailable</h1>
-              <h1 className="text-green text-lg">Event Day</h1>
-              <h1 className="text-secondary300 text-lg">Food Tasting</h1>
-              <h1 className="text-primary200 text-lg">Online Meeting</h1>
+          <div className="flex flex-col items-center gap-5 w-1/2">
+            <div className="flex p-5 gap-5 font-tbc text-title13 border border-opacity-30 rounded-xl bg-white100">
+              <h1 className="text-gray">Unavailable</h1>
+              <h1 className="text-green">Event Day</h1>
+              <h1 className="text-secondary300">Food Tasting</h1>
+              <h1 className="text-primary200">Online Meeting</h1>
             </div>
             {/** Calendar of Appointment Tab */}
-            <div className="flex items-center justify-center">
-              <CalendarComponent onDataClick={handleDataClick} />
+            <div className="flex items-center bg-red justify-center">
+              <CalendarComponent
+                onDataClick={handleDataClick} />
             </div>
           </div>
-          <div className="border-2 w-[60%] h-[40rem]">
-            <h2>APPOINTMENTS TODO! </h2>
-            <ul>
-              {occupied.map((item, index) => (
-                <li key={index} className={getItemColorClass(item.type)}>
-                  {item.type}
-                  <br />
-                  Occupied Time: {item.time}
-                </li>
-              ))}
-            </ul>
+          <div className="border-2 w-1/2 h-[40rem]">
+            <div className="flex flex-col w-full h-full">
+              {/* Appointment Box Header */}
+              <div className="flex justify-center p-5 w-full font-heading bg-primary200">
+                <h2 className="text-white text-heading36">APPOINTMENTS</h2>
+              </div>
+
+              {/* Appointment Box Body */}
+              <ul className="flex flex-col gap-5 p-5 w-full font-tbc">
+                {occupied.map((item, index) => (
+                  <li key={index} className={getItemColorClass(item.type)}>
+                    {item.type}
+                    <br />
+                    Occupied Time: {item.time}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
         {/* UP TO THIS!! */}

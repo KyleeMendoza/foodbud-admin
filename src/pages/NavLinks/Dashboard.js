@@ -27,7 +27,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://3.27.163.46:9001/api/net/sales');
+        const response = await fetch('https://3.27.163.46/api/net/sales');
         const data = await response.json();
         console.log(data.net)
         setNetSales(data.net)
@@ -42,7 +42,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://3.27.163.46:9001/api/top/packages');
+        const response = await fetch('https://3.27.163.46/api/top/packages');
         const data = await response.json();
         setDataPackage(data);
       } catch (error) {
@@ -84,7 +84,7 @@ function Dashboard() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://3.27.163.46:9001/api/get/event/all"
+          "https://3.27.163.46/api/get/event/all"
         );
         const events = response.data.events;
 
@@ -159,7 +159,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const response = await axios.get("http://3.27.163.46:9001/api/count");
+        const response = await axios.get("https://3.27.163.46/api/count");
         const { numberOfClients } = response.data;
         setNumberOfClients(numberOfClients);
       } catch (error) {

@@ -78,7 +78,7 @@ function Client() {
       };
       // Send a POST request to create a package
       const response = await axios.post(
-        "http://3.27.163.46:9001/api/package/create",
+        "https://3.27.163.46/api/package/create",
         dataWithClientEmail
       );
 
@@ -91,7 +91,7 @@ function Client() {
     }
   };
 
-  const API_ENDPOINT = "http://3.27.163.46:9001/api/clients";
+  const API_ENDPOINT = "https://3.27.163.46/api/clients";
 
   const handleEdit = (id) => {
     setId(id);
@@ -107,7 +107,7 @@ function Client() {
     const fetchClientData = async () => {
       try {
         const response = await fetch(
-          `http://3.27.163.46:9001/api/client/?id=${id}`
+          `https://3.27.163.46/api/client/?id=${id}`
         );
         const result = await response.json();
         console.log(result.client);
@@ -135,7 +135,7 @@ function Client() {
 
     try {
       const response = await axios.post(
-        `http://3.27.163.46:9001/api/user/update?id=${id}`,
+        `https://3.27.163.46/api/user/update?id=${id}`,
         clientData
       );
 
