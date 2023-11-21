@@ -572,7 +572,7 @@ function Appointment() {
                     onChange={(e) => setMeeting_Link(e.target.value)}
                   />
 
-                  <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
+                  <div className="flex justify-between py-5 gap-10 w-full h-fit font-tbc font-semibold">
                     <button
                       className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit"
                       onClick={handleUploadLink}
