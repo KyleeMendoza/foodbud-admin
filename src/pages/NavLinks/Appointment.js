@@ -339,15 +339,16 @@ function Appointment() {
         {/** Secondary Header of appointment Tab */}
         <div className="flex">
           <div className="flex flex-col items-center gap-5 w-1/2">
-            <div className="flex p-3 gap-5 font-tbc text-body border border-opacity-30 rounded-lg">
+            <div className="flex p-5 gap-5 font-tbc text-title13 border border-opacity-30 rounded-xl bg-white100">
               <h1 className="text-gray">Unavailable</h1>
               <h1 className="text-green">Event Day</h1>
               <h1 className="text-secondary300">Food Tasting</h1>
               <h1 className="text-primary200">Online Meeting</h1>
             </div>
             {/** Calendar of Appointment Tab */}
-            <div className="flex items-center justify-center">
-              <CalendarComponent onDataClick={handleDataClick} />
+            <div className="flex items-center bg-red justify-center">
+              <CalendarComponent
+                onDataClick={handleDataClick} />
             </div>
           </div>
           <div className="border-2 w-1/2 h-[40rem]">

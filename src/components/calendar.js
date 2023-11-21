@@ -26,7 +26,7 @@ const CalendarComponent = ({ onDataClick }) => {
   return (
     // <div className="border-2 border-red-500 w-full h-[70vh]">
       <Calendar
-        className="w-full"
+        className="w-full "
         onClickDay={(date) => handleDateClick(date)}
       />
     // </div>
