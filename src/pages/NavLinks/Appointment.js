@@ -47,8 +47,8 @@ function Appointment() {
   const [meeting_link, setMeeting_Link] = useState("");
   const [ids, setId] = useState(0);
   const [note, setNote] = useState("");
-  const API_ENDPOINT = "http://3.27.163.46:9001/api/foodtasting/data";
-  const API_ENDPOINT2 = "http://3.27.163.46:9001/api/meeting/events";
+  const API_ENDPOINT = "https://3.27.163.46/api/foodtasting/data";
+  const API_ENDPOINT2 = "https://3.27.163.46/api/meeting/events";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +70,7 @@ function Appointment() {
   const handleNoteClick = async (id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/meeting/specific?id=${id}`
+        `https://3.27.163.46/api/meeting/specific?id=${id}`
       );
       // console.log(response.data.fetchMeetings.notes)
       setNote(response.data.fetchMeetings.notes);
@@ -83,7 +83,7 @@ function Appointment() {
   const handleUploadLink = async () => {
     try {
       const response = await axios.post(
-        `http://3.27.163.46:9001/api/meeting/update?id=${ids}`,
+        `https://3.27.163.46/api/meeting/update?id=${ids}`,
         {
           meeting_link: meeting_link,
         }
@@ -118,7 +118,7 @@ function Appointment() {
   const handleSeeMoreClick = async (event_id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/foodtasting/data-get?eventId=${event_id}`
+        `https://3.27.163.46/api/foodtasting/data-get?eventId=${event_id}`
       );
       console.log(response.data[0]);
       setRowData(response.data[0]);
