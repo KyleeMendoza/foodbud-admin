@@ -86,7 +86,7 @@ const LoginPage = () => {
           </button>
         </form>
         <div class="user">
-          <p class="login">Not an Admin? <span><a href="">Back to User Login</a></span></p>
+          <p class="login">Not an Admin? <span><a href="https://foodbud-fe.vercel.app/">Back to User Login</a></span></p>
         </div>
       </div>
       <div class="right"></div>
