@@ -16,7 +16,7 @@ const AddSetModal = ({ isOpen, onClose }) => {
         isOpen ? "block" : "hidden"
       }`}
     >
-      {/* <div className="fixed inset-0 bg-black opacity-50"></div> */}
+      
       <div
         className="modalset-container relative border border-gray-300 rounded-lg bg-white h-fit w-1/3"
         data-te-modal-body-ref
