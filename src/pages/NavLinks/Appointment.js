@@ -13,6 +13,7 @@ import {
   Button,
 } from "@mui/material";
 import "../../css/pop.css";
+import AppointmentImg from "../../img/admin/CheckAppointment.png";
 
 const VISIBLE_FIELDS = ["name", "dishes", "date", "status"];
 
@@ -294,11 +295,11 @@ function Appointment() {
   const getItemColorClass = (type) => {
     switch (type) {
       case "Event Day":
-        return "text-green text-xl";
+        return "text-center text-white text-xl bg-green mb-5 py-3 px-2 rounded font-bold flex shadow-unpressed";
       case "Food Tasting":
-        return "text-secondary300 text-xl";
+        return "text-center text-white text-xl bg-secondary300 mb-5 py-3 px-2 rounded font-bold flex shadow-unpressed";
       case "Online Meeting":
-        return "text-primary200 text-xl";
+        return "text-center text-white text-xl bg-primary200 mb-5 py-3 px-2 rounded font-bold flex shadow-unpressed";
       default:
         return "text-black text-xl"; // You can set a default color or adjust as needed
     }
@@ -323,7 +324,7 @@ function Appointment() {
             </div>
             <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
               <p className="w-fit h-fit" onClick={() => updateToggle(3)}>
-                Online Meetting
+                Online Meeting
               </p>
             </div>
           </div>
@@ -343,28 +344,32 @@ function Appointment() {
         {/* EDIT FROM THIS!! */}
         {/** Secondary Header of appointment Tab */}
         <div className="flex">
-          <div className="flex flex-col items-center gap-5 w-full w-[40%]">
-            <div className="flex p-3 gap-5 font-tbc text-caption border border-opacity-30 rounded-lg">
-              <h1 className="text-gray text-lg">Unavailable</h1>
-              <h1 className="text-green text-lg">Event Day</h1>
-              <h1 className="text-secondary300 text-lg">Food Tasting</h1>
-              <h1 className="text-primary200 text-lg">Online Meeting</h1>
+          <div className="flex flex-col items-center gap-5 w-[50%]">
+            <div className="flex p-3 gap-3 font-tbc text-caption">  
+              <h1 className="text-white text-lg bg-gray p-3 rounded font-bold text-center flex items-center justify-center">Unavailable</h1>
+              <h1 className="text-white text-lg bg-green p-3 rounded font-bold text-center">Event Day</h1>
+              <h1 className="text-white text-lg bg-secondary300 p-3 rounded font-bold text-center">Food Tasting</h1>
+              <h1 className="text-white text-lg bg-primary200 p-3 rounded font-bold text-center">Online Meeting</h1>
             </div>
             {/** Calendar of Appointment Tab */}
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-start">
               <CalendarComponent onDataClick={handleDataClick} />
             </div>
           </div>
-          <div className="border-2 w-[60%] h-[40rem]">
-            <h2>APPOINTMENTS TODO! </h2>
-            <ul>
+          <div className="border-2 w-[60%] h-[38rem] rounded bg-white shadow-xl">
+            <h2 className="font-extrabold text-xl text-white tracking-wider text-center m-3 bg-neutral-400 rounded p-3 border-black w-[40%] mx-auto my-5" style={{ border: '2px solid black' }}>APPOINTMENTS</h2>
+            <ul className="w-[50%] px-5">
+              <li>
               {occupied.map((item, index) => (
                 <li key={index} className={getItemColorClass(item.type)}>
                   {item.type}
                   <br />
-                  Occupied Time: {item.time}
+                  <span className="font-normal text-left pl-3">Occupied Time: {item.time}</span>
+
+                  <img className="w-10 h-10 mt-2 ml-5" src={AppointmentImg} alt="Image" />
                 </li>
               ))}
+              </li>
             </ul>
           </div>
         </div>
@@ -388,7 +393,7 @@ function Appointment() {
             </div>
             <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
               <p className="w-fit h-fit" onClick={() => updateToggle(3)}>
-                Online Meetting
+                Online Meeting
               </p>
             </div>
           </div>

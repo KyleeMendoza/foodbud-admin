@@ -90,6 +90,10 @@ module.exports = {
         //Radial Gradient
         'gradient-radial': 'radial-CanvasGradient(var(--tw-gradient-stops))'
       },
+      boxShadow: {
+        unpressed:"inset -5px -5px 5px 1px rgb(0 0 0 / 0.3)",
+        pressed: "inset 5px 5px 5px 1px rgb(0 0 0 / 0.3)", 
+      },
     },
   },
   plugins: [],
