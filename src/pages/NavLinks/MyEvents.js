@@ -35,7 +35,7 @@ function MyEvents() {
   const [modal, setModal] = useState(false);
   const [rowData, setRowData] = useState([]);
   const [rowData2, setRowData2] = useState([]);
-  const API_ENDPOINT = "http://3.27.163.46:9001/api/get/event/all";
+  const API_ENDPOINT = "https://3.27.163.46/api/get/event/all";
   // const today = new Date();
 
   useEffect(() => {
@@ -57,7 +57,7 @@ function MyEvents() {
   const handleSeeMoreClick = async (event_id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/get/event/?event_id=${event_id}`
+        `https://3.27.163.46/api/get/event/?event_id=${event_id}`
       );
       console.log(response.data.fetchEvent)
       setRowData(response.data.fetchEvent);

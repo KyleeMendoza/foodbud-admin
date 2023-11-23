@@ -13,7 +13,7 @@ const UserRegistrationModal = ({ isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://3.27.163.46:9001/api/user/register",
+        "https://3.27.163.46/api/user/register",
         {
           client_name: username,
           client_address: address,

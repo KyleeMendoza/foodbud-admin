@@ -7,37 +7,7 @@ const AddDishModal = ({ isOpen, onClose }) => {
   const [dishname, setDishname] = useState("");
   const [dishprice, setPrice] = useState("");
 
-  {/*const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post(
-        "http://3.27.163.46:9001/api/user/register",
-        {
-          client_name: username,
-          client_address: address,
-          client_contact: contact,
-          client_email: email,
-        }
-      );
-
-      if (response.data) {
-        alert("User Created Successfully");
-        setUsername("");
-        setAdress("");
-        setContact("");
-        setEmail("");
-        window.location.reload();
-
-        // onClose();
-      } else {
-        alert("Error creating User");
-      }
-    } catch (error) {
-      console.error("Error creating User:", error);
-    }
-  }; */}
-
+  
   return (
     <div
       className={`modal fixed inset-0 flex items-center justify-center z-50 ${

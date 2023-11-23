@@ -12,7 +12,7 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const baseUrl = "http://3.27.163.46:9001/api/user/login";
+    const baseUrl = "https://3.27.163.46/api/user/login";
 
     try {
       const response = await axios.post(baseUrl, {
@@ -86,7 +86,7 @@ const LoginPage = () => {
           </button>
         </form>
         <div class="user">
-          <p class="login">Not an Admin? <span><a href="">Back to User Login</a></span></p>
+          <p class="login">Not an Admin? <span><a href="https://foodbud-fe.vercel.app/">Back to User Login</a></span></p>
         </div>
       </div>
       <div class="right"></div>

@@ -48,8 +48,8 @@ function Appointment() {
   const [meeting_link, setMeeting_Link] = useState("");
   const [ids, setId] = useState(0);
   const [note, setNote] = useState("");
-  const API_ENDPOINT = "http://3.27.163.46:9001/api/foodtasting/data";
-  const API_ENDPOINT2 = "http://3.27.163.46:9001/api/meeting/events";
+  const API_ENDPOINT = "https://3.27.163.46/api/foodtasting/data";
+  const API_ENDPOINT2 = "https://3.27.163.46/api/meeting/events";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,7 +71,7 @@ function Appointment() {
   const handleNoteClick = async (id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/meeting/specific?id=${id}`
+        `https://3.27.163.46/api/meeting/specific?id=${id}`
       );
       // console.log(response.data.fetchMeetings.notes)
       setNote(response.data.fetchMeetings.notes);
@@ -84,7 +84,7 @@ function Appointment() {
   const handleUploadLink = async () => {
     try {
       const response = await axios.post(
-        `http://3.27.163.46:9001/api/meeting/update?id=${ids}`,
+        `https://3.27.163.46/api/meeting/update?id=${ids}`,
         {
           meeting_link: meeting_link,
         }
@@ -119,7 +119,7 @@ function Appointment() {
   const handleSeeMoreClick = async (event_id) => {
     try {
       const response = await axios.get(
-        `http://3.27.163.46:9001/api/foodtasting/data-get?eventId=${event_id}`
+        `https://3.27.163.46/api/foodtasting/data-get?eventId=${event_id}`
       );
       console.log(response.data[0]);
       setRowData(response.data[0]);
@@ -301,7 +301,7 @@ function Appointment() {
       case "Online Meeting":
         return "text-center text-white text-xl bg-primary200 mb-5 py-3 px-2 rounded font-bold flex shadow-unpressed";
       default:
-        return "text-black text-xl"; // You can set a default color or adjust as needed
+        return "text-black text-title13 border"; // You can set a default color or adjust as needed
     }
   };
 
@@ -328,11 +328,6 @@ function Appointment() {
               </p>
             </div>
           </div>
-
-          {/*Filter Icon*/}
-          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
-            <h1 className="font-bold">Filter</h1>
-            </div>
 
           {/*Set Availibility Date*/}
           <div className="flex justify-end items-center gap-5 w-1/5 h-full">
@@ -574,7 +569,7 @@ function Appointment() {
                     onChange={(e) => setMeeting_Link(e.target.value)}
                   />
 
-                  <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
+                  <div className="flex justify-between py-5 gap-10 w-full h-fit font-tbc font-semibold">
                     <button
                       className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit"
                       onClick={handleUploadLink}
