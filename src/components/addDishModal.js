@@ -1,11 +1,33 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../css/modal.css";
+import { toast } from 'react-toastify';
 
 const AddDishModal = ({ isOpen, onClose }) => {
   const [dishtype, setDishtype] = useState("");
   const [dishname, setDishname] = useState("");
   const [dishprice, setPrice] = useState("");
+
+  const handleAddDish = async () => {
+    try {
+      const response = await axios.post('https://3.27.163.46/api/add/dish', {
+        dish_name: dishname,
+        dish_type: dishtype,
+        dish_price: parseInt(dishprice) // Assuming dish_price is a number
+      });
+
+      console.log(response)
+
+      if (response.data.message === "dish created"){
+        toast.success('Successfully added!');
+        onClose()
+      }
+
+    } catch (error) {
+      console.error('Error adding dish:', error);
+      toast.warning('Dish already exist!');
+    }
+  };
 
   
   return (
@@ -28,9 +50,9 @@ const AddDishModal = ({ isOpen, onClose }) => {
             <label for="dish">Dish Type:</label>
             <input
               type="text"
-              /*onChange={(e) => {
-                setUsername(e.target.value);
-              }}*/
+              onChange={(e) => {
+                setDishtype(e.target.value);
+              }}
               className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
               required
             />
@@ -38,9 +60,9 @@ const AddDishModal = ({ isOpen, onClose }) => {
           <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
             <label for="dish">Dish Name:</label>
             <textarea
-              /*onChange={(e) => {
-                setAdress(e.target.value);
-              }}*/
+              onChange={(e) => {
+                setDishname(e.target.value);
+              }}
               className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
               required
             />
@@ -49,9 +71,9 @@ const AddDishModal = ({ isOpen, onClose }) => {
             <label for="dish">Price:</label>
             <input
               type="text"
-              /*onChange={(e) => {
-                setContact(e.target.value);
-              }*/
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
               className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
               required
             />
@@ -63,16 +85,16 @@ const AddDishModal = ({ isOpen, onClose }) => {
           <button
             type="submit"
             className="h-fit w-fit bg-white hover:text-white border hover:bg-secondary500 text-secondary500 font-semibold px-5 py-3 rounded-xl"
-            /*onClick={handleSubmit}*/
+            onClick={handleAddDish}
           >
-            Save Package
+            Save Dish
           </button>
           <button
             type="button"
             className="flex h-fit w-fit text-primary500 bg-white hover:text-white hover:bg-primary500 font-semibold px-5 py-3 rounded-xl border "
             onClick={onClose}
           >
-            Cancel Package
+            Cancel 
           </button>
         </div>
       </div>
