@@ -241,6 +241,8 @@ function Client() {
           </div>
         </div>
       </div>
+      
+      {/* Client Table */}
       <DataGrid
         className="text-lg"
         slots={{
