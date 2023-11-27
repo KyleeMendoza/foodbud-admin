@@ -13,19 +13,18 @@ import { useState, useEffect } from "react";
 import AddEmployee from "../../components/addEmployee";
 
 const VISIBLE_FIELDS = [
-
   "emp_name",
   "emp_position",
   "emp_email",
   "emp_contactnum",
-]
+];
 
 const COLUMN_LABELS = {
   emp_name: "EMPLOYEE NAME",
   emp_position: "EMPLOYEE POSITION",
   emp_email: "EMPLOYEE EMAIL",
   emp_contactnum: "EMPLOYEE CONTACT NO.",
-}
+};
 
 function Employees() {
   const [data, setData] = useState([]);
@@ -52,14 +51,13 @@ function Employees() {
     setIsModalOpen(false);
   };
 
-  const [toggle, setToggle] = useState(1)
+  const [toggle, setToggle] = useState(1);
 
-  function updateToggle(id){
-    setToggle(id)
+  function updateToggle(id) {
+    setToggle(id);
   }
 
-
-  const API_ENDPOINT = "http://localhost:9000/api/all/employee";
+  const API_ENDPOINT = "https://3.27.163.46/api/all/employee";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +79,7 @@ function Employees() {
 
     fetchData();
   }, []);
-  
+
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
       field,
@@ -133,7 +131,7 @@ function Employees() {
     const fetchEmployeeData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:9000/api/employee/?empID=${id}`
+          `https://3.27.163.46/api/employee/?empID=${id}`
         );
         const result = await response.json();
         console.log(result.employee);
@@ -161,7 +159,7 @@ function Employees() {
 
     try {
       const response = await axios.post(
-        `http://localhost:9000/api/employee/update?empID=${id}`,
+        `https://3.27.163.46/api/employee/update?empID=${id}`,
         employeeData
       );
 
@@ -178,50 +176,54 @@ function Employees() {
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request to the API to delete the dish
-      await axios.post(`http://localhost:9000/api/employee/delete/?empID=${id}`);
+      await axios.post(`https://3.27.163.46/api/employee/delete/?empID=${id}`);
       window.location.reload();
     } catch (error) {
-      console.error('Error deleting Employee Record:', error);
-
+      console.error("Error deleting Employee Record:", error);
     }
   };
 
-  return <div className="flex flex-col gap-8 p-8">
-   
-    {/** Body - User Management Tab - Toggle 1 */}
-    <div className={toggle === 1 ? "show-content" : "content"}>
-      {/** Header of the appointment tab */}
-      <div className="flex justify-between items-center gap-5 w-full h-fit">
-        {/*Navigation Bar*/} 
-        <div className="flex w-full gap-10 p-0.5 rounded-xl border border-gray border-opacity-30 font-tbc text-title24">
-          <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
-            <p onClick={()=>updateToggle(1)}>User Management</p>
+  return (
+    <div className="flex flex-col gap-8 p-8">
+      {/** Body - User Management Tab - Toggle 1 */}
+      <div className={toggle === 1 ? "show-content" : "content"}>
+        {/** Header of the appointment tab */}
+        <div className="flex justify-between items-center gap-5 w-full h-fit">
+          {/*Navigation Bar*/}
+          <div className="flex w-full gap-10 p-0.5 rounded-xl border border-gray border-opacity-30 font-tbc text-title24">
+            <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
+              <p onClick={() => updateToggle(1)}>User Management</p>
+            </div>
+          </div>
+
+          {/* Add Employee */}
+          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+            <button
+              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
+              onClick={openModal}
+            >
+              Add Employee +
+            </button>
           </div>
         </div>
 
-        {/* Add Employee */} 
-        <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-          <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={openModal}>Add Employee +</button>
-        </div>
+        {/* Client Table */}
+        <DataGrid
+          className="text-lg"
+          slots={{
+            toolbar: GridToolbar,
+          }}
+          rows={data} // Pass the API data as rows
+          columns={columns}
+          getRowId={(row) => row.emp_id}
+          component={{ Toolbar: GridToolbar }}
+        />
+
+        <AddEmployee isOpen={isModalOpen} onClose={closeModal} />
       </div>
 
-      {/* Client Table */}
-      <DataGrid
-        className="text-lg"
-        slots={{
-          toolbar: GridToolbar,
-        }}
-        rows={data} // Pass the API data as rows
-        columns={columns}
-        getRowId={(row) => row.emp_id}
-        component={{ Toolbar: GridToolbar }}
-      />
-
-      <AddEmployee isOpen={isModalOpen} onClose={closeModal} />
-    </div>
-
-    {/* MODAL FOR EDITING EMPLOYEE DETAILS */}
-    <Dialog open={modal} onClose={close}>
+      {/* MODAL FOR EDITING EMPLOYEE DETAILS */}
+      <Dialog open={modal} onClose={close}>
         <DialogTitle>Edit Client</DialogTitle>
         <DialogContent>
           <form onSubmit={handleFormSubmit}>
@@ -272,7 +274,8 @@ function Employees() {
           </form>
         </DialogContent>
       </Dialog>
-  </div>;
+    </div>
+  );
 }
 
 export default Employees;

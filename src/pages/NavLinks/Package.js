@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import AddPackageModal from "../../components/addPackagemodal";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PackageTable from "../../components/packageTable";
 import axios from "axios";
 import {
   Table,
@@ -15,353 +16,417 @@ import {
   IconButton,
 } from "@mui/material";
 
-
-
-const BudgetTable = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      // Send a DELETE request to the API to delete the package
-      await axios.post(
-        `https://3.27.163.46/api/delete/package/?packageId=${id}`
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting package:", error);
-    }
-  };
-
-  return (
-    <TableContainer
-      component={Paper}
-      style={{ maxWidth: "600px", margin: "20px auto" }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Package Name</TableCell>
-            <TableCell>Pax Count</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((pkg, index) => {
-            if (pkg.package_name !== "Budget Package") {
-              return null;
-            }
-
-            return (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {pkg.package_name}
-                </TableCell>
-                <TableCell>{pkg.pax_count}</TableCell>
-                <TableCell>{pkg.rate}</TableCell>
-                <TableCell style={{ width: "20px" }}>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(pkg.id)}
-                    style={{ width: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+const handleDelete = async (id) => {
+  try {
+    await axios.post(`https://3.27.163.46/api/delete/package/?packageId=${id}`);
+    window.location.reload();
+  } catch (error) {
+    console.error("Error deleting package:", error);
+  }
 };
 
-const DeluxeTable = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      // Send a DELETE request to the API to delete the package
-      await axios.post(
-        `https://3.27.163.46/api/delete/package/?packageId=${id}`
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting package:", error);
-    }
-  };
+// const BudgetTable = ({ data }) => {
+//   const handleDelete = async (id) => {
+//     try {
+//       // Send a DELETE request to the API to delete the package
+//       await axios.post(
+//         `https://3.27.163.46/api/delete/package/?packageId=${id}`
+//       );
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting package:", error);
+//     }
+//   };
+//   const deluxeDebutPackage = data.find(
+//     (pkg) => pkg.package_name === "Budget Package"
+//   );
+//   const packageName = deluxeDebutPackage ? deluxeDebutPackage.package_name : "";
 
-  return (
-    <TableContainer
-      component={Paper}
-      style={{ maxWidth: "600px", margin: "20px auto" }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Package Name</TableCell>
-            <TableCell>Pax Count</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((pkg, index) => {
-            if (pkg.package_name !== "Deluxe Package") {
-              return null;
-            }
+//   return (
+//     <div>
+//       <Typography variant="h4" align="center" gutterBottom>
+//         <p
+//           className="border-2 p-4 rounded-md font-bold"
+//           style={{
+//             boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+//             backgroundColor: "#F8B9CF",
+//           }}
+//         >
+//           {packageName}
+//         </p>
+//       </Typography>
+//       <TableContainer
+//         component={Paper}
+//         style={{ maxWidth: "600px", margin: "20px auto" }}
+//       >
+//         <Table>
+//           <TableHead>
+//             <TableRow>
+//               <TableCell>Package Name</TableCell>
+//               <TableCell>Pax Count</TableCell>
+//               <TableCell>Price</TableCell>
+//             </TableRow>
+//           </TableHead>
+//           <TableBody>
+//             {data.map((pkg, index) => {
+//               if (pkg.package_name !== "Budget Package") {
+//                 return null;
+//               }
 
-            return (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {pkg.package_name}
-                </TableCell>
-                <TableCell>{pkg.pax_count}</TableCell>
-                <TableCell>{pkg.rate}</TableCell>
-                <TableCell style={{ width: "20px" }}>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(pkg.id)}
-                    style={{ width: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+//               return (
+//                 <TableRow key={index}>
+//                   <TableCell component="th" scope="row">
+//                     {pkg.package_name}
+//                   </TableCell>
+//                   <TableCell>{pkg.pax_count}</TableCell>
+//                   <TableCell>{pkg.rate}</TableCell>
+//                   <TableCell style={{ width: "20px" }}>
+//                     <IconButton
+//                       color="error"
+//                       onClick={() => handleDelete(pkg.id)}
+//                       style={{ width: "20px" }}
+//                     >
+//                       <DeleteIcon />
+//                     </IconButton>
+//                   </TableCell>
+//                 </TableRow>
+//               );
+//             })}
+//           </TableBody>
+//         </Table>
+//       </TableContainer>
+//     </div>
+//   );
+// };
 
-const DiamondTable = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      // Send a DELETE request to the API to delete the package
-      await axios.post(
-        `https://3.27.163.46/api/delete/package/?packageId=${id}`
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting package:", error);
-    }
-  };
+// const DeluxeTable = ({ data }) => {
+//   const handleDelete = async (id) => {
+//     try {
+//       // Send a DELETE request to the API to delete the package
+//       await axios.post(
+//         `https://3.27.163.46/api/delete/package/?packageId=${id}`
+//       );
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting package:", error);
+//     }
+//   };
 
-  return (
-    <TableContainer
-      component={Paper}
-      style={{ maxWidth: "600px", margin: "20px auto" }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Package Name</TableCell>
-            <TableCell>Pax Count</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((pkg, index) => {
-            if (pkg.package_name !== "Deluxe Package") {
-              return null;
-            }
+//   return (
+//     <TableContainer
+//       component={Paper}
+//       style={{ maxWidth: "600px", margin: "20px auto" }}
+//     >
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Package Name</TableCell>
+//             <TableCell>Pax Count</TableCell>
+//             <TableCell>Price</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((pkg, index) => {
+//             if (pkg.package_name !== "Deluxe Package") {
+//               return null;
+//             }
 
-            return (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {pkg.package_name}
-                </TableCell>
-                <TableCell>{pkg.pax_count}</TableCell>
-                <TableCell>{pkg.rate}</TableCell>
-                <TableCell style={{ width: "20px" }}>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(pkg.id)}
-                    style={{ width: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+//             return (
+//               <TableRow key={index}>
+//                 <TableCell component="th" scope="row">
+//                   {pkg.package_name}
+//                 </TableCell>
+//                 <TableCell>{pkg.pax_count}</TableCell>
+//                 <TableCell>{pkg.rate}</TableCell>
+//                 <TableCell style={{ width: "20px" }}>
+//                   <IconButton
+//                     color="error"
+//                     onClick={() => handleDelete(pkg.id)}
+//                     style={{ width: "20px" }}
+//                   >
+//                     <DeleteIcon />
+//                   </IconButton>
+//                 </TableCell>
+//               </TableRow>
+//             );
+//           })}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+//   );
+// };
 
-const LuxuryTable = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      // Send a DELETE request to the API to delete the package
-      await axios.post(
-        `https://3.27.163.46/api/delete/package/?packageId=${id}`
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting package:", error);
-    }
-  };
+// const DiamondTable = ({ data }) => {
+//   const handleDelete = async (id) => {
+//     try {
+//       // Send a DELETE request to the API to delete the package
+//       await axios.post(
+//         `https://3.27.163.46/api/delete/package/?packageId=${id}`
+//       );
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting package:", error);
+//     }
+//   };
 
-  return (
-    <TableContainer
-      component={Paper}
-      style={{ maxWidth: "600px", margin: "20px auto" }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Package Name</TableCell>
-            <TableCell>Pax Count</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((pkg, index) => {
-            if (pkg.package_name !== "Luxury Package") {
-              return null;
-            }
+//   return (
+//     <div>
+//       <Typography variant="h4" align="center" gutterBottom>
+//         <p
+//           className="border-2 p-4 rounded-md font-bold"
+//           style={{
+//             boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+//             backgroundColor: "#F8B9CF",
+//           }}
+//         >
+//           Diamond Package
+//         </p>
+//       </Typography>
+//       <TableContainer
+//         component={Paper}
+//         style={{ maxWidth: "600px", margin: "20px auto" }}
+//       >
+//         <Table>
+//           <TableHead>
+//             <TableRow>
+//               <TableCell>Package Name</TableCell>
+//               <TableCell>Pax Count</TableCell>
+//               <TableCell>Price</TableCell>
+//             </TableRow>
+//           </TableHead>
+//           <TableBody>
+//             {data.map((pkg, index) => {
+//               if (pkg.package_name !== "Diamond Package") {
+//                 return null;
+//               }
 
-            return (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {pkg.package_name}
-                </TableCell>
-                <TableCell>{pkg.pax_count}</TableCell>
-                <TableCell>{pkg.rate}</TableCell>
-                <TableCell style={{ width: "20px" }}>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(pkg.id)}
-                    style={{ width: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+//               return (
+//                 <TableRow key={index}>
+//                   <TableCell component="th" scope="row">
+//                     {pkg.package_name}
+//                   </TableCell>
+//                   <TableCell>{pkg.pax_count}</TableCell>
+//                   <TableCell>{pkg.rate}</TableCell>
+//                   <TableCell style={{ width: "20px" }}>
+//                     <IconButton
+//                       color="error"
+//                       onClick={() => handleDelete(pkg.id)}
+//                       style={{ width: "20px" }}
+//                     >
+//                       <DeleteIcon />
+//                     </IconButton>
+//                   </TableCell>
+//                 </TableRow>
+//               );
+//             })}
+//           </TableBody>
+//         </Table>
+//       </TableContainer>
+//     </div>
+//   );
+// };
 
-const DeluxeDebutTable = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      // Send a DELETE request to the API to delete the package
-      await axios.post(
-        `https://3.27.163.46/api/delete/package/?packageId=${id}`
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting package:", error);
-    }
-  };
+// const LuxuryTable = ({ data }) => {
+//   const handleDelete = async (id) => {
+//     try {
+//       // Send a DELETE request to the API to delete the package
+//       await axios.post(
+//         `https://3.27.163.46/api/delete/package/?packageId=${id}`
+//       );
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting package:", error);
+//     }
+//   };
 
-  return (
-    <TableContainer
-      component={Paper}
-      style={{ maxWidth: "600px", margin: "20px auto" }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Package Name</TableCell>
-            <TableCell>Pax Count</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((pkg, index) => {
-            if (pkg.package_name !== "Deluxe Debut") {
-              return null;
-            }
+//   return (
+//     <TableContainer
+//       component={Paper}
+//       style={{ maxWidth: "600px", margin: "20px auto" }}
+//     >
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Package Name</TableCell>
+//             <TableCell>Pax Count</TableCell>
+//             <TableCell>Price</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((pkg, index) => {
+//             if (pkg.package_name !== "Luxury Package") {
+//               return null;
+//             }
 
-            return (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {pkg.package_name}
-                </TableCell>
-                <TableCell>{pkg.pax_count}</TableCell>
-                <TableCell>{pkg.rate}</TableCell>
-                <TableCell style={{ width: "20px" }}>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(pkg.id)}
-                    style={{ width: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+//             return (
+//               <TableRow key={index}>
+//                 <TableCell component="th" scope="row">
+//                   {pkg.package_name}
+//                 </TableCell>
+//                 <TableCell>{pkg.pax_count}</TableCell>
+//                 <TableCell>{pkg.rate}</TableCell>
+//                 <TableCell style={{ width: "20px" }}>
+//                   <IconButton
+//                     color="error"
+//                     onClick={() => handleDelete(pkg.id)}
+//                     style={{ width: "20px" }}
+//                   >
+//                     <DeleteIcon />
+//                   </IconButton>
+//                 </TableCell>
+//               </TableRow>
+//             );
+//           })}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+//   );
+// };
 
-const DeluxeStyleTable = ({ data }) => {
-  const handleDelete = async (id) => {
-    try {
-      // Send a DELETE request to the API to delete the package
-      await axios.post(
-        `https://3.27.163.46/api/delete/package/?packageId=${id}`
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error("Error deleting package:", error);
-    }
-  };
+// const DeluxeDebutTable = ({ data }) => {
+//   const handleDelete = async (id) => {
+//     try {
+//       // Send a DELETE request to the API to delete the package
+//       await axios.post(
+//         `https://3.27.163.46/api/delete/package/?packageId=${id}`
+//       );
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting package:", error);
+//     }
+//   };
 
-  return (
-    <TableContainer
-      component={Paper}
-      style={{ maxWidth: "600px", margin: "20px auto" }}
-    >
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Package Name</TableCell>
-            <TableCell>Pax Count</TableCell>
-            <TableCell>Price</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map((pkg, index) => {
-            if (pkg.package_name !== "Deluxe Styling") {
-              return null;
-            }
+//   return (
+//     <TableContainer
+//       component={Paper}
+//       style={{ maxWidth: "600px", margin: "20px auto" }}
+//     >
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Package Name</TableCell>
+//             <TableCell>Pax Count</TableCell>
+//             <TableCell>Price</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((pkg, index) => {
+//             if (pkg.package_name !== "Deluxe Debut") {
+//               return null;
+//             }
 
-            return (
-              <TableRow key={index}>
-                <TableCell component="th" scope="row">
-                  {pkg.package_name}
-                </TableCell>
-                <TableCell>{pkg.pax_count}</TableCell>
-                <TableCell>{pkg.rate}</TableCell>
-                <TableCell style={{ width: "20px" }}>
-                  <IconButton
-                    color="error"
-                    onClick={() => handleDelete(pkg.id)}
-                    style={{ width: "20px" }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
+//             return (
+//               <TableRow key={index}>
+//                 <TableCell component="th" scope="row">
+//                   {pkg.package_name}
+//                 </TableCell>
+//                 <TableCell>{pkg.pax_count}</TableCell>
+//                 <TableCell>{pkg.rate}</TableCell>
+//                 <TableCell style={{ width: "20px" }}>
+//                   <IconButton
+//                     color="error"
+//                     onClick={() => handleDelete(pkg.id)}
+//                     style={{ width: "20px" }}
+//                   >
+//                     <DeleteIcon />
+//                   </IconButton>
+//                 </TableCell>
+//               </TableRow>
+//             );
+//           })}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+//   );
+// };
+
+// const DeluxeStyleTable = ({ data }) => {
+//   const handleDelete = async (id) => {
+//     try {
+//       // Send a DELETE request to the API to delete the package
+//       await axios.post(
+//         `https://3.27.163.46/api/delete/package/?packageId=${id}`
+//       );
+//       window.location.reload();
+//     } catch (error) {
+//       console.error("Error deleting package:", error);
+//     }
+//   };
+
+//   return (
+//     <TableContainer
+//       component={Paper}
+//       style={{ maxWidth: "600px", margin: "20px auto" }}
+//     >
+//       <Table>
+//         <TableHead>
+//           <TableRow>
+//             <TableCell>Package Name</TableCell>
+//             <TableCell>Pax Count</TableCell>
+//             <TableCell>Price</TableCell>
+//           </TableRow>
+//         </TableHead>
+//         <TableBody>
+//           {data.map((pkg, index) => {
+//             if (pkg.package_name !== "Deluxe Styling") {
+//               return null;
+//             }
+
+//             return (
+//               <TableRow key={index}>
+//                 <TableCell component="th" scope="row">
+//                   {pkg.package_name}
+//                 </TableCell>
+//                 <TableCell>{pkg.pax_count}</TableCell>
+//                 <TableCell>{pkg.rate}</TableCell>
+//                 <TableCell style={{ width: "20px" }}>
+//                   <IconButton
+//                     color="error"
+//                     onClick={() => handleDelete(pkg.id)}
+//                     style={{ width: "20px" }}
+//                   >
+//                     <DeleteIcon />
+//                   </IconButton>
+//                 </TableCell>
+//               </TableRow>
+//             );
+//           })}
+//         </TableBody>
+//       </Table>
+//     </TableContainer>
+//   );
+// };
 
 function Package() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [data, setData] = useState([]);
+  const [packageNames, setPackageNames] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("https://3.27.163.46/api/package/names");
+        const data = await response.json();
+        // console.log(data.package_names);
+        setPackageNames(data.package_names);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // const packageNames = [
+  //   "Budget Package",
+  //   "Deluxe Package",
+  //   "Diamond Package",
+  //   "Luxury Package",
+  //   "Deluxe Debut",
+  //   "Deluxe Styling",
+  //   "Platinum Package",
+  //   "Platinum",
+  // ];
 
   const API_ENDPOINT = "https://3.27.163.46/api/all/packages";
   // const today = new Date();
@@ -370,9 +435,9 @@ function Package() {
     const fetchData = async () => {
       try {
         const response = await fetch(API_ENDPOINT);
-        // console.log("response:", response)
         const result = await response.json();
-    
+        console.log("response:", result.AllPackage);
+
         setData(result.AllPackage);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -421,90 +486,15 @@ function Package() {
         </div>
 
         <div className="flex flex-wrap">
-          <div className="w-[30%] mr-8">
-            <Typography variant="h4" align="center" gutterBottom>
-              <p
-                className="border-2 p-4 rounded-md font-bold"
-                style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  backgroundColor: "#F8B9CF",
-                }}
-              >
-                Budget Package
-              </p>
-            </Typography>
-            <BudgetTable data={data} />
-          </div>
-          <div className="w-[30%] mr-8">
-            <Typography variant="h4" align="center" gutterBottom>
-              <p
-                className="border-2 p-4 rounded-md font-bold"
-                style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  backgroundColor: "#F8B9CF",
-                }}
-              >
-                Deluxe Package
-              </p>
-            </Typography>
-            <DeluxeTable data={data} />
-          </div>
-          <div className="w-[30%] mr-8">
-            <Typography variant="h4" align="center" gutterBottom>
-              <p
-                className="border-2 p-4 rounded-md font-bold"
-                style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  backgroundColor: "#F8B9CF",
-                }}
-              >
-                Diamond Package
-              </p>
-            </Typography>
-            <DiamondTable data={data} />
-          </div>
-          <div className="w-[30%] mr-8">
-            <Typography variant="h4" align="center" gutterBottom>
-              <p
-                className="border-2 p-4 rounded-md font-bold"
-                style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  backgroundColor: "#F8B9CF",
-                }}
-              >
-                Luxury Package
-              </p>
-            </Typography>
-            <LuxuryTable data={data} />
-          </div>
-          <div className="w-[30%] mr-8">
-            <Typography variant="h4" align="center" gutterBottom>
-              <p
-                className="border-2 p-4 rounded-md font-bold"
-                style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  backgroundColor: "#F8B9CF",
-                }}
-              >
-                Deluxe Debut
-              </p>
-            </Typography>
-            <DeluxeDebutTable data={data} />
-          </div>
-          <div className="w-[30%] mr-8">
-            <Typography variant="h4" align="center" gutterBottom>
-              <p
-                className="border-2 p-4 rounded-md font-bold"
-                style={{
-                  boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
-                  backgroundColor: "#F8B9CF",
-                }}
-              >
-                Deluxe Styling
-              </p>
-            </Typography>
-            <DeluxeStyleTable data={data} />
-          </div>
+          {packageNames.map((packageName, index) => (
+            <div key={index} className="w-[30%] mr-8">
+              <PackageTable
+                data={data}
+                packageName={packageName}
+                handleDelete={handleDelete}
+              />
+            </div>
+          ))}
         </div>
 
         <AddPackageModal isOpen={isModalOpen} onClose={closeModal} />

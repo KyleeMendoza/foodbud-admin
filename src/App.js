@@ -25,7 +25,7 @@ import Dish from "./pages/NavLinks/Dish";
 function App() {
   return (
     <BrowserRouter>
-    <ToastContainer />
+    <ToastContainer position="top-center"/>
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/admin" element={<AdminPage />}>
