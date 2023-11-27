@@ -241,7 +241,7 @@ function Client() {
           </div>
         </div>
       </div>
-      
+
       {/* Client Table */}
       <DataGrid
         className="text-lg"
@@ -298,51 +298,6 @@ function Client() {
           </form>
         </DialogContent>
       </Dialog>
-
-      {/* MODAL FOR EDIT CLIENT DETAILS
-      <Dialog open={modal} onClose={close}>
-        <DialogTitle>ADD PACKAGE</DialogTitle>
-        <DialogContent>
-          <form onSubmit={handleFormSubmit}>
-            <TextField
-              label="Client Name"
-              name="client_name"
-              value={clientData.client_name}
-              onChange={handleFormChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Email"
-              name="client_email"
-              value={clientData.client_email}
-              onChange={handleFormChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Contact"
-              name="client_contact"
-              value={clientData.client_contact}
-              onChange={handleFormChange}
-              fullWidth
-              margin="normal"
-            />
-            <TextField
-              label="Address"
-              name="client_address"
-              value={clientData.client_address}
-              onChange={handleFormChange}
-              fullWidth
-              margin="normal"
-            />
-            <DialogActions>
-              <Button type="submit">Save Changes</Button>
-              <Button onClick={close}>Cancel</Button>
-            </DialogActions>
-          </form>
-        </DialogContent>
-      </Dialog> */}
 
       {/* MODAL FOR ADD PACKAGES */}
       <Dialog open={modalPackage} onClose={closePackageModal}>

@@ -417,17 +417,6 @@ function Package() {
     fetchData();
   }, []);
 
-  // const packageNames = [
-  //   "Budget Package",
-  //   "Deluxe Package",
-  //   "Diamond Package",
-  //   "Luxury Package",
-  //   "Deluxe Debut",
-  //   "Deluxe Styling",
-  //   "Platinum Package",
-  //   "Platinum",
-  // ];
-
   const API_ENDPOINT = "https://3.27.163.46/api/all/packages";
   // const today = new Date();
 
