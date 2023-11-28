@@ -217,7 +217,7 @@ function Client() {
 
   return (
     <div className="flex flex-col gap-8 p-8 shadow-md">
-      <div className="flex p-2">
+      <div className="show-content">
         {/** Header of the Event Navigation */}
         <div className="flex justify-between items-center gap-5 w-full h-fit">
           {/*Navigation Bar*/}
