@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState, useEffect } from "react";
+import AddGallery from "../../components/addGallery";
 
 const VISIBLE_FIELDS = [
   "package_type",
@@ -42,6 +43,27 @@ function Gallery() {
     setModal(false);
   };
 
+  // Show all Employee
+  const API_ENDPOINT = "http://localhost:9000/api/all/gallery";
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT);
+        const result = await response.json();
+        // setData(result.clients)
+
+        console.log(result);
+
+        setData(result.AllPictures);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   // Table header and column code
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
@@ -64,7 +86,7 @@ function Gallery() {
         <div className="flex gap-14 font-tbc">
           <p
             className="hover:text-secondary500 w-fit px-5 py-2 font-bold underline text-secondary300 rounded-lg text-title24 cursor-pointer"
-            // onClick={() => handleDelete(params.row.emp_id)}
+            onClick={() => handleDelete(params.row.gallery_id)}
           >
             Delete
           </p>
@@ -72,6 +94,18 @@ function Gallery() {
       ),
     },
   ];
+
+  const handleDelete = async (id) => {
+    try {
+      // Send a DELETE request to the API to delete the dish
+      await axios.post(
+        `http://localhost:9000/api/delete/gallery/?galleryId=${id}`
+      );
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting dish:", error);
+    }
+  };
 
   return (
     <div className="flex flex-col gap-8 p-8">
@@ -105,146 +139,12 @@ function Gallery() {
           }}
           rows={data} // Pass the API data as rows
           columns={columns}
-          getRowId={(row) => row.emp_id}
+          getRowId={(row) => row.gallery_id}
           component={{ Toolbar: GridToolbar }}
         />
       </div>
 
-      <div
-        className={`modal fixed inset-0 flex items-center justify-center z-50`}
-      >
-        {/* <div className="fixed inset-0 bg-black opacity-50"></div> */}
-        <div
-          className="modal-container relative rounded-lg bg-white w-fit"
-          data-te-modal-body-ref
-        >
-          <div className="w-full h-fit p-5 bg-primary200 rounded-t-lg">
-            <h1 className="font-heading font-semibold text-heading25 text-white text-center">
-              New Employee
-            </h1>
-          </div>
-
-          <div className="flex flex-col w-fit gap-5 p-5">
-            <div className="flex gap-10 w-fit">
-              {/* Set Package Type */}
-              <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-                <label for="dish">Package Type:</label>
-                <select
-                  name="employee"
-                  id="classic"
-                  onChange={(e) => {
-                    // setEmpposition(e.target.value);
-                  }}
-                  className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                  required
-                >
-                  <option disabled selected hidden>
-                    Select Role
-                  </option>
-                  <option value="Headwaiter">Headwaiter</option>
-                  <option value="Waiter">Waiter</option>
-                  <option value="On-call waiter">On-call waiter</option>
-                  <option value="Coordinato">Coordinator</option>
-                  <option value="Warehouse Staff">Warehouse Staff</option>
-                  <option value="Driver">Driver</option>
-                  <option value="Chat Supporti">Chat Support</option>
-                  <option value="System Administrator">
-                    System Administrator
-                  </option>
-                </select>
-              </div>
-
-              {/* Set Event Type */}
-              <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-                <label for="dish">Event Type:</label>
-                <select
-                  name="employee"
-                  id="classic"
-                  onChange={(e) => {
-                    // setEmpposition(e.target.value);
-                  }}
-                  className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                  required
-                >
-                  <option disabled selected hidden>
-                    Select Event Type
-                  </option>
-                  <option value="kidsParty">Kids Party</option>
-                  <option value="adultParty">Adult Party</option>
-                  <option value="religiousCeremony">Religious Ceremony</option>
-                  <option value="corporateEvent">Corporate Event</option>
-                  <option value="debut">Debut</option>
-                </select>
-              </div>
-            </div>
-
-            {/* Set Theme */}
-            <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-              <label for="dish">Theme:</label>
-              <input
-                type="text"
-                onChange={(e) => {
-                  // setEmpaddress(e.target.value);
-                }}
-                className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                required
-              />
-            </div>
-
-            {/* Set Celebrant Gender */}
-            <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-              <label for="dish">Celebrant Gender:</label>
-              <select
-                name="employee"
-                id="classic"
-                onChange={(e) => {
-                  // setEmpposition(e.target.value);
-                }}
-                className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                required
-              >
-                <option disabled selected hidden>
-                  Select Gender
-                </option>
-                <option value="female">Female</option>
-                <option value="male">Male</option>
-              </select>
-            </div>
-
-            {/* Set Celebrant Age */}
-            <div className="flex flex-col gap-2 font-tbc font-medium text-title13">
-              <label for="dish">Celebrant Age:</label>
-              <input
-                type="number"
-                placeholder="Enter Celebrant Age"
-                onChange={(e) => {
-                  // setEmpaddress(e.target.value);
-                }}
-                className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
-                required
-              />
-            </div>
-          </div>
-
-          {/** Register and Cancel Button */}
-          <div className="flex justify-between p-5 w-full h-fit font-tbc font-semibold">
-            <button
-              type="submit"
-              className="border rounded-xl text-secondary500 hover:text-white hover:bg-secondary500 px-5 py-3 w-fit h-fit"
-              // onClick={handleSubmit}
-            >
-              Register Employee
-            </button>
-            <button
-              type="button"
-              className="border rounded-xl font-semibold text-primary500 hover:text-white hover:bg-primary500 px-5 py-3 w-fit h-fit"
-              // onClick={onClose}
-            >
-              Cancel Registration
-            </button>
-          </div>
-        </div>
-      </div>
+      <AddGallery isOpen={modal} onClose={closeModal} />
     </div>
   );
 }
