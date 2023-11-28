@@ -28,6 +28,22 @@ const COLUMN_LABELS = {
   createdAt: "Date & Time",
 };
 
+const VISIBLE_FIELDS2 = [
+  "event_id",
+  "payment_description",
+  "payment_availed",
+  "payment_receipt",
+  "createdAt",
+];
+
+const COLUMN_LABELS2 = {
+  event_id: "Event ID",
+  payment_description: "Payment Description",
+  payment_availed: "Payment Availed",
+  payment_receipt: "Payment Receipt",
+  createdAt: "Date & Time",
+};
+
 // {
 //   field: "actions",
 //   headerName: "Actions",
@@ -51,21 +67,48 @@ function Transaction() {
   }
 
   const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
   const [rowData, setRowData] = useState([]);
 
   // Get all the payment
   const API_ENDPOINT = "http://localhost:9000/api/all/payments";
 
+  // Transaction tab
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(API_ENDPOINT);
         const result = await response.json();
+        const filteredData = result.payments.filter(
+          (row) => row.payment_paid !== null
+        );
         // setData(result.clients)
 
-        console.log(result);
+        console.log(filteredData);
 
-        setData(result.payments);
+        setData(filteredData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Transaction Invoice tab
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT);
+        const result = await response.json();
+        const filteredData = result.payments.filter(
+          (row) => row.payment_availed !== null
+        );
+        // setData(result.clients)
+
+        console.log(filteredData);
+
+        setData2(filteredData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -85,6 +128,17 @@ function Transaction() {
     })),
   ];
 
+  const columns2 = [
+    ...VISIBLE_FIELDS2.map((field) => ({
+      field,
+      headerClassName:
+        "bg-secondary200 font-heading font-semibold text-title13",
+      cellClassName: "text-title24",
+      headerName: COLUMN_LABELS2[field],
+      flex: 1,
+    })),
+  ];
+
   return (
     <div className="flex flex-col gap-8 p-8">
       {/** Transaction toggle 1 */}
@@ -99,22 +153,6 @@ function Transaction() {
             <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
               <p onClick={() => updateToggle(2)}>Invoice</p>
             </div>
-          </div>
-
-          {/*Filter Icon*/}
-          {/*<div className=" bg-zinc-400">
-          <h1 className="p-2">Filter</h1>
-         </ div>*/}
-
-          {/*Set Availibility Date*/}
-          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-            <button
-              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
-              onClick={() => updateToggle(3)}
-            >
-              Add Invoice Item +
-            </button>
-            {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
           </div>
         </div>
 
@@ -144,62 +182,30 @@ function Transaction() {
               <p onClick={() => updateToggle(2)}>Invoice</p>
             </div>
           </div>
+
+          {/*Set Availibility Date*/}
+          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+            <button
+              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
+              onClick={() => updateToggle(3)}
+            >
+              Add Invoice Item +
+            </button>
+            {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
+          </div>
         </div>
 
-        <div className={toggle === 2 ? "show-content" : "content"}>
-          <table className="w-full h-fit rounded font-tbc text-black">
-            {/** Table Header */}
-            <tr className="flex justify-between w-full rounded-t  bg-secondary200">
-              <th className="  w-full p-3 rounded-tl-xl">Invoice ID</th>
-              <th className="  w-full p-3">Client Name</th>
-              <th className="  w-full p-3">Amount Paid</th>
-              <th className="  w-full p-3">Payment Date</th>
-              <th className="  w-full p-3">Action</th>
-            </tr>
-
-            {/** Table Row */}
-            <tr className="flex justify-between w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="w-full p-3 text-black ">20001</td>
-              <td className="  w-full p-3 text-black ">Juan Dela Cruz</td>
-              <td className="  w-full p-3 text-black ">98,000</td>
-              <td className="  w-full p-3 text-black ">November 13, 2023</td>
-              <td
-                onClick={() => updateToggle(6)}
-                className="  w-full p-3 text-secondary300 underline font-bold cursor-pointer"
-              >
-                View
-              </td>
-            </tr>
-
-            {/** Table Row */}
-            <tr className="flex justify-between w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="  w-full p-3 text-black ">20002</td>
-              <td className="  w-full p-3 text-black ">Gabby Garcia</td>
-              <td className="  w-full p-3 text-black ">102,000</td>
-              <td className="  w-full p-3 text-black ">November 16, 2023</td>
-              <td
-                onClick={() => updateToggle(6)}
-                className="  w-full p-3 text-secondary300 underline font-bold cursor-pointer"
-              >
-                View
-              </td>
-            </tr>
-
-            {/** Table Row */}
-            <tr className="flex justify-between w-full h-fit border-b font-tbc font-medium text-title24 text-center">
-              <td className="w-full p-3 text-black ">20003</td>
-              <td className="  w-full p-3 text-black ">Kylie Versoza</td>
-              <td className="  w-full p-3 text-black ">80,000</td>
-              <td className="  w-full p-3 text-black ">November 20, 2023</td>
-              <td
-                onClick={() => updateToggle(6)}
-                className="  w-full p-3 text-secondary300 underline font-bold cursor-pointer"
-              >
-                View
-              </td>
-            </tr>
-          </table>
-        </div>
+        {/* Client Table */}
+        <DataGrid
+          className="text-lg"
+          slots={{
+            toolbar: GridToolbar,
+          }}
+          rows={data2} // Pass the API data as rows
+          columns={columns2}
+          getRowId={(row) => row.id}
+          component={{ Toolbar: GridToolbar }}
+        />
       </div>
     </div>
   );
