@@ -263,7 +263,7 @@ function Dashboard() {
         <div className="w-1/2">
           {/* Boxes Statistics */}
           <div className="flex flex-col justify-between items-center border w-full p-4 gap-5">
-            <div className="flex justify-between items-center w-full bg-green">
+            <div className="flex justify-between items-center w-full">
               {/* Event Stats */}
               <div className="flex flex-row items-center justify-center w-fit gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
                 <div className="">
