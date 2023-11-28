@@ -220,14 +220,12 @@ function Client() {
       <div className="flex p-2">
         {/** Header of the Event Navigation */}
         <div className="flex justify-between items-center gap-5 w-full h-fit">
-          {/*<div className="flex w-full gap-10 p-0.5 rounded-lg border border-gray border-opacity-30 font-tbc text-title24">
-            <input className="w-full px-5 py-3 rounded-lg" type="search" placeholder="Name Search"/>
-          </div>*/}
-
-          {/*Filter Icon*/}
-          {/*<div className="flex rounded-lg p-3 items-center bg-secondary100">
-            <h1 className="font-bold">Filter</h1>
-          </div>*/}
+          {/*Navigation Bar*/}
+          <div className="flex w-full gap-10 p-0.5 rounded-xl border border-gray border-opacity-30 font-tbc text-title24">
+            <div className="toggleon">
+              <p>Client Management</p>
+            </div>
+          </div>
 
           {/*Export*/}
           <div className="flex justify-end items-center w-1/6 h-fit">
