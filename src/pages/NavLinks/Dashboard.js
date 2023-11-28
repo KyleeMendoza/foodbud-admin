@@ -21,6 +21,7 @@ function Dashboard() {
   });
   const [dataPackage, setDataPackage] = useState([]);
   const [cityData, setCityData] = useState([]);
+  const [dataDishes, setDataDishes] = useState([]);
   const [NumberofEvent, setNumberofEvent] = useState(0);
   const [numberOfClients, setNumberOfClients] = useState(0);
   const [numberofEmployees, setNumberOfEmployees] = useState(0);
@@ -73,11 +74,30 @@ function Dashboard() {
     fetchData();
   }, []);
 
+  //Top Dishes
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:9000/api/top/dishes");
+        const data = await response.json();
+        setDataDishes(data);
+        console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const categories = dataPackage.map((item) => item.package_type);
   const counts = dataPackage.map((item) => item.count);
 
   const citycategories = cityData.map((item) => item.client_address);
   const citycounts = cityData.map((item) => item.count);
+
+  const dishescategories = dataDishes.map((item) => item.dishName);
+  const dishescounts = dataDishes.map((item) => item.count);
 
   // Top Availed
   const options = {
@@ -126,6 +146,31 @@ function Dashboard() {
   const cityseries = [
     {
       data: citycounts,
+    },
+  ];
+
+  // Top Dishes
+  const dishesoptions = {
+    plotOptions: {
+      bar: {
+        barHeight: "80%",
+        distributed: true,
+        horizontal: true,
+      },
+    },
+    xaxis: {
+      categories: dishescategories,
+    },
+    yaxis: {
+      labels: {
+        show: false,
+      },
+    },
+  };
+
+  const dishesseries = [
+    {
+      data: dishescounts,
     },
   ];
 
@@ -258,9 +303,37 @@ function Dashboard() {
       </div>
 
       {/* Main Body */}
-      <div className="flex gap-10">
-        {/* Left part of the Dashboard */}
-        <div className="w-1/2">
+      <div className="flex flex-col gap-10">
+        {/* Body of the Dashboard */}
+        <div className="flex flex-col gap-10 w-full">
+          {/* Daily Reports & Top Packages */}
+          <div className="flex border gap-5">
+            {/* Daily Report - Chart */}
+            <div className="p-5 w-1/2 shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
+              <h2 className="font-bold">Daily Event Creation Report</h2>
+              <Chart
+                options={chartData.options}
+                series={chartData.series}
+                type="area"
+                height={400}
+              />
+            </div>
+
+            {/* Top Packages availed */}
+            <div className="border-2 border-secondary400 w-1/2 h-full mb-4 rounded-md">
+              <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
+                Top Packages Avail by Users
+              </h1>
+              <Chart
+                options={options}
+                series={series}
+                type="bar"
+                height={600}
+                className="bg-blue-500 bg-opacity-10"
+              />
+            </div>
+          </div>
+
           {/* Boxes Statistics */}
           <div className="flex flex-col justify-between items-center border w-full p-4 gap-5">
             <div className="flex justify-between items-center w-full">
@@ -296,9 +369,7 @@ function Dashboard() {
                   <p className="font-semibold">Employee</p>
                 </div>
               </div>
-            </div>
 
-            <div className="flex justify-between items-center w-full bg-greenl">
               {/* Net Sales Stats */}
               <div className="flex flex-row items-center justify-center w-fit gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
                 <div className="">
@@ -312,44 +383,33 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="my-4 p-4 w-full shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
-            <h2 className="font-bold">Daily Event Creation Report</h2>
+          {/* Most Picked Dishes */}
+          <div className="border-2 border-secondary400 w-full mb-4 rounded-md">
+            <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
+              Most Picked Dishes
+            </h1>
             <Chart
-              options={chartData.options}
-              series={chartData.series}
-              type="area"
-              height={400}
+              options={dishesoptions}
+              series={dishesseries}
+              type="bar"
+              height={600}
+              className="bg-blue-500 bg-opacity-10"
             />
           </div>
         </div>
 
-        {/* Right Side of the Dashboard */}
-        <div className="w-1/2 flex flex-col justify-end">
-          <div className="border-2 border-secondary400 w-[90%] mb-4 rounded-md">
-            <h1 className="font-bold p-4 text-title24 bg-blue-500 bg-opacity-10">
-              Top Packages Avail by Users
-            </h1>
-            <Chart
-              options={options}
-              series={series}
-              type="bar"
-              height={600}
-              className="bg-blue-500 bg-opacity-10"
-            />
-          </div>
-
-          <div className="border-2 border-secondary400 w-[90%] mb-4 rounded-md">
-            <h1 className="font-bold p-4 text-title24 bg-blue-500 bg-opacity-10">
-              Most Client based on City
-            </h1>
-            <Chart
-              options={cityoptions}
-              series={cityseries}
-              type="bar"
-              height={600}
-              className="bg-blue-500 bg-opacity-10"
-            />
-          </div>
+        {/* Most Client based on city */}
+        <div className="border-2 border-secondary400 w-full mb-4 rounded-md">
+          <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
+            Most Client based on City
+          </h1>
+          <Chart
+            options={cityoptions}
+            series={cityseries}
+            type="bar"
+            height={600}
+            className="bg-blue-500 bg-opacity-10"
+          />
         </div>
       </div>
     </div>
