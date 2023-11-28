@@ -86,7 +86,7 @@ function Transaction() {
   };
 
   // Get all the payment
-  const API_ENDPOINT = "http://localhost:9000/api/all/payments";
+  const API_ENDPOINT = "https://3.27.163.46/api/all/payments";
 
   // Transaction tab
   useEffect(() => {

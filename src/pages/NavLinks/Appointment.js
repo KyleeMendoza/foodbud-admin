@@ -205,8 +205,9 @@ function Appointment() {
           const dishes = params.row[field];
 
           // Add null check to ensure dishes is not null or undefined
-          // if(!dishes) {
-          // return null}
+          if (!dishes) {
+            return null;
+          }
 
           return (
             <div style={{ whiteSpace: "pre-line" }}>
@@ -340,11 +341,19 @@ function Appointment() {
         {/** Secondary Header of appointment Tab */}
         <div className="flex">
           <div className="flex flex-col items-center gap-5 w-[50%]">
-            <div className="flex p-3 gap-3 font-tbc text-caption">  
-              <h1 className="text-white text-lg bg-gray p-3 rounded font-bold text-center flex items-center justify-center">Unavailable</h1>
-              <h1 className="text-white text-lg bg-green p-3 rounded font-bold text-center">Event Day</h1>
-              <h1 className="text-white text-lg bg-secondary300 p-3 rounded font-bold text-center">Food Tasting</h1>
-              <h1 className="text-white text-lg bg-primary200 p-3 rounded font-bold text-center">Online Meeting</h1>
+            <div className="flex p-3 gap-3 font-tbc text-caption">
+              <h1 className="text-white text-lg bg-gray p-3 rounded font-bold text-center flex items-center justify-center">
+                Unavailable
+              </h1>
+              <h1 className="text-white text-lg bg-green p-3 rounded font-bold text-center">
+                Event Day
+              </h1>
+              <h1 className="text-white text-lg bg-secondary300 p-3 rounded font-bold text-center">
+                Food Tasting
+              </h1>
+              <h1 className="text-white text-lg bg-primary200 p-3 rounded font-bold text-center">
+                Online Meeting
+              </h1>
             </div>
             {/** Calendar of Appointment Tab */}
             <div className="flex items-center justify-start">
@@ -352,18 +361,29 @@ function Appointment() {
             </div>
           </div>
           <div className="border-2 w-[60%] h-[38rem] rounded bg-white shadow-xl">
-            <h2 className="font-extrabold text-xl text-white tracking-wider text-center m-3 bg-neutral-400 rounded p-3 border-black w-[40%] mx-auto my-5" style={{ border: '2px solid black' }}>APPOINTMENTS</h2>
+            <h2
+              className="font-extrabold text-xl text-white tracking-wider text-center m-3 bg-neutral-400 rounded p-3 border-black w-[40%] mx-auto my-5"
+              style={{ border: "2px solid black" }}
+            >
+              APPOINTMENTS
+            </h2>
             <ul className="w-[50%] px-5">
               <li>
-              {occupied.map((item, index) => (
-                <li key={index} className={getItemColorClass(item.type)}>
-                  {item.type}
-                  <br />
-                  <span className="font-normal text-left pl-3">Occupied Time: {item.time}</span>
+                {occupied.map((item, index) => (
+                  <li key={index} className={getItemColorClass(item.type)}>
+                    {item.type}
+                    <br />
+                    <span className="font-normal text-left pl-3">
+                      Occupied Time: {item.time}
+                    </span>
 
-                  <img className="w-10 h-10 mt-2 ml-5" src={AppointmentImg} alt="Image" />
-                </li>
-              ))}
+                    <img
+                      className="w-10 h-10 mt-2 ml-5"
+                      src={AppointmentImg}
+                      alt="Image"
+                    />
+                  </li>
+                ))}
               </li>
             </ul>
           </div>

@@ -12,7 +12,7 @@ const AddInvoice = ({ isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/client/charge",
+        "https://3.27.163.46/api/client/charge",
         {
           event_id: invoiceEventid,
           payment_description: paymentDescription,

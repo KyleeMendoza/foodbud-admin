@@ -62,7 +62,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:9000/api/cities");
+        const response = await fetch("https://3.27.163.46/api/cities");
         const data = await response.json();
         setCityData(data);
         console.log(data);
@@ -78,7 +78,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:9000/api/top/dishes");
+        const response = await fetch("https://3.27.163.46/api/top/dishes");
         const data = await response.json();
         setDataDishes(data);
         console.log(data);
@@ -277,7 +277,7 @@ function Dashboard() {
     const fetchClient = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:9000/api/employee/count"
+          "https://3.27.163.46/api/employee/count"
         );
         const { numberOfEmployees } = response.data;
         setNumberOfEmployees(numberOfEmployees);
