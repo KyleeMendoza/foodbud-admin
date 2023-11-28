@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import AddInvoice from "../../components/addInvoiceitem";
+import AddTransaction from "../../components/AddTransaction";
 import {
   Dialog,
   DialogTitle,
@@ -12,7 +13,6 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-
 const VISIBLE_FIELDS = [
   "event_id",
   "payment_description",
@@ -64,6 +64,7 @@ function Transaction() {
   const [data2, setData2] = useState([]);
   const [rowData, setRowData] = useState([]);
   const [modal, setModal] = useState(false);
+  const [transmodal, setTransModal] = useState(false);
 
   function updateToggle(id) {
     setToggle(id);
@@ -74,8 +75,14 @@ function Transaction() {
     setModal(true);
   };
 
+  // Add Transction Model
+  const openTransModal = () => {
+    setModal(true);
+  };
+
   const closeModal = () => {
     setModal(false);
+    setTransModal(false);
   };
 
   // Get all the payment
@@ -92,7 +99,7 @@ function Transaction() {
         );
         // setData(result.clients)
 
-        console.log(filteredData);
+        console.log(response);
 
         setData(filteredData);
       } catch (error) {
@@ -216,6 +223,7 @@ function Transaction() {
         />
 
         <AddInvoice isOpen={modal} onClose={closeModal} />
+        <AddTransaction isOpen={transmodal} onClose={closeModal} />
       </div>
     </div>
   );
