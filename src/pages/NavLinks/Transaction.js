@@ -3,6 +3,7 @@ import "../../css/switchtabs.css";
 import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
+import AddInvoice from "../../components/addInvoiceitem";
 import {
   Dialog,
   DialogTitle,
@@ -59,14 +60,23 @@ const COLUMN_LABELS2 = {
 
 function Transaction() {
   const [toggle, setToggle] = useState(1);
+  const [data, setData] = useState([]);
+  const [data2, setData2] = useState([]);
+  const [rowData, setRowData] = useState([]);
+  const [modal, setModal] = useState(false);
 
   function updateToggle(id) {
     setToggle(id);
   }
 
-  const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [rowData, setRowData] = useState([]);
+  // Add Invoice Modal
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const closeModal = () => {
+    setModal(false);
+  };
 
   // Get all the payment
   const API_ENDPOINT = "http://localhost:9000/api/all/payments";
@@ -181,11 +191,11 @@ function Transaction() {
             </div>
           </div>
 
-          {/*Set Availibility Date*/}
+          {/*Add Invoice Item*/}
           <div className="flex justify-end items-center gap-5 w-1/6 h-full">
             <button
               className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
-              onClick={() => updateToggle(3)}
+              onClick={openModal}
             >
               Add Invoice Item +
             </button>
@@ -204,6 +214,8 @@ function Transaction() {
           getRowId={(row) => row.id}
           component={{ Toolbar: GridToolbar }}
         />
+
+        <AddInvoice isOpen={modal} onClose={closeModal} />
       </div>
     </div>
   );
