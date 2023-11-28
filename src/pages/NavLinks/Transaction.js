@@ -32,7 +32,6 @@ const VISIBLE_FIELDS2 = [
   "event_id",
   "payment_description",
   "payment_availed",
-  "payment_receipt",
   "createdAt",
 ];
 
@@ -40,7 +39,6 @@ const COLUMN_LABELS2 = {
   event_id: "Event ID",
   payment_description: "Payment Description",
   payment_availed: "Payment Availed",
-  payment_receipt: "Payment Receipt",
   createdAt: "Date & Time",
 };
 
