@@ -23,12 +23,13 @@ import ListItemText from "@mui/material/ListItemText";
 
 //NAV ICONS
 import DashboardIcon from "@mui/icons-material/Dashboard"; //dashboard
-import PersonIcon from '@mui/icons-material/Person'; //client employee
-import EventIcon from '@mui/icons-material/Event'; //event
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'; //appot
-import CakeIcon from '@mui/icons-material/Cake'; //dish
-import Inventory2Icon from '@mui/icons-material/Inventory2'; // package
-import ReceiptIcon from '@mui/icons-material/Receipt'; //trans
+import PersonIcon from "@mui/icons-material/Person"; //client employee
+import EventIcon from "@mui/icons-material/Event"; //event
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"; //appot
+import CakeIcon from "@mui/icons-material/Cake"; //dish
+import Inventory2Icon from "@mui/icons-material/Inventory2"; // package
+import ReceiptIcon from "@mui/icons-material/Receipt"; //trans
+import GalleryIcon from "@mui/icons-material/Collections"; //gallery
 
 import { Link as NavLink } from "react-router-dom";
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -42,6 +43,7 @@ import Appointment from "../pages/NavLinks/Appointment";
 import Transaction from "../pages/NavLinks/Transaction";
 import Package from "../pages/NavLinks/Package";
 import Dish from "../pages/NavLinks/Dish";
+import Gallery from "../pages/NavLinks/Gallery";
 
 //NAV LINK NAMES
 const linkName = [
@@ -53,6 +55,7 @@ const linkName = [
   "Dish",
   "Package",
   "Transaction",
+  "Gallery",
 ];
 
 //NAV LINKS
@@ -65,6 +68,7 @@ const links = [
   "/admin/dish",
   "/admin/package",
   "/admin/transaction",
+  "/admin/gallery",
 ];
 
 //NAV ICONS
@@ -77,6 +81,7 @@ const linkIcons = [
   CakeIcon,
   Inventory2Icon,
   ReceiptIcon,
+  GalleryIcon,
 ];
 
 function Copyright(props) {
@@ -210,9 +215,9 @@ export default function AdminPage() {
           <Divider />
           {/* ROUTES GOING TO EACH NAVS */}
           {linkName.map((link, key) => (
-            <NavLink to={links[key]} key={key}> 
+            <NavLink to={links[key]} key={key}>
               <ListItemButton>
-                <ListItemIcon style={{color: "black", fontSize: "2rem"}}>
+                <ListItemIcon style={{ color: "black", fontSize: "2rem" }}>
                   {React.createElement(linkIcons[key])}
                 </ListItemIcon>
                 <ListItemText primary={link} />
@@ -235,10 +240,7 @@ export default function AdminPage() {
         >
           <Toolbar />
           {/* CONTAINER FOR EACH NAV */}
-          <Container
-            maxWidth="full"
-            sx={{ mt: 4, mb: 4, }}
-          >
+          <Container maxWidth="full" sx={{ mt: 4, mb: 4 }}>
             <Routes>
               <Route index element={<Dashboard />} />
               <Route path="dashboard" element={<Dashboard />} />
@@ -249,6 +251,7 @@ export default function AdminPage() {
               <Route path="dish" element={<Dish />} />
               <Route path="package" element={<Package />} />
               <Route path="transaction" element={<Transaction />} />
+              <Route path="gallery" element={<Gallery />} />
             </Routes>
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>

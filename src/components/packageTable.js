@@ -19,7 +19,7 @@ const PackageTable = ({ data, packageName, handleDelete }) => {
     <div>
       <Typography variant="h4" align="center" gutterBottom>
         <p
-          className="border-2 p-4 rounded-md font-bold"
+          className="border-2 p-4 rounded-md font-bold text-white border-black"
           style={{
             boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
             backgroundColor: "#F8B9CF",

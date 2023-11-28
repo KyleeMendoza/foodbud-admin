@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import AddDishModal from "../../components/addDishModal";
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import {
   Table,
@@ -12,19 +12,17 @@ import {
   TableRow,
   Paper,
   Typography,
-  IconButton
+  IconButton,
 } from "@mui/material";
 
 const DishTable = ({ data }) => {
-
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request to the API to delete the dish
       await axios.post(`https://3.27.163.46/api/delete/dish/?dishId=${id}`);
       window.location.reload();
     } catch (error) {
-      console.error('Error deleting dish:', error);
-
+      console.error("Error deleting dish:", error);
     }
   };
   return (
@@ -57,8 +55,12 @@ const DishTable = ({ data }) => {
                 </TableCell>
                 <TableCell>{dish.dish_type}</TableCell>
                 <TableCell>{dish.dish_price}</TableCell>
-                <TableCell style={{width: "20px"}}>
-                  <IconButton color="error" onClick={() => handleDelete(dish.id)} style={{width: "20px"}}>
+                <TableCell style={{ width: "20px" }}>
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(dish.id)}
+                    style={{ width: "20px" }}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -72,15 +74,13 @@ const DishTable = ({ data }) => {
 };
 
 const PastaTable = ({ data }) => {
-
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request to the API to delete the dish
       await axios.post(`https://3.27.163.46/api/delete/dish/?dishId=${id}`);
       window.location.reload();
     } catch (error) {
-      console.error('Error deleting dish:', error);
-
+      console.error("Error deleting dish:", error);
     }
   };
 
@@ -110,8 +110,12 @@ const PastaTable = ({ data }) => {
                 </TableCell>
                 <TableCell>{dish.dish_type}</TableCell>
                 <TableCell>{dish.dish_price}</TableCell>
-                <TableCell style={{width: "20px"}}>
-                  <IconButton color="error" onClick={() => handleDelete(dish.id)} style={{width: "20px"}}>
+                <TableCell style={{ width: "20px" }}>
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(dish.id)}
+                    style={{ width: "20px" }}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -125,15 +129,13 @@ const PastaTable = ({ data }) => {
 };
 
 const DessertTable = ({ data }) => {
-
   const handleDelete = async (id) => {
     try {
       // Send a DELETE request to the API to delete the dish
       await axios.post(`https://3.27.163.46/api/delete/dish/?dishId=${id}`);
       window.location.reload();
     } catch (error) {
-      console.error('Error deleting dish:', error);
-
+      console.error("Error deleting dish:", error);
     }
   };
 
@@ -163,8 +165,12 @@ const DessertTable = ({ data }) => {
                 </TableCell>
                 <TableCell>{dish.dish_type}</TableCell>
                 <TableCell>{dish.dish_price}</TableCell>
-                 <TableCell style={{width: "20px"}}>
-                  <IconButton color="error" onClick={() => handleDelete(dish.id)} style={{width: "20px"}}>
+                <TableCell style={{ width: "20px" }}>
+                  <IconButton
+                    color="error"
+                    onClick={() => handleDelete(dish.id)}
+                    style={{ width: "20px" }}
+                  >
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -176,8 +182,6 @@ const DessertTable = ({ data }) => {
     </TableContainer>
   );
 };
-
-
 
 function Dish() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -218,15 +222,15 @@ function Dish() {
 
   return (
     <div className="p-8">
-      {/** Dish List - Toggle 2 */}
+      {/** Dish List - Toggle 1 */}
       <div className="show-content">
         {/** Header of the appointment tab */}
         <div className="flex justify-between items-center gap-5 w-full h-fit">
           <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24 bg-white">
-            <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
+            <div className="toggleon">
               <p
-                className="w-fit h-fit text-xl font-bold"
-                onClick={() => updateToggle(2)}
+                className="w-fit h-fit text-title24"
+                onClick={() => updateToggle(1)}
               >
                 Menu List
               </p>
@@ -279,11 +283,15 @@ function Dish() {
           </div>
           <div className="w-[30%]">
             <Typography variant="h4" align="center" gutterBottom>
-              <p className="border-2 p-4 rounded-md font-bold"
+              <p
+                className="border-2 p-4 rounded-md font-bold"
                 style={{
                   boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
                   backgroundColor: "#F8B9CF",
-                }}>Dessert List</p>
+                }}
+              >
+                Dessert List
+              </p>
             </Typography>
             <DessertTable data={data} />
           </div>

@@ -458,7 +458,7 @@ function Package() {
         <div className="flex justify-between items-center gap-5 w-full h-fit">
           {/*Navigation Bar*/}
           <div className="flex w-full gap-10 p-0.5 rounded-xl border border-gray border-opacity-30 font-tbc text-title24 bg-white">
-            <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
+            <div className="toggleon">
               <p onClick={() => updateToggle(1)}>Packages</p>
             </div>
           </div>
