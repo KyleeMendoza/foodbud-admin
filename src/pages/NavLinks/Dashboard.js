@@ -352,7 +352,7 @@ function Dashboard() {
               {/* Employee Stats */}
               <div className="flex flex-row items-center justify-center w-fit gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
                 <div className="">
-                  <img alt="Employee" className="w-20"></img>
+                  <img src={user} alt="Employee" className="w-20"></img>
                 </div>
                 <div className="text-black font-tbc font-bold w-full">
                   <h1 className="text-heading36">{numberofEmployees}</h1>
