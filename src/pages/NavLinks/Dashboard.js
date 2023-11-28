@@ -340,7 +340,7 @@ function Dashboard() {
 
           <div className="border-2 border-secondary400 w-[90%] mb-4 rounded-md">
             <h1 className="font-bold p-4 text-title24 bg-blue-500 bg-opacity-10">
-              Most Client based on the City
+              Most Client based on City
             </h1>
             <Chart
               options={cityoptions}
