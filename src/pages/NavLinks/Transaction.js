@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
 import AddInvoice from "../../components/addInvoiceitem";
-import AddTransaction from "../../components/AddTransaction";
+import AddPayment from "../../components/addPayment";
 import {
   Dialog,
   DialogTitle,
@@ -17,7 +17,6 @@ const VISIBLE_FIELDS = [
   "event_id",
   "payment_description",
   "payment_paid",
-  "payment_receipt",
   "createdAt",
 ];
 
@@ -25,7 +24,6 @@ const COLUMN_LABELS = {
   event_id: "Event ID",
   payment_description: "Payment Description",
   payment_paid: "Payment Paid",
-  payment_receipt: "Payment Receipt",
   createdAt: "Date & Time",
 };
 
@@ -77,7 +75,7 @@ function Transaction() {
 
   // Add Transction Model
   const openTransModal = () => {
-    setModal(true);
+    setTransModal(true);
   };
 
   const closeModal = () => {
@@ -169,6 +167,17 @@ function Transaction() {
               <p onClick={() => updateToggle(2)}>Invoice</p>
             </div>
           </div>
+
+          {/*Add Payment Item*/}
+          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
+            <button
+              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
+              onClick={openTransModal}
+            >
+              Add Payment +
+            </button>
+            {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
+          </div>
         </div>
 
         {/* Client Table */}
@@ -182,6 +191,8 @@ function Transaction() {
           getRowId={(row) => row.id}
           component={{ Toolbar: GridToolbar }}
         />
+
+        <AddPayment isOpen={transmodal} onClose={closeModal} />
       </div>
 
       {/** Body - Invoice Table Toggle 2 */}
@@ -223,7 +234,6 @@ function Transaction() {
         />
 
         <AddInvoice isOpen={modal} onClose={closeModal} />
-        <AddTransaction isOpen={transmodal} onClose={closeModal} />
       </div>
     </div>
   );
