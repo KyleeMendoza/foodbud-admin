@@ -155,11 +155,15 @@ function Dashboard() {
       bar: {
         barHeight: "80%",
         distributed: true,
-        horizontal: true,
+        horizontal: false,
       },
     },
     xaxis: {
       categories: dishescategories,
+      labels: {
+        rotate: 0, // Set rotation angle to 0 degrees
+        show: false,
+      },
     },
     yaxis: {
       labels: {
@@ -307,29 +311,15 @@ function Dashboard() {
         {/* Body of the Dashboard */}
         <div className="flex flex-col gap-10 w-full">
           {/* Daily Reports & Top Packages */}
-          <div className="flex border gap-5">
+          <div className="flex gap- 5">
             {/* Daily Report - Chart */}
-            <div className="p-5 w-1/2 shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
+            <div className="p-5 w-full h-fit shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
               <h2 className="font-bold">Daily Event Creation Report</h2>
               <Chart
                 options={chartData.options}
                 series={chartData.series}
                 type="area"
                 height={400}
-              />
-            </div>
-
-            {/* Top Packages availed */}
-            <div className="border-2 border-secondary400 w-1/2 h-full mb-4 rounded-md">
-              <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
-                Top Packages Avail by Users
-              </h1>
-              <Chart
-                options={options}
-                series={series}
-                type="bar"
-                height={600}
-                className="bg-blue-500 bg-opacity-10"
               />
             </div>
           </div>
@@ -383,8 +373,22 @@ function Dashboard() {
             </div>
           </div>
 
+          {/* Top Packages availed */}
+          <div className="border-2 border-secondary400 w-full p-5 rounded-md">
+            <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
+              Top Packages Avail by Users
+            </h1>
+            <Chart
+              options={options}
+              series={series}
+              type="bar"
+              height={600}
+              className="bg-blue-500 bg-opacity-10"
+            />
+          </div>
+
           {/* Most Picked Dishes */}
-          <div className="border-2 border-secondary400 w-full mb-4 rounded-md">
+          <div className="border-2 border-secondary400 w-full p-5 rounded-md">
             <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
               Most Picked Dishes
             </h1>
@@ -399,7 +403,7 @@ function Dashboard() {
         </div>
 
         {/* Most Client based on city */}
-        <div className="border-2 border-secondary400 w-full mb-4 rounded-md">
+        <div className="border-2 border-secondary400 w-full p-5 rounded-md">
           <h1 className="font-bold p-4 text-title24 text-center bg-blue-500 bg-opacity-10">
             Most Client based on City
           </h1>
