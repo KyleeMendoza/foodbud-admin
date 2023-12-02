@@ -16,17 +16,14 @@ const AddGallery = ({ isOpen, onClose }) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://localhost:9000/api/add/gallery",
-        {
-          package_type: package_type,
-          event_type: event_type,
-          theme: theme,
-          celebrant_gender: celebrant_gender,
-          celebrant_age: celebrant_age,
-          image: image_file,
-        }
-      );
+      const response = await axios.post("https://3.27.163.46/api/add/gallery", {
+        package_type: package_type,
+        event_type: event_type,
+        theme: theme,
+        celebrant_gender: celebrant_gender,
+        celebrant_age: celebrant_age,
+        image: image_file,
+      });
 
       if (response.data) {
         alert("Image Uploaded Successfully");

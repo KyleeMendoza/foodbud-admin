@@ -44,7 +44,7 @@ function Gallery() {
   };
 
   // Show all Employee
-  const API_ENDPOINT = "http://localhost:9000/api/all/gallery";
+  const API_ENDPOINT = "https://3.27.163.46/api/all/gallery";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -99,7 +99,7 @@ function Gallery() {
     try {
       // Send a DELETE request to the API to delete the dish
       await axios.post(
-        `http://localhost:9000/api/delete/gallery/?galleryId=${id}`
+        `https://3.27.163.46/api/delete/gallery/?galleryId=${id}`
       );
       window.location.reload();
     } catch (error) {

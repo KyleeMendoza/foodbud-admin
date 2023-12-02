@@ -205,8 +205,9 @@ function Appointment() {
           const dishes = params.row[field];
 
           // Add null check to ensure dishes is not null or undefined
-          // if(!dishes) {
-          // return null}
+          if (!dishes) {
+            return null;
+          }
 
           return (
             <div style={{ whiteSpace: "pre-line" }}>
