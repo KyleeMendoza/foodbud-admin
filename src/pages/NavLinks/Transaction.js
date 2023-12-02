@@ -41,6 +41,22 @@ const COLUMN_LABELS2 = {
   createdAt: "Date & Time",
 };
 
+const VISIBLE_FIELDS3 = [
+  "event_id",
+  "payment_description",
+  "payment_availed",
+  "payment_paid",
+  "createdAt",
+];
+
+const COLUMN_LABELS3 = {
+  event_id: "Event ID",
+  payment_description: "Payment Description",
+  payment_availed: "Payment Availed",
+  payment_paid: "Payment Paid",
+  createdAt: "Date & Time",
+};
+
 // {
 //   field: "actions",
 //   headerName: "Actions",
@@ -60,6 +76,7 @@ function Transaction() {
   const [toggle, setToggle] = useState(1);
   const [data, setData] = useState([]);
   const [data2, setData2] = useState([]);
+  const [data3, setData3] = useState([]);
   const [rowData, setRowData] = useState([]);
   const [modal, setModal] = useState(false);
   const [transmodal, setTransModal] = useState(false);
@@ -86,7 +103,7 @@ function Transaction() {
   // Get all the payment
   const API_ENDPOINT = "http://localhost:9000/api/all/payments";
 
-  // Transaction tab
+  //Payment Record tab
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -108,7 +125,7 @@ function Transaction() {
     fetchData();
   }, []);
 
-  // Transaction Invoice tab
+  //Invoice tab
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -130,6 +147,25 @@ function Transaction() {
     fetchData();
   }, []);
 
+  //Transaction History Tab
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT);
+        const result = await response.json();
+        const filteredData = result.payments;
+        console.log(filteredData);
+
+        setData3(filteredData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Columns Ito
   const columns = [
     ...VISIBLE_FIELDS.map((field) => ({
       field,
@@ -152,6 +188,17 @@ function Transaction() {
     })),
   ];
 
+  const columns3 = [
+    ...VISIBLE_FIELDS3.map((field) => ({
+      field,
+      headerClassName:
+        "bg-secondary200 font-heading font-semibold text-title13",
+      cellClassName: "text-title24",
+      headerName: COLUMN_LABELS3[field],
+      flex: 1,
+    })),
+  ];
+
   return (
     <div className="flex flex-col gap-8 p-8">
       {/** Transaction toggle 1 */}
@@ -161,10 +208,13 @@ function Transaction() {
           {/*Navigation Bar*/}
           <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
             <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(1)}>Transaction</p>
+              <p onClick={() => updateToggle(1)}>Payment Record</p>
             </div>
             <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
               <p onClick={() => updateToggle(2)}>Invoice</p>
+            </div>
+            <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
+              <p onClick={() => updateToggle(3)}>Transaction History</p>
             </div>
           </div>
 
@@ -202,10 +252,13 @@ function Transaction() {
           {/*Navigation Bar*/}
           <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
             <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(1)}>Transaction</p>
+              <p onClick={() => updateToggle(1)}>Pamyent Record</p>
             </div>
             <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
               <p onClick={() => updateToggle(2)}>Invoice</p>
+            </div>
+            <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
+              <p onClick={() => updateToggle(3)}>Transaction History</p>
             </div>
           </div>
 
@@ -229,6 +282,39 @@ function Transaction() {
           }}
           rows={data2} // Pass the API data as rows
           columns={columns2}
+          getRowId={(row) => row.id}
+          component={{ Toolbar: GridToolbar }}
+        />
+
+        <AddInvoice isOpen={modal} onClose={closeModal} />
+      </div>
+
+      {/** Body - Transaction History - Toggle 3 */}
+      <div className={toggle === 3 ? "show-content" : "content"}>
+        {/** Header of the appointment tab */}
+        <div className="flex justify-between items-center gap-5 w-full h-fit">
+          {/*Navigation Bar*/}
+          <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
+            <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
+              <p onClick={() => updateToggle(1)}>Payment Record</p>
+            </div>
+            <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
+              <p onClick={() => updateToggle(2)}>Invoice</p>
+            </div>
+            <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
+              <p onClick={() => updateToggle(3)}>Transaction History</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Client Table */}
+        <DataGrid
+          className="text-lg"
+          slots={{
+            toolbar: GridToolbar,
+          }}
+          rows={data3} // Pass the API data as rows
+          columns={columns3}
           getRowId={(row) => row.id}
           component={{ Toolbar: GridToolbar }}
         />

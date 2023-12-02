@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "../css/modal.css";
+import { useEffect } from "react";
 
 const AddPayment = ({ isOpen, onClose }) => {
   const [invoiceEventid, setInvoiceEventid] = useState();
@@ -37,6 +38,43 @@ const AddPayment = ({ isOpen, onClose }) => {
     }
   };
 
+  // Try Fetch event Id for transaction
+  const API_ENDPOINT = "http://localhost:9000/api/all/payments";
+  const EVENTAPI_ENDPOINT = "https://3.27.163.46/api/get/event/all";
+
+  const [events, setEvents] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [selectedEventId, setSelectedEventId] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(EVENTAPI_ENDPOINT);
+        const result = await response.json();
+        setInvoiceEventid(result);
+        console.log(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT);
+        const result = await response.json();
+        setTransactions(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  });
+
+  const handleEventSelection = (eventId) => {
+    setSelectedEventId(eventId);
+  };
+
   return (
     <div
       className={`modal fixed inset-0 flex items-center justify-center z-50 ${
@@ -58,7 +96,15 @@ const AddPayment = ({ isOpen, onClose }) => {
           <div className="flex gap-10 w-full">
             {/* Set Event Id: */}
             <div className="flex flex-col w-full gap-2 font-tbc font-medium text-title13">
-              <label for="dish">Event Id:</label>
+              <select onChange={(e) => setInvoiceEventid(e.target.value)}>
+                <option value={null}>Select an Event</option>
+                {events.map((event) => (
+                  <option key={event.id} value={event.id}>
+                    {event.name}
+                  </option>
+                ))}
+              </select>
+              {/* <label for="dish">Event Id:</label>
               <input
                 type="text"
                 onChange={(e) => {
@@ -66,7 +112,7 @@ const AddPayment = ({ isOpen, onClose }) => {
                 }}
                 className="border rounded-lg p-5 text-title13 texttransition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none dark:border-neutral-600 dark:text-black dark:placeholder:text-neutral-200 dark:focus:border-primary"
                 required
-              />
+              /> */}
             </div>
           </div>
 
