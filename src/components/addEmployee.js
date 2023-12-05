@@ -135,10 +135,10 @@ const AddEmployee = ({ isOpen, onClose }) => {
               <option value="Headwaiter">Headwaiter</option>
               <option value="Waiter">Waiter</option>
               <option value="On-call waiter">On-call waiter</option>
-              <option value="Coordinato">Coordinator</option>
+              <option value="Coordinator">Coordinator</option>
               <option value="Warehouse Staff">Warehouse Staff</option>
               <option value="Driver">Driver</option>
-              <option value="Chat Supporti">Chat Support</option>
+              <option value="Chat Support">Chat Support</option>
               <option value="System Administrator">System Administrator</option>
             </select>
           </div>
