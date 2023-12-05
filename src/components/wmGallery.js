@@ -10,7 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import AddGallery from "../../components/addGallery";
+import AddGallery from "./addGallery";
 
 const VISIBLE_FIELDS = [
   "package_type",
@@ -28,7 +28,7 @@ const COLUMN_LABELS = {
   celebrant_age: "Celebrant Age",
 };
 
-function Gallery() {
+function WmGallery() {
   const [data, setData] = useState([]);
   // Modal for add image
   const [modal, setModal] = useState(false);
@@ -108,45 +108,20 @@ function Gallery() {
   };
 
   return (
-    <div className="flex flex-col gap-8 p-8">
-      {/** Body - User Management Tab - Toggle 1 */}
-      <div className="show-content">
-        {/** Header of the appointment tab */}
-        <div className="flex justify-between items-center gap-5 w-full h-fit">
-          {/*Navigation Bar*/}
-          <div className="flex w-full gap-10 p-0.5 rounded-xl border border-gray border-opacity-30 font-tbc text-title24">
-            <div className="toggleon">
-              <p>Gallery Management</p>
-            </div>
-          </div>
-
-          {/* Add Employee */}
-          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-            <button
-              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
-              onClick={openModal}
-            >
-              Add Image +
-            </button>
-          </div>
-        </div>
-
-        {/* Client Table */}
-        <DataGrid
-          className="text-lg"
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          rows={data} // Pass the API data as rows
-          columns={columns}
-          getRowId={(row) => row.gallery_id}
-          component={{ Toolbar: GridToolbar }}
-        />
-      </div>
-
-      <AddGallery isOpen={modal} onClose={closeModal} />
+    <div>
+      {/* Client Table */}
+      <DataGrid
+        className="text-lg"
+        slots={{
+          toolbar: GridToolbar,
+        }}
+        rows={data} // Pass the API data as rows
+        columns={columns}
+        getRowId={(row) => row.gallery_id}
+        component={{ Toolbar: GridToolbar }}
+      />
     </div>
   );
 }
 
-export default Gallery;
+export default WmGallery;
