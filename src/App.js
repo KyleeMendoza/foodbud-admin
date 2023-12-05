@@ -21,7 +21,7 @@ import Appointment from "./pages/NavLinks/Appointment";
 import Transaction from "./pages/NavLinks/Transaction";
 import Package from "./pages/NavLinks/Package";
 import Dish from "./pages/NavLinks/Dish";
-import Gallery from "./pages/NavLinks/Gallery";
+import Website from "./pages/NavLinks/Website";
 
 function App() {
   return (
@@ -50,7 +50,7 @@ function App() {
           <Route path="dish" element={<Dish />} />
           <Route path="package" element={<Package />} />
           <Route path="transaction" element={<Transaction />} />
-          <Route path="gallery" element={<Gallery />} />
+          <Route path="website" element={<Website />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -23,13 +23,14 @@ import ListItemText from "@mui/material/ListItemText";
 
 //NAV ICONS
 import DashboardIcon from "@mui/icons-material/Dashboard"; //dashboard
-import PersonIcon from "@mui/icons-material/Person"; //client employee
+import PersonIcon from "@mui/icons-material/Person"; //client
+import BadgeIcon from "@mui/icons-material/Badge"; //employee
 import EventIcon from "@mui/icons-material/Event"; //event
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"; //appot
-import CakeIcon from "@mui/icons-material/Cake"; //dish
+import DinnerDiningIcon from "@mui/icons-material/DinnerDining"; //dish
 import Inventory2Icon from "@mui/icons-material/Inventory2"; // package
 import ReceiptIcon from "@mui/icons-material/Receipt"; //trans
-import GalleryIcon from "@mui/icons-material/Collections"; //gallery
+import LanguageIcon from "@mui/icons-material/Language"; //Website
 
 import { Link as NavLink } from "react-router-dom";
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -43,7 +44,7 @@ import Appointment from "../pages/NavLinks/Appointment";
 import Transaction from "../pages/NavLinks/Transaction";
 import Package from "../pages/NavLinks/Package";
 import Dish from "../pages/NavLinks/Dish";
-import Gallery from "../pages/NavLinks/Gallery";
+import Website from "../pages/NavLinks/Website";
 
 //NAV LINK NAMES
 const linkName = [
@@ -55,7 +56,7 @@ const linkName = [
   "Dish",
   "Package",
   "Transaction",
-  "Gallery",
+  "Website",
 ];
 
 //NAV LINKS
@@ -68,20 +69,20 @@ const links = [
   "/admin/dish",
   "/admin/package",
   "/admin/transaction",
-  "/admin/gallery",
+  "/admin/website",
 ];
 
 //NAV ICONS
 const linkIcons = [
   DashboardIcon,
   PersonIcon,
-  PersonIcon,
+  BadgeIcon,
   EventIcon,
   CalendarMonthIcon,
-  CakeIcon,
+  DinnerDiningIcon,
   Inventory2Icon,
   ReceiptIcon,
-  GalleryIcon,
+  LanguageIcon,
 ];
 
 function Copyright(props) {
@@ -251,7 +252,7 @@ export default function AdminPage() {
               <Route path="dish" element={<Dish />} />
               <Route path="package" element={<Package />} />
               <Route path="transaction" element={<Transaction />} />
-              <Route path="gallery" element={<Gallery />} />
+              <Route path="website" element={<Website />} />
             </Routes>
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
