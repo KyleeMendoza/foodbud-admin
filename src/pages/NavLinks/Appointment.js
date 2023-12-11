@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import "../../css/pop.css";
 import AppointmentImg from "../../img/admin/CheckAppointment.png";
+import CustomCalendar from "../../components/CustomCalendar";
 
 const VISIBLE_FIELDS = ["name", "dishes", "date", "status"];
 
@@ -43,6 +44,9 @@ function Appointment() {
   const [rowData2, setRowData2] = useState([]);
   const [occupied, setOccupied] = useState([]);
   const [meetingData, setMeetingData] = useState([]);
+  const [filteredMeetingData, setFilteredMeetingData] = useState([]);
+  const [filteredEventData, setFilteredEventData] = useState([]);
+  const [filteredFoodData, setFilteredFoodData] = useState([]);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
   const [meeting_link, setMeeting_Link] = useState("");
@@ -51,15 +55,71 @@ function Appointment() {
   const API_ENDPOINT = "https://3.27.163.46/api/foodtasting/data";
   const API_ENDPOINT2 = "https://3.27.163.46/api/meeting/events";
 
+  //FETCH MEETING DATA
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(API_ENDPOINT2);
         // console.log("response:", response);
         const meeting = await response.json();
-        //console.log(meeting);
+
+        //only show meeting with dates on them
+        const filteredMeeting = meeting.filter((data) => data.date != null);
+        // console.log("Meeting w/ date: ", filteredMeeting);
+
+        setFilteredMeetingData(filteredMeeting);
         setMeetingData(meeting);
         // setData(result);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //FETCH EVENTS DATA
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://3.27.163.46/api/get/event/all"
+        );
+        // console.log("response:", response);
+        const event = response.data.events;
+
+        //only show meeting with dates on them
+        const filteredEvent = event.filter(
+          (data) => data.event_date != null && data.event_date != ""
+        );
+        // console.log("Events w/ date: ", filteredEvent);
+
+        setFilteredEventData(filteredEvent);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  //FETCH FOOD TASTING DATA
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://3.27.163.46/api/foodtasting/data"
+        );
+        // console.log("response:", response);
+        const foodTasting = response.data;
+
+        //only show meeting with dates on them
+        const filteredFood = foodTasting.filter(
+          (data) => data.date != null && data.date != ""
+        );
+        // console.log("FOOD TASTING w/ date: ", filteredFood);
+
+        setFilteredFoodData(filteredFood);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -339,7 +399,7 @@ function Appointment() {
         </div>
         {/* EDIT FROM THIS!! */}
         {/** Secondary Header of appointment Tab */}
-        <div className="flex">
+        {/* <div className="flex border-2 border-black">
           <div className="flex flex-col items-center gap-5 w-[50%]">
             <div className="flex p-3 gap-3 font-tbc text-caption">
               <h1 className="text-white text-lg bg-gray p-3 rounded font-bold text-center flex items-center justify-center">
@@ -355,7 +415,6 @@ function Appointment() {
                 Online Meeting
               </h1>
             </div>
-            {/** Calendar of Appointment Tab */}
             <div className="flex items-center justify-start">
               <CalendarComponent onDataClick={handleDataClick} />
             </div>
@@ -387,7 +446,12 @@ function Appointment() {
               </li>
             </ul>
           </div>
-        </div>
+        </div> */}
+        <CustomCalendar
+          filteredMeetingData={filteredMeetingData}
+          filteredEventData={filteredEventData}
+          filteredFoodData={filteredFoodData}
+        />
         {/* UP TO THIS!! */}
       </div>
 
