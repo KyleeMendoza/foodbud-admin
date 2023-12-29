@@ -171,7 +171,6 @@ function Appointment() {
           toast.success("Successfully Added Available Date!");
           handleClose();
         }
-
       })
       .catch(error => {
         // Handle errors
