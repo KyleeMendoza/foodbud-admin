@@ -2,7 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import { Modal, Box, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import CalendarComponent from "../../components/calendar";
+import { toast } from 'react-toastify';
 import axios from "axios";
 import {
   IconButton,
@@ -54,6 +56,9 @@ function Appointment() {
   const [note, setNote] = useState("");
   const API_ENDPOINT = "https://3.27.163.46/api/foodtasting/data";
   const API_ENDPOINT2 = "https://3.27.163.46/api/meeting/events";
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedTime, setSelectedTime] = useState('00:00:00');
+  const [open, setOpen] = useState(false);
 
   //FETCH MEETING DATA
   useEffect(() => {
@@ -127,6 +132,54 @@ function Appointment() {
 
     fetchData();
   }, []);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
+  const handleTimeChange = (event) => {
+    setSelectedTime(event.target.value);
+  };
+
+  const handleSetAvailableDate = () => {
+    // Prepare the data in the required format
+    const requestData = {
+      date: selectedDate.toISOString().split('T')[0],
+      time: selectedTime,
+    };
+
+    // Make the API call using axios
+    axios.post('https://3.27.163.46/api/add/date/time', requestData, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => {
+        // Handle the response from the API
+
+        if(response.data.message === "Duplicate entry."){
+          toast.error("Duplicate Entry of Time and Date")
+        }else{
+          toast.success("Successfully Added Available Date!");
+          handleClose();
+        }
+
+      })
+      .catch(error => {
+        // Handle errors
+        console.error('Error:', error);
+        toast.error("Please Add Valid Time and Date. An Error Occured");
+        
+      });
+  };
 
   const handleNoteClick = async (id) => {
     try {
@@ -319,8 +372,8 @@ function Appointment() {
           const status = isPastDate
             ? "DONE"
             : inputDate.toDateString() === new Date().toDateString()
-            ? "TODAY"
-            : "Up Coming";
+              ? "TODAY"
+              : "Up Coming";
 
           return status;
         } else {
@@ -392,11 +445,57 @@ function Appointment() {
 
           {/*Set Availibility Date*/}
           <div className="flex justify-end items-center gap-5 w-1/5 h-full">
-            <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300">
+            <button className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300" onClick={handleOpen}>
               Set Available Date +
             </button>
           </div>
         </div>
+        <Modal open={open} onClose={handleClose}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: 400,
+              bgcolor: 'background.paper',
+              border: '2px solid #000',
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <div className="flex flex-col gap-4">
+
+              <TextField
+                id="date"
+                label="Date"
+                type="date"
+                value={selectedDate.toISOString().split('T')[0]}
+                onChange={(e) => handleDateChange(new Date(e.target.value))}
+                fullWidth
+              />
+              <FormControl fullWidth>
+                <InputLabel id="time-label">Time</InputLabel>
+                <Select
+                  labelId="time-label"
+                  id="time"
+                  value={selectedTime}
+                  onChange={handleTimeChange}
+                >
+                  {Array.from({ length: 13 }, (_, index) => {
+                    const hours = index + 9;
+                    const timeString = `${hours.toString().padStart(2, '0')}:00:00`;
+                    return <MenuItem key={index} value={timeString}>{timeString}</MenuItem>;
+                  })}
+                </Select>
+              </FormControl>
+              <Button variant="contained" onClick={handleSetAvailableDate} style={{ width: "100%" }}>
+                Set Available Date
+              </Button>
+            </div>
+
+          </Box>
+        </Modal>
         {/* EDIT FROM THIS!! */}
         {/** Secondary Header of appointment Tab */}
         {/* <div className="flex border-2 border-black">
