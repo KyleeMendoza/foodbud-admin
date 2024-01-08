@@ -55,7 +55,7 @@ const linkName = [
   "Appointment",
   "Dish",
   "Package",
-  "Transaction",
+  // "Transaction",
   "Website",
 ];
 
@@ -68,7 +68,7 @@ const links = [
   "/admin/appointment",
   "/admin/dish",
   "/admin/package",
-  "/admin/transaction",
+  // "/admin/transaction",
   "/admin/website",
 ];
 
@@ -81,7 +81,7 @@ const linkIcons = [
   CalendarMonthIcon,
   DinnerDiningIcon,
   Inventory2Icon,
-  ReceiptIcon,
+  // ReceiptIcon,
   LanguageIcon,
 ];
 
