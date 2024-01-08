@@ -2,6 +2,7 @@ import React from "react";
 import "../../css/switchtabs.css";
 import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { useLocation } from 'react-router-dom';
 import axios from "axios";
 import AddInvoice from "../../components/addInvoiceitem";
 import AddPayment from "../../components/addPayment";
@@ -13,314 +14,284 @@ import {
   Button,
   TextField,
 } from "@mui/material";
-const VISIBLE_FIELDS = [
-  "event_id",
-  "payment_description",
-  "payment_paid",
-  "createdAt",
-];
 
-const COLUMN_LABELS = {
-  event_id: "Event ID",
-  payment_description: "Payment Description",
-  payment_paid: "Payment Paid",
-  createdAt: "Date & Time",
-};
-
-const VISIBLE_FIELDS2 = [
-  "event_id",
-  "payment_description",
-  "payment_availed",
-  "createdAt",
-];
-
-const COLUMN_LABELS2 = {
-  event_id: "Event ID",
-  payment_description: "Payment Description",
-  payment_availed: "Payment Availed",
-  createdAt: "Date & Time",
-};
-
-const VISIBLE_FIELDS3 = [
-  "event_id",
-  "payment_description",
-  "payment_availed",
-  "payment_paid",
-  "createdAt",
-];
-
-const COLUMN_LABELS3 = {
-  event_id: "Event ID",
-  payment_description: "Payment Description",
-  payment_availed: "Payment Availed",
-  payment_paid: "Payment Paid",
-  createdAt: "Date & Time",
-};
-
-// {
-//   field: "actions",
-//   headerName: "Actions",
-//   headerClassName: "font-heading text-title13 bg-secondary200",
-//   sortable: false,
-//   renderCell: (params) => (
-//     <IconButton
-//       onClick={() => handleSeeMoreClick(params.row.event_id)}
-//       style={{ color: "gray", width: "auto", alignItems: "center" }}
-//     >
-//       <VisibilityIcon />
-//     </IconButton>
-//   ),
-// },
 
 function Transaction() {
-  const [toggle, setToggle] = useState(1);
-  const [data, setData] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [data3, setData3] = useState([]);
-  const [rowData, setRowData] = useState([]);
-  const [modal, setModal] = useState(false);
-  const [transmodal, setTransModal] = useState(false);
+  const [transactions, setTransactions] = useState([])
+  const [addsonData, setAddsData] = useState([])
+  const [invoiceData, setInvoiceData] = useState([])
+  const location = useLocation()
+  const event_id = new URLSearchParams(location.search).get('event_id');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState('');
 
-  function updateToggle(id) {
-    setToggle(id);
+  const handleImageClick = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleAcceptClick = async (description, status) => {
+    try {
+
+      if (status === "Not Paid") {
+        window.alert("Please wait for client's payment first")
+      } else {
+        const response = await axios.post(`https://3.27.163.46//api/accept/transaction?event_id=${event_id}&description=${encodeURIComponent(description)}`, {
+          status: 'Accepted'
+        });
+
+        window.location.reload()
+      }
+
+    } catch (error) {
+      // Handle errors
+      console.error('Error accepting transaction:', error);
+    }
+  };
+
+  const handleRejectClick = async (description, status) => {
+    try {
+      if (status === "Not Paid") {
+        window.alert("Please wait for client's payment first")
+      } else {
+        const response = await axios.post(`https://3.27.163.46/api/accept/transaction?event_id=${event_id}&description=${encodeURIComponent(description)}`, {
+          status: 'Rejected'
+        });
+        window.location.reload()
+      }
+    } catch (error) {
+      // Handle errors
+      console.error('Error accepting transaction:', error);
+    }
+  };
+
+  const columns = [
+    { field: 'paymentDescription', headerName: 'Payment Description', width: 200 },
+    { field: 'paymentAmount', headerName: 'Payment Amount', width: 200 },
+    { field: 'paymentStatus', headerName: 'Payment Status', width: 200 ,
+      renderCell: (params) => (
+        <span style={{ color: params.value === 'Accepted' ? 'green' : params.value === 'Rejected' ? 'red' : 'inherit' }}>
+          {params.value}
+        </span>
+      ) },
+      {
+        field: 'date',
+        headerName: 'Date',
+        width: 200,
+        renderCell: (params) => (
+          params.row.paymentStatus === 'Rejected' ? '' : params.value
+        ),
+      },
+    {
+      field: 'action',
+      headerName: 'Image',
+      width: 150,
+      renderCell: (params) => {
+        if (params.row.action) {
+          console.log(params.row.action)
+          // Display the transaction receipt image if available
+          return (
+            <img
+              src={`https://3.27.163.46/uploads/${params.row.action}`}
+              alt="Receipt"
+              style={{ width: '100px', height: 'auto' }}
+              className="cursor-pointer"
+              onClick={() => handleImageClick(`https://3.27.163.46/uploads/${params.row.action}`)}
+            />
+          );
+        }
+      }
+    },
+    {
+      field: 'Result',
+      headerName: 'Accept/Reject',
+      width: 300,
+      renderCell: (params) => (
+        <div>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: 'green', color: 'white', marginRight: '8px', width: "40%" }}
+            onClick={() => handleAcceptClick(params.row.paymentDescription, params.row.paymentStatus)}
+          >
+            Accept
+          </Button>
+          <Button
+            variant="contained"
+            style={{ backgroundColor: 'red', color: 'white', width: "40%" }}
+            onClick={() => handleRejectClick(params.row.paymentDescription, params.row.paymentStatus)}
+          >
+            Reject
+          </Button>
+        </div>
+      ),
+    },
+
+  ];
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://3.27.163.46/api/invoice/receipt?event_id=${event_id}`);
+        setAddsData(response.data.addonDetails);
+
+        setInvoiceData(response.data.packageRate);
+        console.log(response.data.packageRate)
+      } catch (error) {
+        // Handle error, e.g., set error state or log the error
+        console.error('Error fetching data:', error);
+
+      }
+    };
+
+    fetchData();
+  }, [event_id]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`https://3.27.163.46/api/get/transactions?event_id=${event_id}`);
+        setTransactions(response.data.transactions);
+        console.log(response.data.transactions)
+      } catch (error) {
+        // Handle error, e.g., set error state or log the error
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [event_id]);
+
+  const rows = [];
+
+
+  if (invoiceData.package_name && !rows.some(row => row.paymentDescription === invoiceData.package_name)) {
+    // Check for a match between invoiceData.package_name and transaction.description
+    const matchedTransaction = transactions.find(transaction => transaction.description === invoiceData.package_name);
+    console.log(matchedTransaction)
+    if (matchedTransaction) {
+      // Parse the date string
+      const parsedDate = new Date(matchedTransaction.createdAt);
+
+      // Convert the parsed date to a worded date (e.g., January 6, 2024)
+      const wordedDate = parsedDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+
+      rows.push({
+        id: 'package-name',
+        paymentDescription: invoiceData.package_name,
+        paymentAmount: invoiceData.rate,
+        paymentStatus: matchedTransaction.status,
+        date: wordedDate,
+        action: matchedTransaction.Receipt
+      });
+    } else {
+      rows.push({
+        id: 'package-name',
+        paymentDescription: invoiceData.package_name,
+        paymentAmount: invoiceData.rate,
+        paymentStatus: 'Not Paid',
+        date: '',
+      });
+    }
+
   }
 
-  // Add Invoice Modal
-  const openModal = () => {
-    setModal(true);
+  const reservationRow = {
+    id: 'reservation',
+    paymentDescription: 'Reservation Fee',
+    paymentAmount: 5000,
+    paymentStatus: 'Not Paid',
+    date: '',
   };
 
-  // Add Transction Model
-  const openTransModal = () => {
-    setTransModal(true);
-  };
+  const matchedReservationTransaction = transactions.find(transaction => transaction.description === 'Reservation Fee');
 
-  const closeModal = () => {
-    setModal(false);
-    setTransModal(false);
-  };
+  if (matchedReservationTransaction) {
+    // Parse the date string from matchedTransaction
+    const parsedDate = new Date(matchedReservationTransaction.createdAt);
+    const wordedDate = parsedDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
 
-  // Get all the payment
-  const API_ENDPOINT = "https://3.27.163.46/api/all/payments";
+    // Update the paymentStatus and date in the reservationRow
+    reservationRow.paymentStatus = matchedReservationTransaction.status;
+    reservationRow.date = wordedDate;
+    reservationRow.action = matchedReservationTransaction.Receipt
+  }
 
-  //Payment Record tab
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(API_ENDPOINT);
-        const result = await response.json();
-        const filteredData = result.payments.filter(
-          (row) => row.payment_paid !== null
-        );
-        // setData(result.clients)
+  // Push the updated reservationRow into rows
+  rows.push(reservationRow);
 
-        console.log(response);
+  for (let i = 0; i < addsonData.length; i++) {
+    const addon = addsonData[i];
 
-        setData(filteredData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+    rows.push({
+      id: i + 1,
+      paymentDescription: `${addon.addons_name}`,
+      paymentAmount: `${addon.addons_price}`,
+      paymentStatus: 'Not Paid',
+      date: ''
+    });
+
+  }
+  for (let i = 0; i < transactions.length; i++) {
+    const transaction = transactions[i];
+
+    for (let j = 0; j < addsonData.length; j++) {
+      const addon = addsonData[j];
+
+      if (transaction.description === addon.addons_name) {
+        // Match found, update the paymentStatus in rows based on the status from transactions
+        const matchedRow = rows.find(row => row.paymentDescription === transaction.description);
+
+        if (matchedRow) {
+          matchedRow.paymentStatus = transaction.status;
+          const parsedDate = new Date(transaction.createdAt);
+
+          // Convert the parsed date to a worded date
+          const wordedDate = parsedDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          });
+
+          matchedRow.date = wordedDate;
+          matchedRow.action = transaction.Receipt
+          break;
+        }
       }
-    };
+    }
+  }
 
-    fetchData();
-  }, []);
-
-  //Invoice tab
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(API_ENDPOINT);
-        const result = await response.json();
-        const filteredData = result.payments.filter(
-          (row) => row.payment_availed !== null
-        );
-        // setData(result.clients)
-
-        console.log(filteredData);
-
-        setData2(filteredData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  //Transaction History Tab
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(API_ENDPOINT);
-        const result = await response.json();
-        const filteredData = result.payments;
-        console.log(filteredData);
-
-        setData3(filteredData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  // Columns Ito
-  const columns = [
-    ...VISIBLE_FIELDS.map((field) => ({
-      field,
-      headerClassName:
-        "bg-secondary200 font-heading font-semibold text-title13",
-      cellClassName: "text-title24",
-      headerName: COLUMN_LABELS[field],
-      flex: 1,
-    })),
-  ];
-
-  const columns2 = [
-    ...VISIBLE_FIELDS2.map((field) => ({
-      field,
-      headerClassName:
-        "bg-secondary200 font-heading font-semibold text-title13",
-      cellClassName: "text-title24",
-      headerName: COLUMN_LABELS2[field],
-      flex: 1,
-    })),
-  ];
-
-  const columns3 = [
-    ...VISIBLE_FIELDS3.map((field) => ({
-      field,
-      headerClassName:
-        "bg-secondary200 font-heading font-semibold text-title13",
-      cellClassName: "text-title24",
-      headerName: COLUMN_LABELS3[field],
-      flex: 1,
-    })),
-  ];
 
   return (
     <div className="flex flex-col gap-8 p-8">
-      {/** Transaction toggle 1 */}
-      <div className={toggle === 1 ? "show-content" : "content"}>
-        {/** Header of the appointment tab */}
-        <div className="flex justify-between items-center gap-5 w-full h-fit">
-          {/*Navigation Bar*/}
-          <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
-            <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(1)}>Payment Record</p>
-            </div>
-            <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(2)}>Invoice</p>
-            </div>
-            <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(3)}>Transaction History</p>
-            </div>
-          </div>
-
-          {/*Add Payment Item*/}
-          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-            <button
-              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
-              onClick={openTransModal}
-            >
-              Add Payment +
-            </button>
-            {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
-          </div>
-        </div>
-
-        {/* Client Table */}
-        <DataGrid
-          className="text-lg"
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          rows={data} // Pass the API data as rows
-          columns={columns}
-          getRowId={(row) => row.id}
-          component={{ Toolbar: GridToolbar }}
-        />
-
-        <AddPayment isOpen={transmodal} onClose={closeModal} />
+      <div className="bg-blue-400 p-2 w-fit rounded-lg">
+        <h1 className="font-bold text-2xl text-white">Transaction Table For Event</h1>
       </div>
+ 
+      <DataGrid rows={rows} columns={columns} pageSize={5} style={{backgroundColor:"white", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}} />
 
-      {/** Body - Invoice Table Toggle 2 */}
-      <div className={toggle === 2 ? "show-content" : "content"}>
-        {/** Header of the appointment tab */}
-        <div className="flex justify-between items-center gap-5 w-full h-fit">
-          {/*Navigation Bar*/}
-          <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
-            <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(1)}>Pamyent Record</p>
-            </div>
-            <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(2)}>Invoice</p>
-            </div>
-            <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(3)}>Transaction History</p>
-            </div>
-          </div>
-
-          {/*Add Invoice Item*/}
-          <div className="flex justify-end items-center gap-5 w-1/6 h-full">
-            <button
-              className="flex justify-center items-center w-full h-fit px-4 py-3 rounded-xl font-heading font-semibold text-white bg-secondary300 border hover:bg-gray hover:bg-opacity-10 hover:text-secondary300 hover:border hover:border-secondary300"
-              onClick={openModal}
-            >
-              Add Invoice Item +
-            </button>
-            {/*<button className="flex justify-center items-center w-fit h-fit px-5 py-3 rounded-xl font-heading font-semibold text-white bg-primary200">Export</button>*/}
-          </div>
-        </div>
-
-        {/* Client Table */}
-        <DataGrid
-          className="text-lg"
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          rows={data2} // Pass the API data as rows
-          columns={columns2}
-          getRowId={(row) => row.id}
-          component={{ Toolbar: GridToolbar }}
-        />
-
-        <AddInvoice isOpen={modal} onClose={closeModal} />
-      </div>
-
-      {/** Body - Transaction History - Toggle 3 */}
-      <div className={toggle === 3 ? "show-content" : "content"}>
-        {/** Header of the appointment tab */}
-        <div className="flex justify-between items-center gap-5 w-full h-fit">
-          {/*Navigation Bar*/}
-          <div className="flex w-full gap-10 p-0.5 rounded-2xl border border-gray border-opacity-30 font-tbc text-title24">
-            <div className={toggle === 1 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(1)}>Payment Record</p>
-            </div>
-            <div className={toggle === 2 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(2)}>Invoice</p>
-            </div>
-            <div className={toggle === 3 ? "toggleon" : "toggleoff"}>
-              <p onClick={() => updateToggle(3)}>Transaction History</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Client Table */}
-        <DataGrid
-          className="text-lg"
-          slots={{
-            toolbar: GridToolbar,
-          }}
-          rows={data3} // Pass the API data as rows
-          columns={columns3}
-          getRowId={(row) => row.id}
-          component={{ Toolbar: GridToolbar }}
-        />
-
-        <AddInvoice isOpen={modal} onClose={closeModal} />
-      </div>
+      <Dialog open={modalOpen} onClose={handleCloseModal}>
+        <DialogContent>
+          <img
+            src={selectedImage}
+            alt="Receipt"
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

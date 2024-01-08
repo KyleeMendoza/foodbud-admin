@@ -1,6 +1,7 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { format, compareAsc } from 'date-fns';
+import {Link} from "react-router-dom"
 import { useState, useEffect } from "react";
 import {
   IconButton,
@@ -77,14 +78,45 @@ function MyEvents() {
  
 
   const columns = [
-    ...VISIBLE_FIELDS.map((field) => ({
-      field,
+    {
+      field: "event_id",
+      headerName: "Event ID",
+      headerClassName: "bg-secondary200 font-heading font-semibold text-title13 text-underline",
+      flex: 1,
+      renderCell: (params) => (
+        <Link to={`/admin/transaction?event_id=${params.value}`} className="font-medium" style={{ textDecoration: 'underline' }}>
+          {params.value}
+        </Link>
+      ),
+    },
+    {
+      field: "celebrant_name",
+      headerName: "Celebrant Name",
       headerClassName: "bg-secondary200 font-heading font-semibold text-title13",
       cellClassName: "text-title24",
-      headerName: COLUMN_LABELS[field],
       flex: 1,
-    })),
-    
+    },
+    {
+      field: "client_email",
+      headerName: "Client Email",
+      headerClassName: "bg-secondary200 font-heading font-semibold text-title13",
+      cellClassName: "text-title24",
+      flex: 1,
+    },
+    {
+      field: "event_type",
+      headerName: "Event Type",
+      headerClassName: "bg-secondary200 font-heading font-semibold text-title13",
+      cellClassName: "text-title24",
+      flex: 1,
+    },
+    {
+      field: "event_date",
+      headerName: "Event Date",
+      headerClassName: "bg-secondary200 font-heading font-semibold text-title13",
+      cellClassName: "text-title24",
+      flex: 1,
+    },
     {
       field: "actions",
       headerName: "Actions",
@@ -99,8 +131,8 @@ function MyEvents() {
         </IconButton>
       ),
     },
- 
   ];
+  
   
   return (<div className="p-8">
       {/** Header of the Event Navigation */}
