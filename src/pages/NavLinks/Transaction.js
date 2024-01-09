@@ -40,7 +40,7 @@ function Transaction() {
       if (status === "Not Paid") {
         window.alert("Please wait for client's payment first")
       } else {
-        const response = await axios.post(`https://3.27.163.46//api/accept/transaction?event_id=${event_id}&description=${encodeURIComponent(description)}`, {
+        const response = await axios.post(`https://3.27.163.46/api/accept/transaction?event_id=${event_id}&description=${encodeURIComponent(description)}`, {
           status: 'Accepted'
         });
 
@@ -71,28 +71,32 @@ function Transaction() {
 
   const columns = [
     { field: 'paymentDescription', headerName: 'Payment Description', width: 200 },
-    { field: 'paymentAmount', headerName: 'Payment Amount', width: 200 },
-    { field: 'paymentStatus', headerName: 'Payment Status', width: 200 ,
+    {
+      field: 'paymentAmount', headerName: 'Payment Amount', width: 200,
+    },
+    {
+      field: 'paymentStatus', headerName: 'Payment Status', width: 200,
       renderCell: (params) => (
         <span style={{ color: params.value === 'Accepted' ? 'green' : params.value === 'Rejected' ? 'red' : 'inherit' }}>
           {params.value}
         </span>
-      ) },
-      {
-        field: 'date',
-        headerName: 'Date',
-        width: 200,
-        renderCell: (params) => (
-          params.row.paymentStatus === 'Rejected' ? '' : params.value
-        ),
-      },
+      )
+    },
+    {
+      field: 'date',
+      headerName: 'Date',
+      width: 200,
+      renderCell: (params) => (
+        params.row.paymentStatus === 'Rejected' ? '' : params.value
+      ),
+    },
     {
       field: 'action',
       headerName: 'Image',
       width: 150,
       renderCell: (params) => {
         if (params.row.action) {
-          console.log(params.row.action)
+          // console.log(params.row.action)
           // Display the transaction receipt image if available
           return (
             <img
@@ -130,8 +134,8 @@ function Transaction() {
       ),
     },
 
-  ];
 
+  ];
 
 
   useEffect(() => {
@@ -141,7 +145,7 @@ function Transaction() {
         setAddsData(response.data.addonDetails);
 
         setInvoiceData(response.data.packageRate);
-        console.log(response.data.packageRate)
+        // console.log(response.data.packageRate)
       } catch (error) {
         // Handle error, e.g., set error state or log the error
         console.error('Error fetching data:', error);
@@ -157,7 +161,7 @@ function Transaction() {
       try {
         const response = await axios.get(`https://3.27.163.46/api/get/transactions?event_id=${event_id}`);
         setTransactions(response.data.transactions);
-        console.log(response.data.transactions)
+        // console.log(response.data.transactions)
       } catch (error) {
         // Handle error, e.g., set error state or log the error
         console.error('Error fetching data:', error);
@@ -169,11 +173,14 @@ function Transaction() {
 
   const rows = [];
 
+  // Log the total sum
+  // console.log("Sum of Payment Amounts:", paymentAmountSum);
+
 
   if (invoiceData.package_name && !rows.some(row => row.paymentDescription === invoiceData.package_name)) {
     // Check for a match between invoiceData.package_name and transaction.description
     const matchedTransaction = transactions.find(transaction => transaction.description === invoiceData.package_name);
-    console.log(matchedTransaction)
+    // console.log(matchedTransaction)
     if (matchedTransaction) {
       // Parse the date string
       const parsedDate = new Date(matchedTransaction.createdAt);
@@ -274,14 +281,30 @@ function Transaction() {
     }
   }
 
+  const paymentAmountSum = rows.reduce((sum, row) => sum + parseFloat(row.paymentAmount), 0);
+
+  const acceptedPaymentAmountSum = rows.reduce((sum, row) => {
+    if (row.paymentStatus === 'Accepted') {
+      const amount = parseFloat(row.paymentAmount);
+      return sum + amount;
+    }
+    return sum;
+  }, 0);
+
+  const remainingBalance = paymentAmountSum - acceptedPaymentAmountSum
+
+  console.log(remainingBalance)
+
+
+
 
   return (
     <div className="flex flex-col gap-8 p-8">
       <div className="bg-blue-400 p-2 w-fit rounded-lg">
         <h1 className="font-bold text-2xl text-white">Transaction Table For Event</h1>
       </div>
- 
-      <DataGrid rows={rows} columns={columns} pageSize={5} style={{backgroundColor:"white", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"}} />
+
+      <DataGrid rows={rows} columns={columns} pageSize={5} style={{ backgroundColor: "white", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} />
 
       <Dialog open={modalOpen} onClose={handleCloseModal}>
         <DialogContent>
@@ -292,6 +315,17 @@ function Transaction() {
           />
         </DialogContent>
       </Dialog>
+      <div className="flex flex-row gap-2 border-2 border-blue-500 p-4 bg-white">
+        <div className="w-1/3 pl-[10px]">
+          <span className="span-text font-bold text-xl">Total Balance: </span> <span className="font-bold">{paymentAmountSum} </span>
+        </div>
+        <div className="w-1/3 border-left border-gray-600">
+          <span className="span-text font-bold text-xl">Paid Balance:</span> <span className="text-[#006400] font-bold">{acceptedPaymentAmountSum}</span>
+        </div>
+        <div className="w-1/3 border-left">
+          <span className="span-text font-bold text-xl">Remaining Balance:</span> <span className="text-red font-bold">{remainingBalance}</span>
+        </div>
+      </div>
     </div>
   );
 }

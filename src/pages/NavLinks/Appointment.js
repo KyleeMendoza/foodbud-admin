@@ -27,7 +27,7 @@ const COLUMN_LABELS = {
   status: "STATUS",
 };
 
-const VISIBLE_FIELDS2 = ["id", "email", "date", "time", "meeting_link"];
+const VISIBLE_FIELDS2 = ["id", "email", "date", "time", "meeting_link", 'statusMeeting'];
 
 const COLUMN_LABELS2 = {
   id: "MEETING ID",
@@ -35,6 +35,7 @@ const COLUMN_LABELS2 = {
   date: "DATE",
   time: "TIME",
   meeting_link: "LINK",
+  statusMeeting: "STATUS"
 };
 
 //hello world!
@@ -272,7 +273,27 @@ function Appointment() {
           const formattedDate = new Date(params.value).toLocaleDateString();
 
           return formattedDate;
-        }
+        } else if (field === "statusMeeting") {
+          // Check if the date is null or undefined
+          if (params.row.date == null) {
+            return "Up Coming";
+          }
+
+          // Convert input date to a JavaScript Date object
+          const inputDate = new Date(params.row.date);
+
+          // Check if the date is less than the current date
+          const isPastDate = inputDate < new Date();
+
+          // Set the status based on the date
+          const status = isPastDate
+            ? "DONE"
+            : inputDate.toDateString() === new Date().toDateString()
+              ? "TODAY"
+              : "Up Coming";
+
+          return status;
+        } 
       },
     })),
 
