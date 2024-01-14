@@ -33,7 +33,6 @@ function Dashboard() {
       try {
         const response = await fetch("https://3.27.163.46/api/net/sales");
         const data = await response.json();
-        console.log(data.net);
         setNetSales(data.net);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -89,6 +88,17 @@ function Dashboard() {
 
     fetchData();
   }, []);
+
+  const [startDate, setStartDate] = useState(new Date()); // Default to today
+  const [endDate, setEndDate] = useState(new Date()); // Default to today
+
+  const handleStartDateChange = (date) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date) => {
+    setEndDate(date);
+  };
 
   const categories = dataPackage.map((item) => item.package_type);
   const counts = dataPackage.map((item) => item.count);
@@ -181,14 +191,9 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          "https://3.27.163.46/api/get/event/all"
-        );
+        const response = await axios.get('https://3.27.163.46/api/get/event/all');
         const events = response.data.events;
 
-        setNumberofEvent(events.length);
-
-        // Process data for ApexCharts
         const seriesData = {};
         const allDates = new Set();
 
@@ -198,7 +203,7 @@ function Dashboard() {
             .slice(0, 10);
           const eventType = event.event_type;
 
-          allDates.add(createdAt); // Add the date to the set of all dates
+          allDates.add(createdAt);
 
           if (!seriesData[eventType]) {
             seriesData[eventType] = {};
@@ -211,7 +216,6 @@ function Dashboard() {
           }
         });
 
-        // Fill in missing dates with count 0
         Object.keys(seriesData).forEach((eventType) => {
           allDates.forEach((date) => {
             if (!seriesData[eventType][date]) {
@@ -220,41 +224,48 @@ function Dashboard() {
           });
         });
 
-        // Convert Set to Array and sort dates in descending order
         const sortedDates = Array.from(allDates).sort(
           (a, b) => new Date(b) - new Date(a)
         );
 
-        // Select the latest 5 dates
         const latest5Dates = sortedDates.slice(0, 5);
 
-        const series = Object.entries(seriesData).map(([eventType, data]) => ({
+        const filteredSeries = Object.entries(seriesData).map(([eventType, data]) => ({
           name: eventType,
-          data: latest5Dates.map((date) => [date, data[date] || 0]),
+          data: latest5Dates
+            .filter((date) => new Date(date) >= startDate && new Date(date) <= endDate)
+            .map((date) => [date, data[date] || 0]),
         }));
 
-        console.log(series);
+        const filteredEventCount = filteredSeries.reduce(
+          (count, series) => count + series.data.reduce((sum, point) => sum + point[1], 0),
+          0
+        );
+  
+        // Set the total number of filtered events
+        setNumberofEvent(filteredEventCount);
+  
 
         setChartData({
           options: {
             xaxis: {
-              type: "datetime",
+              type: 'datetime',
             },
             yaxis: {
               title: {
-                text: "Event Count",
+                text: 'Event Count',
               },
             },
           },
-          series,
+          series: filteredSeries,
         });
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [startDate, endDate]);
 
   // Client Count
   useEffect(() => {
@@ -262,8 +273,9 @@ function Dashboard() {
       try {
         const response = await axios.get("https://3.27.163.46/api/count");
         const { numberOfClients } = response.data;
+        console.log(response.data)
         setNumberOfClients(numberOfClients);
-        console.log(numberOfClients);
+        console.log("client", numberOfClients);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -305,15 +317,37 @@ function Dashboard() {
           Welcome Admin! Here's your Dashboard
         </h2>
       </div>
+      <div className="flex space-x-4">
+        <div>
+          <label className="block text-gray-700">Start Date:</label>
+          <input
+            type="date"
+            value={startDate.toISOString().slice(0, 10)}
+            onChange={(e) => handleStartDateChange(new Date(e.target.value))}
+            className="border rounded px-2 py-1"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700">End Date:</label>
+          <input
+            type="date"
+            value={endDate.toISOString().slice(0, 10)}
+            onChange={(e) => handleEndDateChange(new Date(e.target.value))}
+            className="border rounded px-2 py-1"
+          />
+        </div>
+      </div>
 
       {/* Main Body */}
       <div className="flex flex-col gap-10">
         {/* Body of the Dashboard */}
+        
         <div className="flex flex-col gap-10 w-full">
           {/* Daily Reports & Top Packages */}
           <div className="flex gap- 5">
             {/* Daily Report - Chart */}
             <div className="p-5 w-full h-fit shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
+             
               <h2 className="font-bold">Daily Event Creation Report</h2>
               <Chart
                 options={chartData.options}

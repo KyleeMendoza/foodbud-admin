@@ -293,8 +293,6 @@ function Transaction() {
 
   const remainingBalance = paymentAmountSum - acceptedPaymentAmountSum
 
-  console.log(remainingBalance)
-
 
 
 
