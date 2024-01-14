@@ -1,6 +1,7 @@
 import React from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import axios from "axios";
+import "../../css/switchtabs.css";
 import {
   Dialog,
   DialogTitle,
@@ -12,6 +13,7 @@ import {
 import { useState, useEffect } from "react";
 import WmGallery from "../../components/wmGallery";
 import AddGallery from "../../components/addGallery";
+import wmContactUs from "../../components/wmContactUs";
 
 function Website() {
   // Modal for add image
@@ -66,6 +68,8 @@ function Website() {
 
         <WmGallery />
         <AddGallery isOpen={modal} onClose={closeModal} />
+
+        <div className={toggle === 3 ? "show-content" : "content"}></div>
       </div>
     </div>
   );
