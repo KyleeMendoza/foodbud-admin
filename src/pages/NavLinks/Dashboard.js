@@ -198,7 +198,9 @@ function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://3.27.163.46/api/get/event/all');
+        const response = await axios.get(
+          "https://3.27.163.46/api/get/event/all"
+        );
         const events = response.data.events;
 
         const seriesData = {};
@@ -237,37 +239,42 @@ function Dashboard() {
 
         const latest5Dates = sortedDates.slice(0, 5);
 
-        const filteredSeries = Object.entries(seriesData).map(([eventType, data]) => ({
-          name: eventType,
-          data: latest5Dates
-            .filter((date) => new Date(date) >= startDate && new Date(date) <= endDate)
-            .map((date) => [date, data[date] || 0]),
-        }));
+        const filteredSeries = Object.entries(seriesData).map(
+          ([eventType, data]) => ({
+            name: eventType,
+            data: latest5Dates
+              .filter(
+                (date) =>
+                  new Date(date) >= startDate && new Date(date) <= endDate
+              )
+              .map((date) => [date, data[date] || 0]),
+          })
+        );
 
         const filteredEventCount = filteredSeries.reduce(
-          (count, series) => count + series.data.reduce((sum, point) => sum + point[1], 0),
+          (count, series) =>
+            count + series.data.reduce((sum, point) => sum + point[1], 0),
           0
         );
-  
+
         // Set the total number of filtered events
         setNumberofEvent(filteredEventCount);
-  
 
         setChartData({
           options: {
             xaxis: {
-              type: 'datetime',
+              type: "datetime",
             },
             yaxis: {
               title: {
-                text: 'Event Count',
+                text: "Event Count",
               },
             },
           },
           series: filteredSeries,
         });
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -280,7 +287,7 @@ function Dashboard() {
       try {
         const response = await axios.get(`https://3.27.163.46/api/count?startDate=${startDate}&endDate=${endDate}`);
         const { numberOfClients } = response.data;
-        console.log(response.data)
+        console.log(response.data);
         setNumberOfClients(numberOfClients);
         console.log("client", numberOfClients);
       } catch (error) {
@@ -348,13 +355,12 @@ function Dashboard() {
       {/* Main Body */}
       <div className="flex flex-col gap-10">
         {/* Body of the Dashboard */}
-        
+
         <div className="flex flex-col gap-10 w-full">
           {/* Daily Reports & Top Packages */}
           <div className="flex gap- 5">
             {/* Daily Report - Chart */}
             <div className="p-5 w-full h-fit shadow-lg border-2 border-blue-400 bg-blue-500 bg-opacity-10">
-             
               <h2 className="font-bold">Daily Event Creation Report</h2>
               <Chart
                 options={chartData.options}
@@ -391,7 +397,7 @@ function Dashboard() {
               </div>
 
               {/* Employee Stats */}
-              <div className="flex flex-row items-center justify-center w-fit gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
+              {/* <div className="flex flex-row items-center justify-center w-fit gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
                 <div className="">
                   <img src={user} alt="Employee" className="w-20"></img>
                 </div>
@@ -400,6 +406,8 @@ function Dashboard() {
                   <p className="font-semibold">Employee</p>
                 </div>
               </div>
+              Tanggalin raw ito sabi ng isang panel
+               */}
 
               {/* Net Sales Stats */}
               <div className="flex flex-row items-center justify-center w-fit gap-5 p-5 border-2 rounded-md bg-secondary200 shadow-md">
