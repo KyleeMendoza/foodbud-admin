@@ -14,7 +14,7 @@ const AddPayment = ({ isOpen, onClose }) => {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/api/client/payment",
+        "https://3.27.163.46/api/client/payment",
         {
           event_id: invoiceEventid,
           payment_description: paymentDescription,
@@ -39,7 +39,7 @@ const AddPayment = ({ isOpen, onClose }) => {
   };
 
   // Try Fetch event Id for transaction
-  const API_ENDPOINT = "http://localhost:9000/api/all/payments";
+  const API_ENDPOINT = "https://3.27.163.46/api/all/payments";
   const EVENTAPI_ENDPOINT = "https://3.27.163.46/api/get/event/all";
 
   const [events, setEvents] = useState([]);

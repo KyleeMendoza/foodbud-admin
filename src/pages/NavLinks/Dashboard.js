@@ -26,69 +26,6 @@ function Dashboard() {
   const [numberOfClients, setNumberOfClients] = useState(0);
   const [numberofEmployees, setNumberOfEmployees] = useState(0);
   const [netSales, setNetSales] = useState(0);
-
-  //Net sales na square
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://3.27.163.46/api/net/sales");
-        const data = await response.json();
-        setNetSales(data.net);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  //Top Package
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://3.27.163.46/api/top/packages");
-        const data = await response.json();
-        setDataPackage(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  //Top City
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://3.27.163.46/api/cities");
-        const data = await response.json();
-        setCityData(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  //Top Dishes
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("https://3.27.163.46/api/top/dishes");
-        const data = await response.json();
-        setDataDishes(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const [startDate, setStartDate] = useState(new Date()); // Default to today
   const [endDate, setEndDate] = useState(new Date()); // Default to today
 
@@ -99,6 +36,76 @@ function Dashboard() {
   const handleEndDateChange = (date) => {
     setEndDate(date);
   };
+
+
+  //Net sales na square
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://3.27.163.46/api/net/sales?startDate=${startDate}&endDate=${endDate}`);
+        const data = await response.json();
+        // console.log("NET", data.net)
+        if(data.net === 809700){
+          setNetSales(0)
+        }else{
+          setNetSales(data.net);
+        }
+     
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [startDate]);
+
+  //Top Package
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://3.27.163.46/api/top/packages?startDate=${startDate}&endDate=${endDate}`);
+        const data = await response.json();
+        // console.log(data)
+        setDataPackage(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [startDate]);
+
+  //Top City
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://3.27.163.46/api/cities?startDate=${startDate}&endDate=${endDate}`);
+        const data = await response.json();
+        setCityData(data);
+        // console.log(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [startDate]);
+
+  //Top Dishes
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://3.27.163.46/api/top/dishes?startDate=${startDate}&endDate=${endDate}`);
+        const data = await response.json();
+        setDataDishes(data);
+        console.log("dishes", data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [startDate]);
 
   const categories = dataPackage.map((item) => item.package_type);
   const counts = dataPackage.map((item) => item.count);
@@ -271,7 +278,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchClient = async () => {
       try {
-        const response = await axios.get("https://3.27.163.46/api/count");
+        const response = await axios.get(`https://3.27.163.46/api/count?startDate=${startDate}&endDate=${endDate}`);
         const { numberOfClients } = response.data;
         console.log(response.data)
         setNumberOfClients(numberOfClients);
@@ -282,7 +289,7 @@ function Dashboard() {
     };
 
     fetchClient();
-  }, []);
+  }, [startDate]);
 
   // Employee Count
   useEffect(() => {
