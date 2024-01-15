@@ -89,11 +89,12 @@ function MyEvents() {
   const handleUpload = async () => {
     try {
       // Validate form data (optional, based on your requirements)
-      if (!eventId || !link || !selectedOption) {
-        // Handle form validation error, if necessary
-        console.error('Form data is incomplete');
-        return;
-      }
+      // if (!eventId || !link || !selectedOption) {
+      //   console.log(link)
+      //   // Handle form validation error, if necessary
+      //   console.error('Form data is incomplete');
+      //   return;
+      // }
 
       // Make the API request to upload photo coverage
       const response = await axios.post('https://3.27.163.46/api/upload/coverage', {
