@@ -1,6 +1,7 @@
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import Cookies from "js-cookie";
 import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
 import MuiAppBar from "@mui/material/AppBar";
@@ -17,6 +18,7 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
@@ -32,7 +34,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2"; // package
 import ReceiptIcon from "@mui/icons-material/Receipt"; //trans
 import LanguageIcon from "@mui/icons-material/Language"; //Website
 
-import { Link as NavLink } from "react-router-dom";
+import { Link as NavLink, useNavigate } from "react-router-dom";
 import { Routes, Route, Outlet } from "react-router-dom";
 
 //NAVLINKS
@@ -152,10 +154,20 @@ const Drawer = styled(MuiDrawer, {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export default function AdminPage() {
+export default function AdminPage({ setCookie }) {
   const [open, setOpen] = React.useState(true);
+  const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
+  };
+
+  const handleLogout = () => {
+    // Clear user session information (e.g., remove stored username or token)
+    setCookie("admin", "", { expires: 0 });
+    localStorage.clear();
+
+    // Redirect to the login page
+    navigate("/");
   };
 
   return (
@@ -191,10 +203,13 @@ export default function AdminPage() {
             >
               Admin Dashboard
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
+            {/* <IconButton color="inherit">
+              <Badge color="secondary">
+                <LogoutIcon />
               </Badge>
+            </IconButton> */}
+            <IconButton color="inherit" onClick={handleLogout}>
+              <LogoutIcon />
             </IconButton>
           </Toolbar>
         </AppBar>

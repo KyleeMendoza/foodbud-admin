@@ -2,10 +2,10 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "../css/LoginPage.css";
 
-const LoginPage = () => {
+const LoginPage = ({ setCookie }) => {
   const [username, setIdentifier] = useState("matt");
   const [password, setPassword] = useState("password");
   const navigate = useNavigate();
@@ -17,14 +17,17 @@ const LoginPage = () => {
     try {
       const response = await axios.post(baseUrl, {
         username,
-        password
+        password,
       });
 
-      console.log(response.data.loginUser.client_name)
+      console.log(response.data.loginUser.client_name);
       if (response.data.loginUser.client_name === "admin") {
         alert("User Login Successfully");
 
-        Cookies.set("admin", username)
+        // Cookies.set("admin", username);
+        setCookie("admin", username, {
+          expires: 0,
+        });
         navigate("/admin");
       } else {
         alert("Login failed. Please check your credentials.");
@@ -86,7 +89,12 @@ const LoginPage = () => {
           </button>
         </form>
         <div class="user">
-          <p class="login">Not an Admin? <span><a href="https://foodbud-fe.vercel.app/">Back to User Login</a></span></p>
+          <p class="login">
+            Not an Admin?{" "}
+            <span>
+              <a href="https://foodbud-fe.vercel.app/">Back to User Login</a>
+            </span>
+          </p>
         </div>
       </div>
       <div class="right"></div>
